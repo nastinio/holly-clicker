@@ -158,7 +158,7 @@ public class SeleniumWorker {
 
         return new User(profileLink, pageName);
     }
-
+// Привет коммит
 
 //Все действия, связанные с лайками/репостами
     public boolean likeProfilePhoto(String pageLink) {
