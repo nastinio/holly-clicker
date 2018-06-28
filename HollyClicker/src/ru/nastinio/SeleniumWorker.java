@@ -1,14 +1,12 @@
 package ru.nastinio;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SeleniumWorker {
 
@@ -54,15 +52,46 @@ public class SeleniumWorker {
     protected final String BTN_NAV_WL_POST_RIGHT_XPATH = "//*[@id=\"wk_right_arrow\"]";
     protected final String BTN_NAV_WL_POST_LEFT_XPATH = "//*[@id=\"wk_left_arrow\"]";
 
+    //Локаторы для работы со списком друзей
+    protected final String MY_FRIENDS_LINK = "//*[@id=\"l_fr\"]/a/span/span[2]";
+    protected final String USER_FRIENDS_LINK = "//*[@id=\"profile_friends\"]/a[2]/div/span[1]";
+
+
+    // Локаторы для получения информации о друге из укороченного списка
+    // По отдельности не используются, т.к. после каждой части неодходимо добавить
+    // индекс текущего блока друзей и индекс друга в блоке
+    // Полный локатор на примере 1-ого в списке друга:
+    // //*[@id="list_content"]//div[1]//div[contains(@class,'friends_user_row')][1]//div[contains(@class,'friends_field_title')]//a
+    protected final String FRIEND_LIST_CONT_PART1 = "//*[@id=\"list_content\"]//div";                                    //+[currentBlock]
+    protected final String FRIEND_LIST_ELEMENT_FULL_USER_INFO_PART2 = "//div[contains(@class,'friends_user_row')]";     //+[currentElementInBlock]
+    //Ссылка и имя страницы конкретного пользователя (Обрезанная часть. Саму по себе использовать нельзя)
+    protected final String FRIEND_LIST_ELEMENT_FIELD_TITLE_PART3 = "//div[contains(@class,'friends_field_title')]//a";
+
+    //Общее количество друзей
+    protected final String NUMBER_OF_FRIENDS = "//*[@id=\"friends_tab_all\"]/a/span";
+
     //Просто полезный пирожок для наглядности
     protected String separator = "=============================================";
 
-    SeleniumWorker(){
+    //Количество друзе в одном отображаемом блоке
+    //Надо бы получить программно, но пока пусть так
+    protected int numberFriendsOnBox = 15;
+
+    //Безопасной количество лайков, при которых действия не считаются подозрительными
+    protected int safetyNumberLikes = 30;
+
+    SeleniumWorker() {
         /*String driverDireсtory =System.getProperty("user.dir")+ "\\src\\drivers\\geckodriver.exe";
         System.setProperty("webdriver.gecko.driver",driverDireсtory);*/
+        try {
+            driver = new FirefoxDriver();
+            wait = new WebDriverWait(driver, 20);
+        } catch (org.openqa.selenium.WebDriverException we) {
+            System.out.println("Ошибка в конструкторе SeleniumWorker");
+            we.getMessage();
+            System.out.println(separator);
+        }
 
-        driver = new FirefoxDriver();
-        wait = new WebDriverWait(driver, 20);
     }
 
     public boolean authorization(String login, String password) {
@@ -100,33 +129,98 @@ public class SeleniumWorker {
 
     }
 
-//Методы, связанные с работой со списками друзей
-    public void getFriendsList() {
-        //Берет список первых 15 друзей
-        //Нужно прикрутить прокрутку страницы
-        try {
-            String friendsClassName = "friends_user_row";
+    //Методы, связанные с работой со списками друзей
+    public ArrayList<User> getHostFriendList() {
+        System.out.println(separator);
+        System.out.println("Start getHostFriendList");
+        ArrayList<User> listFriends = new ArrayList<>();
+        if (waitLoadOfElementByXPath(MY_FRIENDS_LINK)) {
+            driver.findElement(By.xpath(MY_FRIENDS_LINK)).click();
+            listFriends = sortOutFriendsListPage();
+            //System.out.println(listFriends.size());
+            System.out.println("Result getHostFriendList: true");
+            System.out.println(separator);
+        } else {
+            System.out.println("Не удалось перейти на вкладку 'Друзья'");
+            System.out.println(separator);
+            //return false;
+        }
+        return listFriends;
+    }
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(friendsClassName)));
+    public ArrayList<User> getUserFriendList(String pageLink) {
+        System.out.println(separator);
+        System.out.println("Start getUserFriendList");
+        ArrayList<User> listFriends = new ArrayList<>();
 
-            List<WebElement> listFriendsWebEl = driver.findElements(By.className(friendsClassName));
-            List<User> listFriends = new ArrayList<>(listFriendsWebEl.size());
-
-            for (WebElement current : listFriendsWebEl) {
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(friendsClassName)));
-
-                User tempUser = parseWebElementToUser(current);
-                System.out.println("================");
-                tempUser.display();
-                System.out.println("================");
-                listFriends.add(tempUser);
-
-                driver.navigate().back();
+        driver.get(pageLink);
+        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
+            if (waitLoadOfElementByXPath(USER_FRIENDS_LINK)) {
+                driver.findElement(By.xpath(USER_FRIENDS_LINK)).click();
+                //System.out.println("Открыли друзей пользователя");
+                listFriends = sortOutFriendsListPage();
+                //System.out.println(listFriends.size());
+                System.out.println("Result getUserFriendList: true");
+                System.out.println(separator);
+            } else {
+                System.out.println("Не удалось перейти на вкладку 'Друзья'");
+                System.out.println(separator);
+                //return false;
             }
-        } catch (WebDriverException e) {
-            System.out.println("Что-то пошло не так в getFriendsList: " + e.getMessage());
+        }else{
+            System.out.println("Не удалось открыть страницу пользователя");
         }
 
+        return listFriends;
+    }
+
+    private ArrayList<User> sortOutFriendsListPage() {
+        ArrayList<User> listFriends = new ArrayList<>();
+        if (waitLoadOfElementByXPath(NUMBER_OF_FRIENDS)) {
+            //Пройдет по открытой странице с друзьями и соберет краткую информацию о них в список
+            int totalNumberOfFriends = Integer.parseInt(driver.findElement(By.xpath(NUMBER_OF_FRIENDS)).getText());
+            //System.out.println("totalNumber = " + totalNumberOfFriends);
+            int countCurrentNumberOfFriends = 0;
+            int countFriendsBlocks = 1;
+
+            while (countCurrentNumberOfFriends < totalNumberOfFriends) {
+                if (waitLoadOfElementByXPath(FRIEND_LIST_CONT_PART1 + "[" + countFriendsBlocks + "]")) {
+                    //System.out.println("Вошли в " + countFriendsBlocks + "-ый блок друзей");
+                    for (int i = 1; i <= numberFriendsOnBox && countCurrentNumberOfFriends < totalNumberOfFriends; i++) {
+                        String currentFriendXPath = FRIEND_LIST_CONT_PART1 + "[" + countFriendsBlocks + "]" + FRIEND_LIST_ELEMENT_FULL_USER_INFO_PART2 + "[" + i + "]" + FRIEND_LIST_ELEMENT_FIELD_TITLE_PART3;
+                        if (waitLoadOfElementByXPath(currentFriendXPath)) {
+                            WebElement currentFriend = driver.findElement(By.xpath(currentFriendXPath));
+                            String name = currentFriend.getText();
+                            String pageLink = currentFriend.getAttribute("href");
+                            User tempUser = new User(pageLink, name);
+                            listFriends.add(tempUser);
+                            countCurrentNumberOfFriends++;
+
+                            /*System.out.println("#" + countCurrentNumberOfFriends);
+                            tempUser.display();
+                            System.out.println("-------------------");*/
+                        } else {
+                            System.out.println("Не удалось найти друга");
+                            System.out.println(separator);
+                            return listFriends;
+                        }
+                    }
+
+                    scrollPageToBottom();
+                    countFriendsBlocks++;
+                } else {
+                    System.out.println("Не удалось найти блок друзей");
+                    System.out.println(separator);
+                    return listFriends;
+                }
+            }
+
+            return listFriends;
+        } else {
+            System.out.println("Не удалось найти общее количество друзей");
+            System.out.println(separator);
+            return listFriends;
+        }
     }
 
     public User parseWebElementToUser(WebElement element) {
@@ -158,54 +252,53 @@ public class SeleniumWorker {
 
         return new User(profileLink, pageName);
     }
-// Привет коммит Master
 
-//Все действия, связанные с лайками/репостами
+    //Все действия, связанные с лайками/репостами
     public boolean likeProfilePhoto(String pageLink) {
-    System.out.println(separator);
-    //Переходим на страницу пользователя
-    driver.get(pageLink);
+        System.out.println(separator);
+        //Переходим на страницу пользователя
+        driver.get(pageLink);
 
-    if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
-        System.out.println("Страница пользователя доступна");
-        //Нажимаем на фото пользователя
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(PROFILE_PHOTO_XPATH)));
-        WebElement profilePhoto = driver.findElement(By.xpath(PROFILE_PHOTO_XPATH));
-        profilePhoto.click();
+        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
+            System.out.println("Страница пользователя доступна");
+            //Нажимаем на фото пользователя
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(PROFILE_PHOTO_XPATH)));
+            WebElement profilePhoto = driver.findElement(By.xpath(PROFILE_PHOTO_XPATH));
+            profilePhoto.click();
 
-        //Ждем пока оно прогрузится
-        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.PHOTO_POST)) {
-            System.out.println("Фотография профиля доступна");
-            //Сначала проверим наличие собственного лайка
-            if (wasCurrentPostLiked(ConstVK.PHOTO_POST)) {
-                System.out.println("Отметка 'Мне нравится' уже стоит");
+            //Ждем пока оно прогрузится
+            if (waitLoadOfElementByTypeOfElementXPath(ConstVK.PHOTO_POST)) {
+                System.out.println("Фотография профиля доступна");
+                //Сначала проверим наличие собственного лайка
+                if (wasCurrentPostLiked(ConstVK.PHOTO_POST)) {
+                    System.out.println("Отметка 'Мне нравится' уже стоит");
+                    System.out.println("Result: false");
+                    System.out.println(separator);
+                    return false;
+                } else {
+                    System.out.println("Отметка 'Мне нравится' не стоит. Поставим ее");
+                    //Нажимаем кнопку 'Мне нравится'
+                    likeCurrentPost(ConstVK.PHOTO_POST, ConstVK.LIKE);
+                    /*WebElement btnLike = driver.findElement(By.xpath(btnLikeXPath));
+                    btnLike.click();*/
+                    System.out.println("Result: true");
+                    System.out.println(separator);
+                    return true;
+                }
+
+            } else {
+                System.out.println("Фотография недоступна");
                 System.out.println("Result: false");
                 System.out.println(separator);
                 return false;
-            } else {
-                System.out.println("Отметка 'Мне нравится' не стоит. Поставим ее");
-                //Нажимаем кнопку 'Мне нравится'
-                likeCurrentPost(ConstVK.PHOTO_POST, ConstVK.LIKE);
-                    /*WebElement btnLike = driver.findElement(By.xpath(btnLikeXPath));
-                    btnLike.click();*/
-                System.out.println("Result: true");
-                System.out.println(separator);
-                return true;
             }
-
         } else {
-            System.out.println("Фотография недоступна");
+            System.out.println("Страница пользователя недоступна");
             System.out.println("Result: false");
             System.out.println(separator);
             return false;
         }
-    } else {
-        System.out.println("Страница пользователя недоступна");
-        System.out.println("Result: false");
-        System.out.println(separator);
-        return false;
     }
-}
 
     public boolean likePostByLink(String linkPost, ConstVK typeOfPost, ConstVK typeOfAction) {
         driver.get(linkPost);
@@ -301,7 +394,7 @@ public class SeleniumWorker {
 
     }
 
-    public boolean likesAllPhotos(String pageLink) {
+    public boolean likesSeveralPhotos(String pageLink, int numberPhotosForLike) {
         System.out.println(separator);
         System.out.println("Start: likeAllPhotos");
 
@@ -321,11 +414,10 @@ public class SeleniumWorker {
                     likeCurrentPost(ConstVK.PHOTO_POST, ConstVK.LIKE);
                 }
 
-                int countLikes = 3;
-                for (int i = 0; i < countLikes; i++) {
+                for (int i = 0; i < numberPhotosForLike; i++) {
                     sleep(10);
                     //Нажмем на следующее фото и зациклим
-                    if(getNextPhoto(ConstVK.RIGHT)){
+                    if (getNextPhoto(ConstVK.RIGHT)) {
                         waitLoadOfElementByTypeOfElementXPath(ConstVK.PHOTO_POST);
                         System.out.println("Дождались загрузки следующей фотографии");
                         //Лайкнем его или уберем лайк для наглядности работы
@@ -334,7 +426,7 @@ public class SeleniumWorker {
                         } else {
                             likeCurrentPost(ConstVK.PHOTO_POST, ConstVK.LIKE);
                         }
-                    }else{
+                    } else {
                         System.out.println("Не удалось открыть следующее фото");
                         System.out.println(separator);
                         return false;
@@ -355,25 +447,28 @@ public class SeleniumWorker {
         }
     }
 
-    public boolean likePosts(String startPostLink) {
+    public boolean likeSeveralPosts(String startPostLink, int numberPostsForLike) {
         System.out.println(separator);
-        System.out.println("Start: likePosts");
+        System.out.println("Start: likeSeveralPosts");
 
         driver.get(startPostLink);
 
         if (waitLoadOfElementByTypeOfElementXPath(ConstVK.WL_POST)) {
-            System.out.println("Пост загрузился");
+            //System.out.println("Пост загрузился");
 
-            int countLikes = 100;
-            for (int i = 0; i < countLikes; i++) {
-                if(!wasCurrentPostLiked(ConstVK.WL_POST)){
-                    likeCurrentPost(ConstVK.WL_POST,ConstVK.LIKE);
+            for (int i = 0; i < numberPostsForLike; i++) {
+                //Торможение, чтобы 'действия не казались подозрительными'
+                if(i%safetyNumberLikes==0){
+                    sleep(10);
+                }
+                if (!wasCurrentPostLiked(ConstVK.WL_POST)) {
+                    likeCurrentPost(ConstVK.WL_POST, ConstVK.LIKE);
                 }
                 getNextWlPost(ConstVK.RIGHT);
             }
 
 
-            System.out.println("Result likePosts: true");
+            System.out.println("Result likeSeveralPosts: true");
             System.out.println(separator);
             return true;
         } else {
@@ -383,7 +478,7 @@ public class SeleniumWorker {
         }
     }
 
-    public boolean getNextWlPost(ConstVK direction){
+    public boolean getNextWlPost(ConstVK direction) {
         String btnNavWlPost = new String();
         switch (direction) {
             case LEFT:
@@ -393,18 +488,18 @@ public class SeleniumWorker {
                 btnNavWlPost = BTN_NAV_WL_POST_RIGHT_XPATH;
                 break;
         }
-        if(waitLoadOfElementByXPath(btnNavWlPost)){
+        if (waitLoadOfElementByXPath(btnNavWlPost)) {
             WebElement btnNav = driver.findElement(By.xpath(btnNavWlPost));
             btnNav.click();
             return true;
-        }else{
+        } else {
             System.out.println("Не удалось найти кнопку навигации");
             System.out.println(separator);
             return false;
         }
     }
 
-    public boolean getNextPhoto(ConstVK direction){
+    public boolean getNextPhoto(ConstVK direction) {
         String btnNavIconPhotoXPath = new String();
         switch (direction) {
             case LEFT:
@@ -414,27 +509,27 @@ public class SeleniumWorker {
                 btnNavIconPhotoXPath = BTN_NAV_ICON_PHOTO_RIGHT_XPATH;
                 break;
         }
-        if(waitLoadOfElementByXPath(AREA_PHOTO_XPATH)){
+        if (waitLoadOfElementByXPath(AREA_PHOTO_XPATH)) {
             WebElement element = driver.findElement(By.xpath(AREA_PHOTO_XPATH));
             Actions actions = new Actions(driver);
             actions.moveToElement(element).perform();
             sleep(2);
 
             //String btnLeftIconXPath = "//*[@id=\"pv_nav_btn_left\"]/div";
-            if(waitLoadOfElementByXPath(btnNavIconPhotoXPath)){
+            if (waitLoadOfElementByXPath(btnNavIconPhotoXPath)) {
                 WebElement btnLeft = driver.findElement(By.xpath(btnNavIconPhotoXPath));
                 actions.click(btnLeft).perform();
                 //btnLeft.click();
                 System.out.println("Нажали кнопку навигации");
                 System.out.println(separator);
                 return true;
-            }else{
+            } else {
                 System.out.println("Не удалось отобразить кнопку навигации");
                 System.out.println(separator);
                 return false;
             }
             //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(BTN_NAV_ICON_PHOTO_LEFT_XPATH)));
-        }else{
+        } else {
             System.out.println("Не удалось найти PHOTO_AREA_FOR_SHOW_NAV_BTN_XPATH");
             System.out.println(separator);
             return false;
@@ -442,8 +537,43 @@ public class SeleniumWorker {
 
     }
 
+    public String getLinkToFirstPost(String pageLink){
+        //Пока отработано только для поста с текстом
+        String firstPostLink = "";
+        System.out.println(separator);
+        System.out.println("Start: getLinkToFirstPost");
 
-//Вспомогательные методы
+        driver.get(pageLink);
+        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
+            String FIRST_WL_POST_XPATH = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')][1]" +
+                    "//div[contains(@class,'wall_post_text')]";
+            //*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')][1]//div[contains(@class,'wall_post_cont')]";
+
+            if(waitLoadOfElementByXPath(FIRST_WL_POST_XPATH)){
+                driver.findElement(By.xpath(FIRST_WL_POST_XPATH)).click();
+                sleep(2);
+                firstPostLink = driver.getCurrentUrl();
+                System.out.println(firstPostLink);
+
+                System.out.println("Result getLinkToFirstPost: true");
+                System.out.println(firstPostLink);
+                System.out.println(separator);
+                return firstPostLink;
+            }else{
+                System.out.println("Не удалось найти пост");
+                System.out.println(separator);
+                return null;
+            }
+        }else{
+            System.out.println("Не удалось открыть страницу пользователя");
+            System.out.println(separator);
+            return null;
+        }
+
+    }
+
+
+    //Вспомогательные методы
     protected void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
@@ -522,6 +652,12 @@ public class SeleniumWorker {
         }
 
     }
+
+    public void scrollPageToBottom() {
+        JavascriptExecutor javascript = (JavascriptExecutor) driver;
+        javascript.executeScript("window.scrollTo(0, document.body.scrollHeight)", "");
+    }
+
 
 }
 

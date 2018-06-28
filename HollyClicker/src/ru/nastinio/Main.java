@@ -1,6 +1,8 @@
 package ru.nastinio;
 
 
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -8,19 +10,29 @@ public class Main {
         User tempUser = new User(profileLink, "Настя Дорина");*/
 
 
+        String log = "";
+        String pass = "";
+
         String profileLink = "https://vk.com/id176464710";
         User tempUser = new User(profileLink, "Настя Бессарабова");
 
         SeleniumWorker selWork = new SeleniumWorker();
-        //selWork.authorization(log, pass);
+        selWork.authorization(log, pass);
+
+        //System.out.println(selWork.getLinkToFirstPost("https://vk.com/id226361909"));
+
+        /*ArrayList<User> listFriends = selWork.getUserFriendList("https://vk.com/id226361909");
+        for (User currentFriend:listFriends) {
+            currentFriend.display();
+            System.out.println("-------------------");
+        }*/
+
 
         String photoLink = "https://vk.com/id437245261?z=photo437245261_456239018%2Fphotos437245261";
         String postLink = "https://vk.com/id437245261?w=wall437245261_4%2Fall";
 
-        //String startWallPost = "https://vk.com/id226361909?w=wall226361909_2159%2Fall";
-        //selWork.likePosts(startWallPost);
-
-
+        String startWallPost = "https://vk.com/id226361909?w=wall226361909_2159%2Fall";
+        //selWork.likeSeveralPosts(startWallPost,200);
 
         //selWork.likePostByLink(postLink, ConstVK.WL_POST, ConstVK.DISLIKE);
         //selWork.likePostByLink(postLink, ConstVK.WL_POST, ConstVK.LIKE);
@@ -29,11 +41,8 @@ public class Main {
 
         //selWork.likeProfilePhoto(tempUser.getProfileLink());
 
-        //selWork.likesAllPhotos(profileLink);
+        //selWork.likesSeveralPhotos(profileLink);
 
-        /*String linkFriends = ".//*[@id='l_fr']/a/span/span[1]";
-        System.out.println("Нажали на друзей: " + selWork.ClickByXPath(linkFriends));
-        selWork.getFriendsList();*/
 
 
     }
