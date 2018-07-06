@@ -21,4 +21,9 @@ public enum ConstVK {
     LEFT,
     RIGHT,
 
+    //Для того, чтобы методы по получению даты рождения выглядели посимпатичнее
+    BDAY,
+    BMONTH,
+    BYEAR,
+
 }

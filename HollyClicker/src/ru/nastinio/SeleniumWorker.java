@@ -56,7 +56,6 @@ public class SeleniumWorker {
     protected final String MY_FRIENDS_LINK = "//*[@id=\"l_fr\"]/a/span/span[2]";
     protected final String USER_FRIENDS_LINK = "//*[@id=\"profile_friends\"]/a[2]/div/span[1]";
 
-
     // Локаторы для получения информации о друге из укороченного списка
     // По отдельности не используются, т.к. после каждой части неодходимо добавить
     // индекс текущего блока друзей и индекс друга в блоке
@@ -68,7 +67,10 @@ public class SeleniumWorker {
     protected final String FRIEND_LIST_ELEMENT_FIELD_TITLE_PART3 = "//div[contains(@class,'friends_field_title')]//a";
 
     //Общее количество друзей
-    protected final String NUMBER_OF_FRIENDS = "//*[@id=\"friends_tab_all\"]/a/span";
+    protected final String NUMBER_OF_FRIENDS_ON_PAGE_LIST_FRIENDS = "//*[@id=\"friends_tab_all\"]/a/span";
+    protected final String NUMBER_OF_FRIENDS_ON_USER_PAGE = "//*[@id=\"wide_column\"]/div[1]/div[2]/a[2]/div[1]";
+    //*[@id="wide_column"]/div[1]/div[2]/a[1]/div[1]
+    //*[@id="wide_column"]/div[1]/div[2]/a[2]/div[1]
 
     //Просто полезный пирожок для наглядности
     protected String separator = "=============================================";
@@ -81,7 +83,8 @@ public class SeleniumWorker {
     protected int safetyNumberLikes = 30;
 
     SeleniumWorker() {
-        /*String driverDireсtory =System.getProperty("user.dir")+ "\\src\\drivers\\geckodriver.exe";
+        /*//Штука, для подключения на компе без драйвера FireFox'a
+        String driverDireсtory =System.getProperty("user.dir")+ "\\src\\drivers\\geckodriver.exe";
         System.setProperty("webdriver.gecko.driver",driverDireсtory);*/
         try {
             driver = new FirefoxDriver();
@@ -176,9 +179,9 @@ public class SeleniumWorker {
 
     private ArrayList<User> sortOutFriendsListPage() {
         ArrayList<User> listFriends = new ArrayList<>();
-        if (waitLoadOfElementByXPath(NUMBER_OF_FRIENDS)) {
+        if (waitLoadOfElementByXPath(NUMBER_OF_FRIENDS_ON_PAGE_LIST_FRIENDS)) {
             //Пройдет по открытой странице с друзьями и соберет краткую информацию о них в список
-            int totalNumberOfFriends = Integer.parseInt(driver.findElement(By.xpath(NUMBER_OF_FRIENDS)).getText());
+            int totalNumberOfFriends = Integer.parseInt(driver.findElement(By.xpath(NUMBER_OF_FRIENDS_ON_PAGE_LIST_FRIENDS)).getText());
             //System.out.println("totalNumber = " + totalNumberOfFriends);
             int countCurrentNumberOfFriends = 0;
             int countFriendsBlocks = 1;
@@ -252,6 +255,7 @@ public class SeleniumWorker {
 
         return new User(profileLink, pageName);
     }
+
 
     //Все действия, связанные с лайками/репостами
     public boolean likeProfilePhoto(String pageLink) {
@@ -657,6 +661,73 @@ public class SeleniumWorker {
         JavascriptExecutor javascript = (JavascriptExecutor) driver;
         javascript.executeScript("window.scrollTo(0, document.body.scrollHeight)", "");
     }
+
+
+    //Методы по заполнению полей User'а
+    //Локаторы для получения ссылки поиска по дате и году рождения
+    private final String BDAY_AND_BMONTH_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[1]";
+    private final String BYEAR_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[2]";
+
+    protected User setFullInfoUser(String profileLink){
+        driver.get(profileLink);
+        User currentUser = new User(profileLink);
+        if(waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)){
+            //Данные, которые нужно получить
+            //String profileID;
+            int bday = 0;
+            int bmonth = 0;
+            int byear = 0;
+            int numberOfFriends = 0;
+
+            //Получим имя страницы
+            String pageName = driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
+            currentUser.setPageName(pageName);
+
+            //Получим количество друзей
+            if(waitLoadOfElementByXPath(NUMBER_OF_FRIENDS_ON_USER_PAGE)){
+                String forNumberOfFriends = driver.findElement(By.xpath(NUMBER_OF_FRIENDS_ON_USER_PAGE)).getText();
+                try{
+                    numberOfFriends = Integer.parseInt(forNumberOfFriends);
+                    currentUser.setNumberOfFriends(numberOfFriends);
+                    //System.out.println("Количество друзей: "+numberOfFriends);
+                }catch (NumberFormatException e){
+                    System.out.println("Не смогли получить количество друзей. Ошибка преобразования типов");
+                }
+            }else{
+                System.out.println("Не смогли получить количество друзей");
+            }
+
+
+            //Получим дату рождения
+            HelpFunctionality hp = new HelpFunctionality();
+
+            if(waitLoadOfElementByXPath(BDAY_AND_BMONTH_LINK)){
+                String bdayAndMonthLink = driver.findElement(By.xpath(BDAY_AND_BMONTH_LINK)).getAttribute("href");
+                //System.out.println(bdayAndMonthLink);
+                bday = hp.getBDigit(bdayAndMonthLink,ConstVK.BDAY);
+                bmonth = hp.getBDigit(bdayAndMonthLink,ConstVK.BMONTH);
+            }else{
+                System.out.println("Число и месяц рождения не указаны");
+            }
+            currentUser.setBday(bday);
+            currentUser.setBmonth(bmonth);
+
+            if(waitLoadOfElementByXPath(BYEAR_LINK)){
+                String byearLink = driver.findElement(By.xpath(BYEAR_LINK)).getAttribute("href");
+                byear = hp.getBDigit(byearLink,ConstVK.BYEAR);
+            }else{
+                System.out.println("Год рождения не указан");
+            }
+            currentUser.setByear(byear);
+        }else{
+            System.out.println("Не удалось загрузить страницу пользователя: "+profileLink);
+            System.out.println(separator);
+        }
+        //currentUser.display();
+        return currentUser;
+    }
+
+
 
 
 }
