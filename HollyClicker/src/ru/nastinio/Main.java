@@ -8,30 +8,48 @@ public class Main {
     public static void main(String[] args) {
 
 
+
         String log = "";
         String pass = "";
 
-
-        /*String profileLink = "https://vk.com/id437245261";
-        User tempUser = new User(profileLink, "Настя Дорина");*/
-
         String profileLink = "https://vk.com/id176464710";
-        User tempUser = new User(profileLink, "Настя Бессарабова");
+        //User tempUser = new User(profileLink, "Настя Бессарабова");
 
 
         SeleniumWorker selWork = new SeleniumWorker();
         selWork.authorization(log, pass);
 
-        //selWork.setFullInfoUser(profileLink);
+        //System.out.println(selWork.getLinkToFirstTextPost("https://vk.com/antoinettemari"));
+
+        //selWork.getFullInfoUser("https://vk.com/id226361909");
 
         //System.out.println(selWork.getLinkToFirstPost("https://vk.com/id226361909"));
 
-        ArrayList<User> listFriends = selWork.getUserFriendList(profileLink);
-        for (User currentFriend:listFriends) {
-            selWork.setFullInfoUser(currentFriend.getProfileLink());
+
+        /*//Получение и печать всех друзей из бд
+        DataBaseWorker dbWork = new DataBaseWorker();
+        ArrayList<User> listUser = dbWork.getAllUsers();
+        for (User currentUser: listUser) {
+            currentUser.display();
+        }*/
+
+
+        /*//Проход по всем друзьям пользователя и запись в бд
+        DataBaseWorker dbWork = new DataBaseWorker();
+        ArrayList<User> listFriendsShortInfo = selWork.getUserFriendList(profileLink);
+        ArrayList<User> listFriendsFullInfo = new ArrayList<>();
+        for (User currentFriend:listFriendsShortInfo) {
+            User user = selWork.getFullInfoUser(currentFriend.getProfileLink());
+            listFriendsFullInfo.add(user);
+            dbWork.insertUser(user);
+            user.display();
+            System.out.println("-------------------");
+        }*/
+
+        /*for (User currentFriend:listFriendsFullInfo) {
             currentFriend.display();
             System.out.println("-------------------");
-        }
+        }*/
 
 
         String photoLink = "https://vk.com/id437245261?z=photo437245261_456239018%2Fphotos437245261";

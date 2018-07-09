@@ -77,4 +77,30 @@ public class HelpFunctionality {
 
         System.out.printf("Дата рождения: %d.%d.%d",bday,bmonth,byear);
     }
+
+    //Метод для получения настоящего ID пользователя из строки со ссылкой на фото профиля
+    public int getDefaultID(String input){
+        int id = 0;
+
+        //Стандартный вид входящей строки
+        //https://vk.com/feed?section=source&source=226361909
+        //https://vk.com/photo176464710_456239756 //по фотографии профиля, но ее может и не быть
+
+        Pattern pattern = Pattern.compile("source&source=");
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+            input = input.substring(matcher.end(),input.length());
+            try{
+                id = Integer.parseInt(input);
+                System.out.println("Получили число: '"+id+"'");
+            }catch (NumberFormatException e){
+                System.out.println("Ошибка в преобразовании строки "+input+" в int");
+            }
+        }else{
+            System.out.println("Нет совпадений для "+input+" при поиске ID");
+        }
+
+        return id;
+    }
 }

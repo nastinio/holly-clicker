@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SeleniumWorker {
 
@@ -541,6 +542,34 @@ public class SeleniumWorker {
 
     }
 
+    public String getLinkToFirstTextPost(String pageLink){
+        //Пройдем по странице, пока не найдем первый пост с текстовой частью
+        //Откроем его и вернем ссылку
+        //Такой способ пролистывать посты быстрее, а главное уже написан
+
+        //XPath до текстового поля поста
+        System.out.println(separator);
+        System.out.println("Start: getLinkToFirstPost");
+
+        driver.get(pageLink);
+        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
+            String WL_POST_TEXT = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post')]" +
+                    "//div//div[contains(@class,'post_content')]//div//div[contains(@class,'wall_text')]//div//div[contains(@class,'wall_post_text')]";
+            if (waitLoadOfElementByXPath(WL_POST_TEXT)) {
+                driver.findElement(By.xpath(WL_POST_TEXT)).click();
+                sleep(2);
+                if(waitLoadOfElementByTypeOfElementXPath(ConstVK.WL_POST)){
+                    return driver.getCurrentUrl();
+                }
+            }
+        }else{
+            System.out.println("Не удалось загрузить страницу пользователя");
+        }
+
+
+        return null;
+    }
+
     public String getLinkToFirstPost(String pageLink){
         //Пока отработано только для поста с текстом
         String firstPostLink = "";
@@ -575,6 +604,13 @@ public class SeleniumWorker {
         }
 
     }
+
+    //Путь к блоку записи
+    ////*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]
+    //*[@id="post226361909_2159"]/div/div[2]/div/div[2]/div
+
+    //Путь к панели с кнопками 'Нравится' под каждым постом
+    //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div
 
 
     //Вспомогательные методы
@@ -668,12 +704,17 @@ public class SeleniumWorker {
     private final String BDAY_AND_BMONTH_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[1]";
     private final String BYEAR_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[2]";
 
-    protected User setFullInfoUser(String profileLink){
+    protected User getFullInfoUser(String profileLink){
+        //Собираем всю информацию о пользователе с его страницы
+        //и возвращаем в виде User
         driver.get(profileLink);
         User currentUser = new User(profileLink);
         if(waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)){
+            //Содержит методы для выковыривания нужных данных из строки
+            HelpFunctionality hp = new HelpFunctionality();
+
             //Данные, которые нужно получить
-            //String profileID;
+            int profileID;
             int bday = 0;
             int bmonth = 0;
             int byear = 0;
@@ -682,6 +723,19 @@ public class SeleniumWorker {
             //Получим имя страницы
             String pageName = driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
             currentUser.setPageName(pageName);
+
+            //Получим исходный ID пользователя
+            //XPath новостей пользователя. Из ссылки выковыряем настоящий ID
+            String PROFILE_ID_LINK_XPATH = "//*[@id=\"profile_friends\"]/a[1]";
+            if(waitLoadOfElementByXPath(PROFILE_ID_LINK_XPATH)){
+                String forProfileID = driver.findElement(By.xpath(PROFILE_ID_LINK_XPATH)).getAttribute("href");
+                System.out.println("Ссыль с упоминанием настоящего ID: "+forProfileID);
+                profileID = hp.getDefaultID(forProfileID);
+                if(profileID!=0){
+                    currentUser.setProfileID(profileID);
+                }
+
+            }
 
             //Получим количество друзей
             if(waitLoadOfElementByXPath(NUMBER_OF_FRIENDS_ON_USER_PAGE)){
@@ -697,10 +751,7 @@ public class SeleniumWorker {
                 System.out.println("Не смогли получить количество друзей");
             }
 
-
             //Получим дату рождения
-            HelpFunctionality hp = new HelpFunctionality();
-
             if(waitLoadOfElementByXPath(BDAY_AND_BMONTH_LINK)){
                 String bdayAndMonthLink = driver.findElement(By.xpath(BDAY_AND_BMONTH_LINK)).getAttribute("href");
                 //System.out.println(bdayAndMonthLink);
@@ -719,6 +770,7 @@ public class SeleniumWorker {
                 System.out.println("Год рождения не указан");
             }
             currentUser.setByear(byear);
+
         }else{
             System.out.println("Не удалось загрузить страницу пользователя: "+profileLink);
             System.out.println(separator);
