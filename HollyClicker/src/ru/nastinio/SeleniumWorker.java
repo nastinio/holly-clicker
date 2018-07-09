@@ -79,6 +79,7 @@ public class SeleniumWorker {
     //Количество друзе в одном отображаемом блоке
     //Надо бы получить программно, но пока пусть так
     protected int numberFriendsOnBox = 15;
+    protected int numberPostsOnBlock = 10;
 
     //Безопасной количество лайков, при которых действия не считаются подозрительными
     protected int safetyNumberLikes = 30;
@@ -89,7 +90,7 @@ public class SeleniumWorker {
         System.setProperty("webdriver.gecko.driver",driverDireсtory);*/
         try {
             driver = new FirefoxDriver();
-            wait = new WebDriverWait(driver, 20);
+            wait = new WebDriverWait(driver, 5);
         } catch (org.openqa.selenium.WebDriverException we) {
             System.out.println("Ошибка в конструкторе SeleniumWorker");
             we.getMessage();
@@ -605,13 +606,63 @@ public class SeleniumWorker {
 
     }
 
-    //Путь к блоку записи
-    ////*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]
-    //*[@id="post226361909_2159"]/div/div[2]/div/div[2]/div
+    public boolean likeSeveralPostsOnPage(String pageLink, int totalNumberLikes){
+        //Пройдем по странице пользователя и будем лайкать посты
+        //При необходимости скроллить страницу
 
-    //Путь к панели с кнопками 'Нравится' под каждым постом
-    //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div
+        //Путь к блоку записи
+        ////*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]
+        //*[@id="post226361909_2159"]/div/div[2]/div/div[2]/div
 
+        //Путь к панели с кнопками 'Нравится' под каждым постом
+        //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div
+
+        //Путь конкретно к кнопке 'Мне нравится' под каждым постом
+        //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1]
+
+        System.out.println(separator);
+        System.out.println("Start: likeSeveralPostsOnPage");
+
+        driver.get(pageLink);
+
+        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
+            int countLike = 1;
+
+            while (countLike <= totalNumberLikes) {
+                //Поймаем момент, когда нужно пролистнуть страницу
+                if(countLike%numberPostsOnBlock==0){
+                    scrollPageToBottom();
+                }
+                String BTN_LIKE_POST_ON_WALL = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" +"["+countLike+"]"+
+                        "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1]";
+                if(waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL)){
+                    //Проверим, стоит ли лайк
+                    String BTN_LIKE_POST_ON_WALL_ACTIVE = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" +"["+countLike+"]"+
+                            "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1][contains(@class,'active')]";
+                    if(!waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL_ACTIVE)){
+                        //Т.е. пост не лайкали
+                        driver.findElement(By.xpath(BTN_LIKE_POST_ON_WALL)).click();
+                        System.out.println("Лайкнули "+countLike+"-ый пост");
+                    }else{
+                        System.out.println("Не лайкали, но просмотрели "+countLike+"-ый пост");
+                    }
+                    countLike++;
+                }else{
+                    System.out.println("Не удалось найти запись");
+                    System.out.println(separator);
+                    return false;
+                }
+            }
+
+            return true;
+
+        }else{
+            System.out.println("Не удалось загрузить страницу пользователя");
+            System.out.println(separator);
+            return false;
+        }
+
+    }
 
     //Вспомогательные методы
     protected void sleep(int seconds) {
