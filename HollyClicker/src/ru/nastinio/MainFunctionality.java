@@ -1,6 +1,8 @@
 package ru.nastinio;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainFunctionality {
 
@@ -11,6 +13,9 @@ public class MainFunctionality {
     private DataBaseWorker dbWork;
 
     private boolean isOnline = false;
+
+    SimpleDateFormat formatForDateNow = new SimpleDateFormat("YYYY-MM-dd");
+
 
     public MainFunctionality(String login, String password) {
         this.login = login;
@@ -63,5 +68,17 @@ public class MainFunctionality {
         }
     }
 
+    public void getLikesAllFriends(int numberLikesForEachUser){
+        ArrayList<User> listUsers = dbWork.getAllUsers();
+        for(User currentUser: listUsers){
+            selWork.likeSeveralPostsOnPage(currentUser.getProfileLink(),numberLikesForEachUser);
+            dbWork.updateDateLastChecking(currentUser.getProfileID(),formatForDateNow.format(new Date()));
+            System.out.println("Пролайкали "+currentUser.getPageName()+" и обновили дату в базе");
+            System.out.println("======================================================================");
+        }
+
+
+
+    }
 
 }

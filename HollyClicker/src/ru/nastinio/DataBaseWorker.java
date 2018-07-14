@@ -136,6 +136,30 @@ public class DataBaseWorker {
         return true;
     }
 
+    public boolean updateDateLastChecking(int profileID, String date){
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+            String SQL_UPDATE = "UPDATE `holly-clicker-db`.`user` SET `date-last-checking`=? WHERE `id-user`=?;";
+            pstmt = connection.prepareStatement(SQL_UPDATE);
+
+            pstmt.setString(1,date);
+            pstmt.setInt(2, profileID);
+
+            pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            //выводим наиболее значимые сообщения
+            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("-------------------------------");
+        } finally {
+            closePreparedStatement();
+            closeConnection();
+        }
+
+        return true;
+
+    }
+
     //Технические вспомогательные методы
     public boolean closeConnection() {
         if (connection != null) {

@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SeleniumWorker {
 
@@ -629,6 +630,7 @@ public class SeleniumWorker {
 
         if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
             int countLike = 1;
+            int realCountLike=0;
 
             while (countLike <= totalNumberLikes) {
                 //Поймаем момент, когда нужно пролистнуть страницу
@@ -643,8 +645,14 @@ public class SeleniumWorker {
                             "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1][contains(@class,'active')]";
                     if (!waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL_ACTIVE)) {
                         //Т.е. пост не лайкали
-                        driver.findElement(By.xpath(BTN_LIKE_POST_ON_WALL)).click();
-                        System.out.println("Лайкнули " + countLike + "-ый пост");
+                        if (shouldPostBeLiked()){
+                            driver.findElement(By.xpath(BTN_LIKE_POST_ON_WALL)).click();
+                            System.out.println("Лайкнули " + countLike + "-ый пост");
+                            realCountLike++;
+                        }else{
+                            System.out.println("Пропустили " + countLike + "-ый пост, ибо так решила судьба");
+                        }
+
                     } else {
                         System.out.println("Не лайкали, но просмотрели " + countLike + "-ый пост");
                     }
@@ -655,6 +663,7 @@ public class SeleniumWorker {
                     return false;
                 }
             }
+            System.out.println("Итого у пользователя '"+pageLink+"' пролайкали "+realCountLike+" записей");
 
             return true;
 
@@ -750,6 +759,14 @@ public class SeleniumWorker {
     public void scrollPageToBottom() {
         JavascriptExecutor javascript = (JavascriptExecutor) driver;
         javascript.executeScript("window.scrollTo(0, document.body.scrollHeight)", "");
+    }
+
+    private boolean shouldPostBeLiked(){
+        Random rand = new Random();
+        int coinToss = rand.nextInt(2);
+        if (coinToss == 0) {
+            return true;
+        }else return false;
     }
 
 
