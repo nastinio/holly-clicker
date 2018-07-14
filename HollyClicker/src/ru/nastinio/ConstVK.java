@@ -26,4 +26,9 @@ public enum ConstVK {
     BMONTH,
     BYEAR,
 
+    //Для сбора количественной информации о странице
+    COUNT_ALL_FRIENDS,
+    COUNT_COMMON_FRIENDS,
+    COUNT_FOLLOWERS
+
 }

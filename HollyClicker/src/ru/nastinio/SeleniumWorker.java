@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SeleniumWorker {
 
@@ -172,7 +171,7 @@ public class SeleniumWorker {
                 System.out.println(separator);
                 //return false;
             }
-        }else{
+        } else {
             System.out.println("Не удалось открыть страницу пользователя");
         }
 
@@ -400,7 +399,8 @@ public class SeleniumWorker {
 
     }
 
-    public boolean likesSeveralPhotos(String pageLink, int numberPhotosForLike) {
+
+    public boolean likeSeveralPhotos(String pageLink, int numberPhotosForLike) {
         System.out.println(separator);
         System.out.println("Start: likeAllPhotos");
 
@@ -464,7 +464,7 @@ public class SeleniumWorker {
 
             for (int i = 0; i < numberPostsForLike; i++) {
                 //Торможение, чтобы 'действия не казались подозрительными'
-                if(i%safetyNumberLikes==0){
+                if (i % safetyNumberLikes == 0) {
                     sleep(10);
                 }
                 if (!wasCurrentPostLiked(ConstVK.WL_POST)) {
@@ -543,7 +543,8 @@ public class SeleniumWorker {
 
     }
 
-    public String getLinkToFirstTextPost(String pageLink){
+
+    public String getLinkToFirstTextPost(String pageLink) {
         //Пройдем по странице, пока не найдем первый пост с текстовой частью
         //Откроем его и вернем ссылку
         //Такой способ пролистывать посты быстрее, а главное уже написан
@@ -559,11 +560,11 @@ public class SeleniumWorker {
             if (waitLoadOfElementByXPath(WL_POST_TEXT)) {
                 driver.findElement(By.xpath(WL_POST_TEXT)).click();
                 sleep(2);
-                if(waitLoadOfElementByTypeOfElementXPath(ConstVK.WL_POST)){
+                if (waitLoadOfElementByTypeOfElementXPath(ConstVK.WL_POST)) {
                     return driver.getCurrentUrl();
                 }
             }
-        }else{
+        } else {
             System.out.println("Не удалось загрузить страницу пользователя");
         }
 
@@ -571,7 +572,7 @@ public class SeleniumWorker {
         return null;
     }
 
-    public String getLinkToFirstPost(String pageLink){
+    public String getLinkToFirstPost(String pageLink) {
         //Пока отработано только для поста с текстом
         String firstPostLink = "";
         System.out.println(separator);
@@ -583,7 +584,7 @@ public class SeleniumWorker {
                     "//div[contains(@class,'wall_post_text')]";
             //*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')][1]//div[contains(@class,'wall_post_cont')]";
 
-            if(waitLoadOfElementByXPath(FIRST_WL_POST_XPATH)){
+            if (waitLoadOfElementByXPath(FIRST_WL_POST_XPATH)) {
                 driver.findElement(By.xpath(FIRST_WL_POST_XPATH)).click();
                 sleep(2);
                 firstPostLink = driver.getCurrentUrl();
@@ -593,12 +594,12 @@ public class SeleniumWorker {
                 System.out.println(firstPostLink);
                 System.out.println(separator);
                 return firstPostLink;
-            }else{
+            } else {
                 System.out.println("Не удалось найти пост");
                 System.out.println(separator);
                 return null;
             }
-        }else{
+        } else {
             System.out.println("Не удалось открыть страницу пользователя");
             System.out.println(separator);
             return null;
@@ -606,7 +607,8 @@ public class SeleniumWorker {
 
     }
 
-    public boolean likeSeveralPostsOnPage(String pageLink, int totalNumberLikes){
+
+    public boolean likeSeveralPostsOnPage(String pageLink, int totalNumberLikes) {
         //Пройдем по странице пользователя и будем лайкать посты
         //При необходимости скроллить страницу
 
@@ -630,24 +632,24 @@ public class SeleniumWorker {
 
             while (countLike <= totalNumberLikes) {
                 //Поймаем момент, когда нужно пролистнуть страницу
-                if(countLike%numberPostsOnBlock==0){
+                if (countLike % numberPostsOnBlock == 0) {
                     scrollPageToBottom();
                 }
-                String BTN_LIKE_POST_ON_WALL = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" +"["+countLike+"]"+
+                String BTN_LIKE_POST_ON_WALL = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" + "[" + countLike + "]" +
                         "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1]";
-                if(waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL)){
+                if (waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL)) {
                     //Проверим, стоит ли лайк
-                    String BTN_LIKE_POST_ON_WALL_ACTIVE = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" +"["+countLike+"]"+
+                    String BTN_LIKE_POST_ON_WALL_ACTIVE = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" + "[" + countLike + "]" +
                             "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1][contains(@class,'active')]";
-                    if(!waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL_ACTIVE)){
+                    if (!waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL_ACTIVE)) {
                         //Т.е. пост не лайкали
                         driver.findElement(By.xpath(BTN_LIKE_POST_ON_WALL)).click();
-                        System.out.println("Лайкнули "+countLike+"-ый пост");
-                    }else{
-                        System.out.println("Не лайкали, но просмотрели "+countLike+"-ый пост");
+                        System.out.println("Лайкнули " + countLike + "-ый пост");
+                    } else {
+                        System.out.println("Не лайкали, но просмотрели " + countLike + "-ый пост");
                     }
                     countLike++;
-                }else{
+                } else {
                     System.out.println("Не удалось найти запись");
                     System.out.println(separator);
                     return false;
@@ -656,13 +658,14 @@ public class SeleniumWorker {
 
             return true;
 
-        }else{
+        } else {
             System.out.println("Не удалось загрузить страницу пользователя");
             System.out.println(separator);
             return false;
         }
 
     }
+
 
     //Вспомогательные методы
     protected void sleep(int seconds) {
@@ -755,12 +758,12 @@ public class SeleniumWorker {
     private final String BDAY_AND_BMONTH_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[1]";
     private final String BYEAR_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[2]";
 
-    protected User getFullInfoUser(String profileLink){
+    protected User getFullInfoFromUserPage(String profileLink) {
         //Собираем всю информацию о пользователе с его страницы
         //и возвращаем в виде User
         driver.get(profileLink);
         User currentUser = new User(profileLink);
-        if(waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)){
+        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
             //Содержит методы для выковыривания нужных данных из строки
             HelpFunctionality hp = new HelpFunctionality();
 
@@ -769,7 +772,9 @@ public class SeleniumWorker {
             int bday = 0;
             int bmonth = 0;
             int byear = 0;
-            int numberOfFriends = 0;
+            int countAllFriends = 0;
+            int countCommonFriends = 0;
+            int countFollowers = 0;
 
             //Получим имя страницы
             String pageName = driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
@@ -778,59 +783,112 @@ public class SeleniumWorker {
             //Получим исходный ID пользователя
             //XPath новостей пользователя. Из ссылки выковыряем настоящий ID
             String PROFILE_ID_LINK_XPATH = "//*[@id=\"profile_friends\"]/a[1]";
-            if(waitLoadOfElementByXPath(PROFILE_ID_LINK_XPATH)){
+            if (waitLoadOfElementByXPath(PROFILE_ID_LINK_XPATH)) {
                 String forProfileID = driver.findElement(By.xpath(PROFILE_ID_LINK_XPATH)).getAttribute("href");
-                System.out.println("Ссыль с упоминанием настоящего ID: "+forProfileID);
+                System.out.println("Ссыль с упоминанием настоящего ID: " + forProfileID);
                 profileID = hp.getDefaultID(forProfileID);
-                if(profileID!=0){
+                if (profileID != 0) {
                     currentUser.setProfileID(profileID);
                 }
 
             }
 
-            //Получим количество друзей
-            if(waitLoadOfElementByXPath(NUMBER_OF_FRIENDS_ON_USER_PAGE)){
-                String forNumberOfFriends = driver.findElement(By.xpath(NUMBER_OF_FRIENDS_ON_USER_PAGE)).getText();
-                try{
-                    numberOfFriends = Integer.parseInt(forNumberOfFriends);
-                    currentUser.setNumberOfFriends(numberOfFriends);
-                    //System.out.println("Количество друзей: "+numberOfFriends);
-                }catch (NumberFormatException e){
-                    System.out.println("Не смогли получить количество друзей. Ошибка преобразования типов");
-                }
-            }else{
-                System.out.println("Не смогли получить количество друзей");
-            }
+            //Получим количественные данные
+            currentUser.setNumberCommonFriends(findCountInfoFromPage(ConstVK.COUNT_COMMON_FRIENDS));
+            currentUser.setNumberAllFriends(findCountInfoFromPage(ConstVK.COUNT_ALL_FRIENDS));
+            currentUser.setNumberFollowers(findCountInfoFromPage(ConstVK.COUNT_FOLLOWERS));
 
             //Получим дату рождения
-            if(waitLoadOfElementByXPath(BDAY_AND_BMONTH_LINK)){
+            if (waitLoadOfElementByXPath(BDAY_AND_BMONTH_LINK)) {
                 String bdayAndMonthLink = driver.findElement(By.xpath(BDAY_AND_BMONTH_LINK)).getAttribute("href");
                 //System.out.println(bdayAndMonthLink);
-                bday = hp.getBDigit(bdayAndMonthLink,ConstVK.BDAY);
-                bmonth = hp.getBDigit(bdayAndMonthLink,ConstVK.BMONTH);
-            }else{
+                bday = hp.getBDigit(bdayAndMonthLink, ConstVK.BDAY);
+                bmonth = hp.getBDigit(bdayAndMonthLink, ConstVK.BMONTH);
+            } else {
                 System.out.println("Число и месяц рождения не указаны");
             }
             currentUser.setBday(bday);
             currentUser.setBmonth(bmonth);
 
-            if(waitLoadOfElementByXPath(BYEAR_LINK)){
+            if (waitLoadOfElementByXPath(BYEAR_LINK)) {
                 String byearLink = driver.findElement(By.xpath(BYEAR_LINK)).getAttribute("href");
-                byear = hp.getBDigit(byearLink,ConstVK.BYEAR);
-            }else{
+                byear = hp.getBDigit(byearLink, ConstVK.BYEAR);
+            } else {
                 System.out.println("Год рождения не указан");
             }
             currentUser.setByear(byear);
 
-        }else{
-            System.out.println("Не удалось загрузить страницу пользователя: "+profileLink);
+
+            //Проверим, есть ли в списке друзей
+            currentUser.setIsMyFriend(isMyFriend());
+
+        } else {
+            System.out.println("Не удалось загрузить страницу пользователя: " + profileLink);
             System.out.println(separator);
         }
+
         //currentUser.display();
         return currentUser;
     }
 
+    private int findCountInfoFromPage(ConstVK typeCount) {
+        //Вызывается со страницы пользрвателя
+        int result = 0;
+        //Панель со всеми счетчиками страницы: кол-во друзей, подписчиков, общих друзей
+        String COUNTS_MODULE = "//*[@id=\"wide_column\"]/div[1]/div[2]";
+        String COUNT_COMMON_FRIENDS = "//*[@id=\"wide_column\"]/div[1]/div[2]//a[contains(@href,'common')]//div[contains(@class,'count')]";
+        String COUNT_ALL_FRIENDS = "//*[@id=\"wide_column\"]/div[1]/div[2]//a[contains(@href,'all')]//div[contains(@class,'count')]";
+        String COUNT_FOLLOWERS = "//*[@id=\"wide_column\"]/div[1]/div[2]//a[contains(@href,'#')]//div[contains(@class,'count')]";
 
+        if (waitLoadOfElementByXPath(COUNTS_MODULE)) {
+            //Загрузили панель счетчиков страницы
+            String currentCountXPath = "";
+            switch (typeCount) {
+                case COUNT_COMMON_FRIENDS:
+                    currentCountXPath = COUNT_COMMON_FRIENDS;
+                    break;
+                case COUNT_ALL_FRIENDS:
+                    currentCountXPath = COUNT_ALL_FRIENDS;
+                    break;
+                case COUNT_FOLLOWERS:
+                    currentCountXPath = COUNT_FOLLOWERS;
+                    break;
+            }
+            if (waitLoadOfElementByXPath(currentCountXPath)) {
+                //Если такой счетчик существует
+                String forResult = driver.findElement(By.xpath(currentCountXPath)).getText();
+                //System.out.println(typeCount + " = "+forResult);
+                try {
+                    result = Integer.parseInt(forResult);
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка преобразования  '" + forResult + "' в int");
+                }
+
+            } else {
+                System.out.println("Информации о " + typeCount + " на странице не найдено");
+            }
+        } else {
+            System.out.println("Не удалось загрузить COUNTS_MODULE на странице пользователя");
+        }
+
+        return result;
+
+    }
+
+    public boolean isMyFriendByPageLink(String pageLink) {
+        driver.get(pageLink);
+        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
+            return isMyFriend();
+        } else {
+            System.out.println("Не удалось загрузить страницу пользователя");
+        }
+        return false;
+    }
+
+    private boolean isMyFriend() {
+        String BTN_IS_MY_FRIEND = "//*[@id=\"friend_status\"]/div/span";
+        return waitLoadOfElementByXPath(BTN_IS_MY_FRIEND);
+    }
 
 
 }

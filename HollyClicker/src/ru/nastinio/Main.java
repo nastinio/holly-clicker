@@ -6,22 +6,27 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-
-
-
         String log = "";
         String pass = "";
 
-        String profileLink = "https://vk.com/id176464710";
-        //User tempUser = new User(profileLink, "Настя Бессарабова");
+        String myProfileLink = "https://vk.com/id176464710";
+
+        MainFunctionality mf = new MainFunctionality(log,pass);
+        mf.setUpVK();
+        //Собрали и записали в базу данных весь список друзей
+        mf.setFullInfoListFriendsToDB(myProfileLink);
+        //Забрали полный список пользователей из бд и распечатали его
+        mf.printListFriend(mf.getListFriendsFromDB());
 
 
-        SeleniumWorker selWork = new SeleniumWorker();
-        selWork.authorization(log, pass);
+        /*User user = selWork.getFullInfoFromUserPage("https://vk.com/nikuly2004");
+        user.display();
+        DataBaseWorker dbWork = new DataBaseWorker();
+        dbWork.insertUser(user);*/
 
         //System.out.println(selWork.getLinkToFirstTextPost("https://vk.com/antoinettemari"));
 
-        //selWork.getFullInfoUser("https://vk.com/id226361909");
+        //selWork.getFullInfoFromUserPage("https://vk.com/id226361909");
 
         //System.out.println(selWork.getLinkToFirstPost("https://vk.com/id226361909"));
 
@@ -34,17 +39,7 @@ public class Main {
         }*/
 
 
-        /*//Проход по всем друзьям пользователя и запись в бд
-        DataBaseWorker dbWork = new DataBaseWorker();
-        ArrayList<User> listFriendsShortInfo = selWork.getUserFriendList(profileLink);
-        ArrayList<User> listFriendsFullInfo = new ArrayList<>();
-        for (User currentFriend:listFriendsShortInfo) {
-            User user = selWork.getFullInfoUser(currentFriend.getProfileLink());
-            listFriendsFullInfo.add(user);
-            dbWork.insertUser(user);
-            user.display();
-            System.out.println("-------------------");
-        }*/
+
 
         /*for (User currentFriend:listFriendsFullInfo) {
             currentFriend.display();
@@ -65,7 +60,7 @@ public class Main {
 
         //selWork.likeProfilePhoto(tempUser.getProfileLink());
 
-        //selWork.likesSeveralPhotos(profileLink);
+        //selWork.likeSeveralPhotos(profileLink);
 
 
 

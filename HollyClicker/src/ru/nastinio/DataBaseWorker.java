@@ -1,9 +1,7 @@
 package ru.nastinio;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,10 +18,10 @@ public class DataBaseWorker {
     private PreparedStatement pstmt;
     private Statement stmt;
 
-    DataBaseWorker(){
+    DataBaseWorker() {
         try {
             Class.forName(JDBC_DRIVER);     //Загружаем драйвер
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             //выводим наиболее значимые сообщения
             Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("-------------------------------");
@@ -34,17 +32,22 @@ public class DataBaseWorker {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
             String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`user` " +
-                    "(`id-user`, `page-link`, `page-name`, `bday`, `bmonth`, `byear`, `number-friends`)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?);";
+                    "(`id-user`, `page-link`, `page-name`, `bday`, `bmonth`, `byear`, `date-last-checking`,`number-friends`,`number-common-friends`," +
+                    "`number-followers`,`is-my-friend`)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             pstmt = connection.prepareStatement(SQL_INSERT);
 
-            pstmt.setInt(1,user.getProfileID());
-            pstmt.setString(2,user.getProfileLink());
-            pstmt.setString(3,user.getPageName());
-            pstmt.setInt(4,user.getBday());
-            pstmt.setInt(5,user.getBmonth());
-            pstmt.setInt(6,user.getByear());
-            pstmt.setInt(7,user.getNumberOfFriends());
+            pstmt.setInt(1, user.getProfileID());
+            pstmt.setString(2, user.getProfileLink());
+            pstmt.setString(3, user.getPageName());
+            pstmt.setInt(4, user.getBday());
+            pstmt.setInt(5, user.getBmonth());
+            pstmt.setInt(6, user.getByear());
+            pstmt.setDate(7, null);
+            pstmt.setInt(8, user.getNumberAllFriends());
+            pstmt.setInt(9, user.getNumberCommonFriends());
+            pstmt.setInt(10, user.getNumberFollowers());
+            pstmt.setBoolean(11, user.isMyFriend());
 
             pstmt.executeUpdate();
 
@@ -70,16 +73,17 @@ public class DataBaseWorker {
             String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.user";
             stmt = connection.createStatement();
             ResultSet resSet = stmt.executeQuery(SQL_SELECT);
-            while (resSet.next()){
+            while (resSet.next()) {
                 int profileID = resSet.getInt("id-user");
                 String profileLink = resSet.getString("page-link");
-                String pageName = resSet.getString("page-name");;
+                String pageName = resSet.getString("page-name");
+                ;
                 int bday = resSet.getInt("bday");
                 int bmonth = resSet.getInt("bmonth");
                 int byear = resSet.getInt("byear");
                 int numberOfFriends = resSet.getInt("number-friends");
 
-                User tempUser = new User(profileLink,pageName,profileID,bday,bmonth,byear,numberOfFriends);
+                User tempUser = new User(profileLink, pageName, profileID, bday, bmonth, byear, numberOfFriends);
                 listUsers.add(tempUser);
 
                 /*System.out.println("Номер в выборке #" + resSet.getRow() + "\t Номер в базе #" + resSet.getInt("id-user")
@@ -99,7 +103,7 @@ public class DataBaseWorker {
         return listUsers;
     }
 
-    public boolean deleteUser(User user){
+    public boolean deleteUser(User user) {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
             String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`user` " +
@@ -107,12 +111,12 @@ public class DataBaseWorker {
                     "VALUES (?, ?, ?, ?, ?, ?);";
             pstmt = connection.prepareStatement(SQL_INSERT);
 
-            pstmt.setString(1,user.getProfileLink());
-            pstmt.setString(2,user.getPageName());
-            pstmt.setInt(3,user.getBday());
-            pstmt.setInt(4,user.getBmonth());
-            pstmt.setInt(5,user.getByear());
-            pstmt.setInt(6,user.getNumberOfFriends());
+            pstmt.setString(1, user.getProfileLink());
+            pstmt.setString(2, user.getPageName());
+            pstmt.setInt(3, user.getBday());
+            pstmt.setInt(4, user.getBmonth());
+            pstmt.setInt(5, user.getByear());
+            pstmt.setInt(6, user.getNumberAllFriends());
 
             pstmt.executeUpdate();
 
@@ -133,7 +137,7 @@ public class DataBaseWorker {
     }
 
     //Технические вспомогательные методы
-    public boolean closeConnection(){
+    public boolean closeConnection() {
         if (connection != null) {
             try {
                 connection.close();
@@ -148,8 +152,8 @@ public class DataBaseWorker {
         return true;
     }
 
-    public boolean closeStatement(){
-        if ( stmt!= null) {
+    public boolean closeStatement() {
+        if (stmt != null) {
             try {
                 stmt.close();
                 return true;
@@ -162,8 +166,8 @@ public class DataBaseWorker {
         return true;
     }
 
-    public boolean closePreparedStatement(){
-        if ( pstmt!= null) {
+    public boolean closePreparedStatement() {
+        if (pstmt != null) {
             try {
                 pstmt.close();
                 return true;
