@@ -1,7 +1,9 @@
 package ru.nastinio;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Main {
 
@@ -11,12 +13,17 @@ public class Main {
 
         String myProfileLink = "https://vk.com/id176464710";
 
+
         MainFunctionality mf = new MainFunctionality(log,pass);
         mf.setUpVK();
-        //Собрали и записали в базу данных весь список друзей
+
+
+        mf.addUserToFriendList("https://vk.com/id437245261");
+
+        /*//Собрали и записали в базу данных весь список друзей
         mf.setFullInfoListFriendsToDB(myProfileLink);
         //Забрали полный список пользователей из бд и распечатали его
-        mf.printListFriend(mf.getListFriendsFromDB());
+        mf.printListFriend(mf.getListFriendsFromDB());*/
 
 
         /*User user = selWork.getFullInfoFromUserPage("https://vk.com/nikuly2004");

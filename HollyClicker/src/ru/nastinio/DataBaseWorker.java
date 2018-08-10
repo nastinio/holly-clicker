@@ -1,7 +1,9 @@
 package ru.nastinio;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -136,13 +138,13 @@ public class DataBaseWorker {
         return true;
     }
 
-    public boolean updateDateLastChecking(int profileID, String date){
+    public boolean updateDateLastChecking(int profileID, String date) {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
             String SQL_UPDATE = "UPDATE `holly-clicker-db`.`user` SET `date-last-checking`=? WHERE `id-user`=?;";
             pstmt = connection.prepareStatement(SQL_UPDATE);
 
-            pstmt.setString(1,date);
+            pstmt.setString(1, date);
             pstmt.setInt(2, profileID);
 
             pstmt.executeUpdate();
@@ -159,6 +161,43 @@ public class DataBaseWorker {
         return true;
 
     }
+
+
+    //Для работы с таблицей потенциальных друзей
+    public void insertUserToCurrentRequestToFriendList(User user, int hostID) {
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+            String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`current-request-to-friend-list` " +
+                    "(`host-id`, `user-id`,`user-profile-link`, `user-name`, `date-request`, `status-request`, `status-answer`)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?);";
+
+            pstmt = connection.prepareStatement(SQL_INSERT);
+
+            pstmt.setInt(1, hostID);
+            pstmt.setInt(2, user.getProfileID());
+            pstmt.setString(3, user.getProfileLink());
+            pstmt.setString(4, user.getPageName());
+
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("YYYY-MM-dd");
+            String currentDate = formatForDateNow.format(new Date());
+            pstmt.setString(5, currentDate);
+            pstmt.setInt(6, 1);
+            pstmt.setInt(7, 0);
+
+            pstmt.executeUpdate();
+
+
+        } catch (Exception ex) {
+            //выводим наиболее значимые сообщения
+            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("-------------------------------");
+        } finally {
+            closePreparedStatement();
+            closeConnection();
+        }
+
+    }
+
 
     //Технические вспомогательные методы
     public boolean closeConnection() {

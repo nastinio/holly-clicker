@@ -22,6 +22,12 @@ public class User {
         this.profileLink = profileLink;
     }
 
+    public User(int profileID,String profileLink,String profileName){
+        this.profileID = profileID;
+        this.profileLink =profileLink;
+        this.pageName = profileName;
+    }
+
     public User(String profileLink, String pageName) {
         this.profileLink = profileLink;
         this.pageName = pageName;

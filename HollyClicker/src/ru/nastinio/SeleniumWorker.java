@@ -5,8 +5,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.nastinio.Exceptions.AddToFriendlistException;
+import ru.nastinio.Exceptions.LoadException;
+import ru.nastinio.Exceptions.SearchIDException;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Random;
 
 public class SeleniumWorker {
@@ -14,7 +18,11 @@ public class SeleniumWorker {
     protected static WebDriver driver;
     protected WebDriverWait wait;
 
+    public HelpFunctionality hp = new HelpFunctionality();
+
     private final String VK_URL = "https://vk.com/";
+    private String hostPageLink;
+    private int hostID;
 
     //Элементы для авторизации
     protected final String LOGIN_PANEL_XPATH = "//*[@id=\"index_login_form\"]";   //Вся панель авторизации
@@ -88,6 +96,7 @@ public class SeleniumWorker {
         /*//Штука, для подключения на компе без драйвера FireFox'a
         String driverDireсtory =System.getProperty("user.dir")+ "\\src\\drivers\\geckodriver.exe";
         System.setProperty("webdriver.gecko.driver",driverDireсtory);*/
+
         try {
             driver = new FirefoxDriver();
             wait = new WebDriverWait(driver, 5);
@@ -99,6 +108,7 @@ public class SeleniumWorker {
 
     }
 
+    //Стартовые методы
     public boolean authorization(String login, String password) {
         System.out.println(separator);
         System.out.println("Start authorization");
@@ -120,6 +130,14 @@ public class SeleniumWorker {
             //Дописать повторны вход
             if (waitLoadOfElementByTypeOfElementXPath(ConstVK.HOST_USER_PAGE)) {
                 System.out.println("Result authorization: true");
+                sleep(2);
+
+               /* //Заполним личные данные, что пригодятся потом
+                hostPageLink = driver.getCurrentUrl();
+                System.out.println("hostPageLink: "+hostPageLink);
+
+                hostID = searchHostID();
+                System.out.println("hostID      : "+hostID);*/
                 return true;
             } else {
                 System.out.println("Ошибка входа. Неверный пароль/логин");
@@ -133,6 +151,12 @@ public class SeleniumWorker {
         }
 
     }
+
+
+    public int getHostID() {
+        return this.hostID;
+    }
+
 
     //Методы, связанные с работой со списками друзей
     public ArrayList<User> getHostFriendList() {
@@ -630,7 +654,7 @@ public class SeleniumWorker {
 
         if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
             int countLike = 1;
-            int realCountLike=0;
+            int realCountLike = 0;
 
             while (countLike <= totalNumberLikes) {
                 //Поймаем момент, когда нужно пролистнуть страницу
@@ -645,11 +669,11 @@ public class SeleniumWorker {
                             "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1][contains(@class,'active')]";
                     if (!waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL_ACTIVE)) {
                         //Т.е. пост не лайкали
-                        if (shouldPostBeLiked()){
+                        if (shouldPostBeLiked()) {
                             driver.findElement(By.xpath(BTN_LIKE_POST_ON_WALL)).click();
                             System.out.println("Лайкнули " + countLike + "-ый пост");
                             realCountLike++;
-                        }else{
+                        } else {
                             System.out.println("Пропустили " + countLike + "-ый пост, ибо так решила судьба");
                         }
 
@@ -663,7 +687,7 @@ public class SeleniumWorker {
                     return false;
                 }
             }
-            System.out.println("Итого у пользователя '"+pageLink+"' пролайкали "+realCountLike+" записей");
+            System.out.println("Итого у пользователя '" + pageLink + "' пролайкали " + realCountLike + " записей");
 
             return true;
 
@@ -698,6 +722,41 @@ public class SeleniumWorker {
             System.out.println(e.getMessage());
             System.out.println(separator);
             return false;
+        }
+    }
+
+    public void waitLoadElementExp(String xpath) throws LoadException {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        } catch (WebDriverException e) {
+            throw new LoadException("Не удалось загрузить элемент");
+        }
+    }
+
+    protected void waitLoadElementByTypeExp(ConstVK typeOfElement) throws LoadException {
+        String elementXPath = new String();
+        switch (typeOfElement) {
+            case WL_POST:
+                elementXPath = BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH;
+                break;
+            case PHOTO_POST:
+                elementXPath = BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH;
+                break;
+            case USER_PAGE:
+                elementXPath = PROFILE_NAME_XPATH;
+                break;
+            case WELCOME_PAGE:
+                elementXPath = LOGIN_PANEL_XPATH;
+                break;
+            case HOST_USER_PAGE:
+                elementXPath = TOP_PROFILE_LINK;
+                break;
+
+        }
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
+        } catch (WebDriverException e) {
+            throw new LoadException("Не удалось загрузить элемент: " + typeOfElement);
         }
     }
 
@@ -761,12 +820,12 @@ public class SeleniumWorker {
         javascript.executeScript("window.scrollTo(0, document.body.scrollHeight)", "");
     }
 
-    private boolean shouldPostBeLiked(){
+    private boolean shouldPostBeLiked() {
         Random rand = new Random();
         int coinToss = rand.nextInt(2);
         if (coinToss == 0) {
             return true;
-        }else return false;
+        } else return false;
     }
 
 
@@ -775,6 +834,29 @@ public class SeleniumWorker {
     private final String BDAY_AND_BMONTH_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[1]";
     private final String BYEAR_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[2]";
 
+    public User getStartInfoUserPage(String profileLink) throws SearchIDException,LoadException {
+        //Получим минимальную необходимую информацию о пользователе: ID, name, link
+        driver.get(profileLink);
+        try {
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+
+            try {
+                int profileID = getDefaultIDUserByPage();
+                String pageName = driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
+
+                User currentUser = new User(profileID,profileLink,pageName);
+                return currentUser;
+
+            } catch (LoadException e) {
+                throw new LoadException("Не получить ID пользователя");
+            } catch (SearchIDException e) {
+                throw new SearchIDException("Не удалось получить ID");
+            }
+        } catch (LoadException e) {
+            throw new LoadException("Не удалось загрузить страницу пользователя");
+        }
+    }
+
     protected User getFullInfoFromUserPage(String profileLink) {
         //Собираем всю информацию о пользователе с его страницы
         //и возвращаем в виде User
@@ -782,7 +864,6 @@ public class SeleniumWorker {
         User currentUser = new User(profileLink);
         if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
             //Содержит методы для выковыривания нужных данных из строки
-            HelpFunctionality hp = new HelpFunctionality();
 
             //Данные, которые нужно получить
             int profileID;
@@ -848,6 +929,26 @@ public class SeleniumWorker {
         return currentUser;
     }
 
+    public int getDefaultIDUserByPage() throws LoadException, SearchIDException {
+        try {
+            String wallXpath = "//*[@id=\"wall_tabs\"]/li[1]/a";
+            waitLoadElementExp(wallXpath);
+
+            String forProfileID = driver.findElement(By.xpath(wallXpath)).getAttribute("href");
+            System.out.println(forProfileID);
+
+            try {
+                return hp.getDefaultIDByWall(forProfileID);
+            } catch (SearchIDException e) {
+                throw new SearchIDException("Не удалось получить ID");
+            }
+
+        } catch (LoadException e) {
+            throw new LoadException("Не получить ID пользователя");
+        }
+
+    }
+
     private int findCountInfoFromPage(ConstVK typeCount) {
         //Вызывается со страницы пользрвателя
         int result = 0;
@@ -907,6 +1008,30 @@ public class SeleniumWorker {
         return waitLoadOfElementByXPath(BTN_IS_MY_FRIEND);
     }
 
+    //Методы для ветки чистого зла
+    public void addUserToFriendList(String pageLink) throws AddToFriendlistException {
+        driver.get(pageLink);
+        try {
+            //Подождем, пока страница пользователя прогрузится
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+
+            //Добавим в друзья и занесем в бд
+            try {
+                String btnAddToFriendsXPath = "//*[@id=\"friend_status\"]/div/button";
+                waitLoadElementExp(btnAddToFriendsXPath);
+                driver.findElement(By.xpath(btnAddToFriendsXPath)).click();
+                sleep(2);
+            } catch (LoadException e) {
+                //Не прогрузилась кнопка добавить в друзья
+                System.out.println(e.getMessage());
+                throw new AddToFriendlistException("Не удалось добавить в друзья");
+            }
+        } catch (LoadException e) {
+            //Не удалось загрузить страницу пользователя
+            System.out.println(e.getMessage());
+            throw new AddToFriendlistException("Не удалось добавить в друзья");
+        }
+    }
 
 }
 

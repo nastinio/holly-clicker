@@ -1,5 +1,7 @@
 package ru.nastinio;
 
+import ru.nastinio.Exceptions.SearchIDException;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -102,5 +104,30 @@ public class HelpFunctionality {
         }
 
         return id;
+    }
+
+    public int getDefaultIDByWall(String input) throws SearchIDException {
+        //https://vk.com/wall437245261?own=1
+        Pattern p1 = Pattern.compile("wall");
+        Matcher m1 = p1.matcher(input);
+
+        Pattern p2 = Pattern.compile("\\?");
+        Matcher m2 = p2.matcher(input);
+
+        if (m1.find() & m2.find()) {
+            input = input.substring(m1.end(),m2.start());
+            //System.out.println("Выковыряли: "+input);
+            try{
+                int id = Integer.parseInt(input);
+                //System.out.println("Получили число: '"+id+"'");
+                return id;
+            }catch (NumberFormatException e){
+                System.out.println("Ошибка в преобразовании строки "+input+" в int");
+                throw new SearchIDException("Ошибка в преобразовании типов");
+            }
+        }else{
+            throw new SearchIDException("Нет совпадений в строке поиска");
+        }
+
     }
 }
