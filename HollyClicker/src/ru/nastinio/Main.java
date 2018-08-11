@@ -10,8 +10,6 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
-        /*String log = "89110959954";
-        String pass = "Re3ytwsYtV0k0lws20";*/
 
         String log = "";
         String pass = "";
