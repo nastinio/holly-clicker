@@ -1,6 +1,8 @@
 package ru.nastinio;
 
 
+import ru.nastinio.Exceptions.SearchIDException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,17 +10,25 @@ import java.util.Date;
 public class Main {
 
     public static void main(String[] args) {
+        /*String log = "89110959954";
+        String pass = "Re3ytwsYtV0k0lws20";*/
+
         String log = "";
         String pass = "";
 
         String myProfileLink = "https://vk.com/id176464710";
 
 
+
         MainFunctionality mf = new MainFunctionality(log,pass);
         mf.setUpVK();
 
 
-        mf.addUserToFriendList("https://vk.com/id437245261");
+        //mf.getListPotentialFriendsByUserFriendList("https://vk.com/id455831615");
+
+        mf.checkRequestToFriend();
+
+
 
         /*//Собрали и записали в базу данных весь список друзей
         mf.setFullInfoListFriendsToDB(myProfileLink);

@@ -1,4 +1,4 @@
-package ru.nastinio;
+package ru.nastinio.Enums;
 
 public enum ConstVK {
 

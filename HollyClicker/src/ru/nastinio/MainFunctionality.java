@@ -1,6 +1,7 @@
 package ru.nastinio;
 
 import ru.nastinio.Exceptions.AddToFriendlistException;
+import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
 
 import java.text.SimpleDateFormat;
@@ -96,6 +97,52 @@ public class MainFunctionality {
         } catch (SearchIDException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    //Подготовим список для добавления в друзья
+    public void getListPotentialFriendsByUserFriendList(String profileLink){
+        ArrayList<User> list = selWork.getUserFriendList(profileLink);
+        for(int i=7;i<88;i++){
+            System.out.println("Начали обрабатывать");
+            list.get(i).display();
+            addUserToFriendList(list.get(i).getProfileLink());
+            selWork.sleep(30);
+        }
+    }
+
+    //Проверим заявки в друзья на подтверждение
+    public void checkRequestToFriend(){
+        ArrayList<User> list = dbWork.getAllPotentialFriends();
+        int count=0;
+        for(User user:list){
+            System.out.printf("Проверяем %d/%d\n",count++,list.size());
+            try{
+
+                switch (selWork.checkFriendStatusByLink(user.getProfileLink())){
+                    case 1:
+                        //Добавили в друзья
+                        dbWork.updateStatusRequest(user.getProfileID(),1);
+                        //Потом можно добавить код на стартовое сообщение
+                        break;
+                    case 0:
+                        break;
+                    case -1:
+                        //Отменили заявку
+                        dbWork.updateStatusRequest(user.getProfileID(),-1);
+                        //Добавить код на отписку
+                        break;
+                }
+            }catch (LoadException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    //Отправим сообщения подтвердившим заявку
+    public void writeMessageToPotentialFriend(){
+
+        selWork.writeMessageByLink("https://vk.com/id226361909","Йееей, я механический отправитель смайликов :)");
     }
 
 }

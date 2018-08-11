@@ -1,5 +1,7 @@
 package ru.nastinio;
 
+import ru.nastinio.Enums.SQLquery;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -198,6 +200,86 @@ public class DataBaseWorker {
 
     }
 
+    public ArrayList getAllPotentialFriends() {
+        ArrayList<User> listUsers = new ArrayList<>();
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+            String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.`current-request-to-friend-list`;";
+            stmt = connection.createStatement();
+            ResultSet resSet = stmt.executeQuery(SQL_SELECT);
+            while (resSet.next()) {
+                int profileID = resSet.getInt("user-id");
+                String profileLink = resSet.getString("user-profile-link");
+                String pageName = resSet.getString("user-name");
+
+                User tempUser = new User(profileID, profileLink, pageName);
+                listUsers.add(tempUser);
+            }
+
+            resSet.close();
+        } catch (Exception ex) {
+            //выводим наиболее значимые сообщения
+            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("-------------------------------");
+        } finally {
+            closeStatement();
+            closeConnection();
+        }
+
+        return listUsers;
+    }
+
+    public boolean updateStatusRequest(int profileID,int status){
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+            String SQL_UPDATE = "UPDATE `holly-clicker-db`.`current-request-to-friend-list` SET `status-answer`=? WHERE `user-id`=?";
+            pstmt = connection.prepareStatement(SQL_UPDATE);
+
+            pstmt.setInt(1,status);
+            pstmt.setInt(2, profileID);
+
+            pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            //выводим наиболее значимые сообщения
+            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("-------------------------------");
+        } finally {
+            closePreparedStatement();
+            closeConnection();
+        }
+
+        return true;
+    }
+
+    /*public void getPotentialFriends(SQLquery typeOfQuery){
+        ArrayList<User> listUsers = new ArrayList<>();
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+            String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.`current-request-to-friend-list`;";
+            stmt = connection.createStatement();
+            ResultSet resSet = stmt.executeQuery(SQL_SELECT);
+            while (resSet.next()) {
+                int profileID = resSet.getInt("user-id");
+                String profileLink = resSet.getString("user-profile-link");
+                String pageName = resSet.getString("user-name");
+
+                User tempUser = new User(profileID, profileLink, pageName);
+                listUsers.add(tempUser);
+            }
+
+            resSet.close();
+        } catch (Exception ex) {
+            //выводим наиболее значимые сообщения
+            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("-------------------------------");
+        } finally {
+            closeStatement();
+            closeConnection();
+        }
+
+        return listUsers;
+    }*/
 
     //Технические вспомогательные методы
     public boolean closeConnection() {

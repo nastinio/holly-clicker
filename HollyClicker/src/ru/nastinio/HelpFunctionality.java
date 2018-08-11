@@ -1,5 +1,6 @@
 package ru.nastinio;
 
+import ru.nastinio.Enums.ConstVK;
 import ru.nastinio.Exceptions.SearchIDException;
 
 import java.util.regex.Matcher;
@@ -126,7 +127,22 @@ public class HelpFunctionality {
                 throw new SearchIDException("Ошибка в преобразовании типов");
             }
         }else{
-            throw new SearchIDException("Нет совпадений в строке поиска");
+            Pattern p3 = Pattern.compile("wall");
+            Matcher m3 = p3.matcher(input);
+            if(m3.find()){
+                input = input.substring(m3.end(),input.length());
+                //System.out.println("Выковыряли: "+input);
+                try{
+                    int id = Integer.parseInt(input);
+                    //System.out.println("Получили число: '"+id+"'");
+                    return id;
+                }catch (NumberFormatException e){
+                    System.out.println("Ошибка в преобразовании строки "+input+" в int");
+                    throw new SearchIDException("Ошибка в преобразовании типов");
+                }
+            }else{
+                throw new SearchIDException("Нет совпадений в строке поиска");
+            }
         }
 
     }

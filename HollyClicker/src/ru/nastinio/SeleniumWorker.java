@@ -5,12 +5,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.nastinio.Enums.ConstVK;
 import ru.nastinio.Exceptions.AddToFriendlistException;
 import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.Random;
 
 public class SeleniumWorker {
@@ -993,19 +993,57 @@ public class SeleniumWorker {
 
     }
 
-    public boolean isMyFriendByPageLink(String pageLink) {
+    public boolean isMyFriendByPageLink(String pageLink)throws LoadException {
         driver.get(pageLink);
-        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
+        try{
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
             return isMyFriend();
-        } else {
-            System.out.println("Не удалось загрузить страницу пользователя");
+
+        }   catch (LoadException e){
+            throw new LoadException("Не удалось загрузить страницу пользователя");
         }
-        return false;
     }
 
     private boolean isMyFriend() {
-        String BTN_IS_MY_FRIEND = "//*[@id=\"friend_status\"]/div/span";
-        return waitLoadOfElementByXPath(BTN_IS_MY_FRIEND);
+        try{
+            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
+            waitLoadElementExp(btnActionsWithFriend);
+            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
+            return (msg.equalsIgnoreCase("У Вас в друзьях")|msg.equalsIgnoreCase("In your friend list") );
+        }catch (LoadException e){
+            throw new LoadException("Не удалось проверить статус");
+        }
+
+    }
+
+    public int checkFriendStatusByLink(String pageLink)throws LoadException{
+        driver.get(pageLink);
+        try{
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            return checkFriendStatusOnPage();
+        }catch (LoadException e){
+            throw new LoadException("checkFriendStatusByLink: не удалось загрузить страницу");
+        }
+
+    }
+    public int checkFriendStatusOnPage(){
+        try{
+            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
+            waitLoadElementExp(btnActionsWithFriend);
+            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
+            if (msg.equalsIgnoreCase("У Вас в друзьях")|msg.equalsIgnoreCase("In your friend list") ){
+                return 1;
+            }else {
+                if (msg.equalsIgnoreCase("Заявка отправлена")|msg.equalsIgnoreCase("Request sent") ){
+                    return 0;
+                }
+                else{
+                    return -1;
+                }
+            }
+        }catch (LoadException e){
+            throw new LoadException("Не удалось проверить статус");
+        }
     }
 
     //Методы для ветки чистого зла
@@ -1030,6 +1068,37 @@ public class SeleniumWorker {
             //Не удалось загрузить страницу пользователя
             System.out.println(e.getMessage());
             throw new AddToFriendlistException("Не удалось добавить в друзья");
+        }
+    }
+
+    //Написать сообщение
+    public void writeMessageByLink(String pageLink,String msg)throws LoadException{
+        driver.get(pageLink);
+        try{
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            writeMessageOnPage(msg);
+        }catch (LoadException e){
+            throw new LoadException("Не удалось загрузить страницу ");
+        }
+    }
+    public void writeMessageOnPage(String msg)throws LoadException{
+        try{
+            String btnWriteMsg = "//*[@id=\"profile_message_send\"]/div/a[1]/button";
+            waitLoadElementExp(btnWriteMsg);
+            driver.findElement(By.xpath(btnWriteMsg)).click();
+
+            try{
+                String textArea = "//*[@id=\"mail_box_editable\"]";
+                waitLoadElementExp(textArea);
+
+                driver.findElement(By.xpath(textArea)).sendKeys(msg);
+
+                driver.findElement(By.xpath("//*[@id=\"mail_box_send\"]")).click();
+            }catch (LoadException e){
+                throw new LoadException("Не загрузилось окно отправки сообщения");
+            }
+        }catch (LoadException e ){
+            throw new LoadException("Не удалось написать сообщение");
         }
     }
 
