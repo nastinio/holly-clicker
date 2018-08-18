@@ -824,6 +824,15 @@ public class SeleniumWorker {
         } else return false;
     }
 
+    public void openUserPage(String pageLink)throws LoadException{
+        driver.get(pageLink);
+        try {
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+        } catch (LoadException e) {
+            throw new LoadException("openUserPage: не удалось загрузить страницу пользователя");
+        }
+    }
+
 
     //Методы по заполнению полей User'а
     //Локаторы для получения ссылки поиска по дате и году рождения
@@ -945,6 +954,25 @@ public class SeleniumWorker {
 
     }
 
+    public String getUserCityByLink(String pageLink)throws LoadException{
+        driver.get(pageLink);
+        try {
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            return getUserCityOnPage();
+        } catch (LoadException e) {
+            throw new LoadException("getUserCityByLink: не удалось загрузить страницу пользователя");
+        }
+    }
+    public String getUserCityOnPage()throws LoadException{
+        try{
+            String cityXPath = "//*[@id=\"profile_short\"]/div/div[contains(@class,'labeled')]/a[contains(@href,'city')]";
+            waitLoadElementExp(cityXPath);
+            return driver.findElement(By.xpath(cityXPath)).getText();
+        }catch (LoadException e){
+            throw new LoadException("Нет информации о городе");
+        }
+    }
+
     private int findCountInfoFromPage(ConstVK typeCount) {
         //Вызывается со страницы пользрвателя
         int result = 0;
@@ -1022,7 +1050,6 @@ public class SeleniumWorker {
         }
 
     }
-
     public int checkFriendStatusOnPage() {
         try {
             String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
@@ -1042,7 +1069,7 @@ public class SeleniumWorker {
         }
     }
 
-    //Методы для ветки чистого зла
+    //Добавить в друзья
     public void addUserToFriendList(String pageLink) throws AddToFriendlistException {
         driver.get(pageLink);
         try {

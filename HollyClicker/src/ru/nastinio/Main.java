@@ -13,7 +13,6 @@ public class Main {
         MainFunctionality mf = new MainFunctionality(log, pass);
         mf.setUpVK();
 
-
         mf.writeMessageToGroupMembers("https://vk.com/pikabu");
 
         //mf.getListPotentialFriendsByUserFriendList("https://vk.com/id455831615");

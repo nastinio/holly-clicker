@@ -147,18 +147,34 @@ public class MainFunctionality {
 
     //Отправить сообщения участникам группы
     public void writeMessageToGroupMembers(String groupLink) {
-        try{
+        try {
             //Получим список участников группы
             ArrayList<String> listMembers = selWork.getListGroupMembers(groupLink, 100);
             //Параллельно будем писать сообщения и заносить инфу в бд
-            for(String currentMember:listMembers){
-                selWork.writeMessageByLink(currentMember,"Hello");
+            int i = 1;
+            for (String currentMember : listMembers) {
+                selWork.openUserPage(currentMember);
+
+                try {
+                    String currentUserCity = selWork.getUserCityOnPage();
+                    System.out.println("#" + i + ": " + currentUserCity);
+                    if (currentUserCity.equalsIgnoreCase("Санкт-Петербург")) {
+                        System.out.println("Чувак из Питера! Йеей!");
+                        //selWork.writeMessageByLink(currentMember,"Hello");
+                    }
+                } catch (LoadException e) {
+                    System.out.println("#" + i + ": " + "город не указан");
+                }
+                System.out.println("-------------------------------");
+                i++;
+
             }
 
-        }catch (LoadException e){
+        } catch (LoadException e) {
             System.out.println(e.getMessage());
         }
 
     }
+
 
 }
