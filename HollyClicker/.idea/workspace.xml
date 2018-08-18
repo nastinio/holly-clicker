@@ -12,14 +12,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="34">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -27,42 +25,29 @@
       <file leaf-file-name="MainFunctionality.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+            <state relative-caret-position="266">
+              <caret line="154" column="63" lean-forward="false" selection-start-line="154" selection-start-column="63" selection-end-line="154" selection-end-column="63" />
               <folding>
                 <element signature="e#2075#2076#0" expanded="true" />
                 <element signature="e#2118#2119#0" expanded="true" />
+                <element signature="method#checkRequestToFriend#0;class#MainFunctionality#0" expanded="false" />
+                <element signature="method#writeMessageToPotentialFriend#0;class#MainFunctionality#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HelpFunctionality.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="131" column="12" lean-forward="false" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getBDigit#0;class#HelpFunctionality#0" expanded="false" />
-                <element signature="method#getLastIntByPattern#0;class#HelpFunctionality#0" expanded="false" />
-                <element signature="method#testGetBDigit#0;class#HelpFunctionality#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SeleniumWorker.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SeleniumWorker.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
-              <caret line="1033" column="12" lean-forward="false" selection-start-line="1033" selection-start-column="12" selection-end-line="1033" selection-end-column="12" />
+            <state relative-caret-position="371">
+              <caret line="1101" column="48" lean-forward="true" selection-start-line="1101" selection-start-column="29" selection-end-line="1101" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7813#7814#0" expanded="true" />
-                <element signature="e#7847#7848#0" expanded="true" />
+                <element signature="e#8542#8543#0" expanded="true" />
+                <element signature="e#8576#8577#0" expanded="true" />
                 <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
@@ -80,17 +65,18 @@
                 <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#clickByXPath#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#isMyFriendByPageLink#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#checkFriendStatusByLink#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#checkFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -99,8 +85,8 @@
       <file leaf-file-name="DataBaseWorker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="254" column="6" lean-forward="false" selection-start-line="254" selection-start-column="4" selection-end-line="281" selection-end-column="7" />
+            <state relative-caret-position="238">
+              <caret line="21" column="36" lean-forward="false" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getAllUsers#0;class#DataBaseWorker#0" expanded="false" />
@@ -140,7 +126,7 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
+            <state relative-caret-position="425">
               <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
               <folding />
             </state>
@@ -214,10 +200,10 @@
         <option value="$PROJECT_DIR$/src/ru/nastinio/SQLquery.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/Enums/ConstVK.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/Enums/SQLquery.java" />
-        <option value="$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java" />
-        <option value="$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/Main.java" />
+        <option value="$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java" />
+        <option value="$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java" />
       </list>
     </option>
   </component>
@@ -228,7 +214,7 @@
     <option name="height" value="772" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -241,34 +227,7 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="HollyClicker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HollyClicker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HollyClicker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HollyClicker" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="HollyClicker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="HollyClicker" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="nastinio" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -339,11 +298,10 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39898133" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32767403" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -355,12 +313,13 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39898133" sideWeight="0.4969743" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="FLOATING" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -378,7 +337,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39898133" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -386,7 +345,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="FLOATING" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32767403" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32767403" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27912253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -419,10 +378,10 @@
           <caret line="389" column="24" lean-forward="false" selection-start-line="389" selection-start-column="24" selection-end-line="389" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7813#7814#0" expanded="true" />
-            <element signature="e#7847#7848#0" expanded="true" />
+            <element signature="e#8542#8543#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
             <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
@@ -440,17 +399,18 @@
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#clickByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#isMyFriendByPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -461,10 +421,10 @@
           <caret line="336" column="28" lean-forward="false" selection-start-line="336" selection-start-column="28" selection-end-line="336" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7813#7814#0" expanded="true" />
-            <element signature="e#7847#7848#0" expanded="true" />
+            <element signature="e#8542#8543#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
             <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
@@ -482,17 +442,18 @@
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#clickByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#isMyFriendByPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -548,10 +509,10 @@
           <caret line="246" column="0" lean-forward="true" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7813#7814#0" expanded="true" />
-            <element signature="e#7847#7848#0" expanded="true" />
+            <element signature="e#8542#8543#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
             <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
@@ -569,17 +530,18 @@
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#clickByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#isMyFriendByPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -597,10 +559,10 @@
           <caret line="54" column="12" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="58" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7813#7814#0" expanded="true" />
-            <element signature="e#7847#7848#0" expanded="true" />
+            <element signature="e#8542#8543#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
             <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
@@ -618,17 +580,18 @@
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#clickByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#isMyFriendByPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -670,10 +633,10 @@
           <caret line="78" column="50" lean-forward="false" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7813#7814#0" expanded="true" />
-            <element signature="e#7847#7848#0" expanded="true" />
+            <element signature="e#8542#8543#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
             <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
@@ -691,17 +654,18 @@
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#clickByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#isMyFriendByPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -796,10 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <element signature="e#195#196#0" expanded="true" />
-            <element signature="e#221#222#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -807,10 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="7" selection-end-column="5" />
-          <folding>
-            <element signature="e#173#174#0" expanded="true" />
-            <element signature="e#199#200#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -818,16 +774,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="1" lean-forward="false" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-          <folding>
-            <element signature="e#173#174#0" expanded="true" />
-            <element signature="e#199#200#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
+        <state relative-caret-position="425">
           <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
           <folding />
         </state>
@@ -835,7 +787,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
+        <state relative-caret-position="1139">
           <caret line="131" column="12" lean-forward="false" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -854,59 +806,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="119" column="0" lean-forward="false" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
-          <folding>
-            <element signature="e#2075#2076#0" expanded="true" />
-            <element signature="e#2118#2119#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="1033" column="12" lean-forward="false" selection-start-line="1033" selection-start-column="12" selection-end-line="1033" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7813#7814#0" expanded="true" />
-            <element signature="e#7847#7848#0" expanded="true" />
-            <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#clickByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/SQLquery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -917,8 +816,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="254" column="6" lean-forward="false" selection-start-line="254" selection-start-column="4" selection-end-line="281" selection-end-column="7" />
+        <state relative-caret-position="238">
+          <caret line="21" column="36" lean-forward="false" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getAllUsers#0;class#DataBaseWorker#0" expanded="false" />
@@ -936,10 +835,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="154" column="63" lean-forward="false" selection-start-line="154" selection-start-column="63" selection-end-line="154" selection-end-column="63" />
+          <folding>
+            <element signature="e#2075#2076#0" expanded="true" />
+            <element signature="e#2118#2119#0" expanded="true" />
+            <element signature="method#checkRequestToFriend#0;class#MainFunctionality#0" expanded="false" />
+            <element signature="method#writeMessageToPotentialFriend#0;class#MainFunctionality#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="1101" column="48" lean-forward="true" selection-start-line="1101" selection-start-column="29" selection-end-line="1101" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#8542#8543#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
+            <element signature="method#getHostFriendList#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getStartInfoUserPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getFullInfoFromUserPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#findCountInfoFromPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#isMyFriendByPageLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#isMyFriend#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#checkFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>

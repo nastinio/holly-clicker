@@ -86,13 +86,13 @@ public class MainFunctionality {
 
 
     //Добавление в друзья
-    public void addUserToFriendList(String pageLink){
+    public void addUserToFriendList(String pageLink) {
         //Сначала добавим в друзья на сайте, если успешно - занесем в бд
         try {
             selWork.addUserToFriendList(pageLink);
             User currentUser = selWork.getStartInfoUserPage(pageLink);
-            dbWork.insertUserToCurrentRequestToFriendList(currentUser,1);
-        }catch(AddToFriendlistException e){
+            dbWork.insertUserToCurrentRequestToFriendList(currentUser, 1);
+        } catch (AddToFriendlistException e) {
             System.out.println(e.getMessage());
         } catch (SearchIDException e) {
             System.out.println(e.getMessage());
@@ -100,9 +100,9 @@ public class MainFunctionality {
     }
 
     //Подготовим список для добавления в друзья
-    public void getListPotentialFriendsByUserFriendList(String profileLink){
+    public void getListPotentialFriendsByUserFriendList(String profileLink) {
         ArrayList<User> list = selWork.getUserFriendList(profileLink);
-        for(int i=7;i<88;i++){
+        for (int i = 7; i < 88; i++) {
             System.out.println("Начали обрабатывать");
             list.get(i).display();
             addUserToFriendList(list.get(i).getProfileLink());
@@ -111,28 +111,28 @@ public class MainFunctionality {
     }
 
     //Проверим заявки в друзья на подтверждение
-    public void checkRequestToFriend(){
+    public void checkRequestToFriend() {
         ArrayList<User> list = dbWork.getAllPotentialFriends();
-        int count=0;
-        for(User user:list){
-            System.out.printf("Проверяем %d/%d\n",count++,list.size());
-            try{
+        int count = 0;
+        for (User user : list) {
+            System.out.printf("Проверяем %d/%d\n", count++, list.size());
+            try {
 
-                switch (selWork.checkFriendStatusByLink(user.getProfileLink())){
+                switch (selWork.checkFriendStatusByLink(user.getProfileLink())) {
                     case 1:
                         //Добавили в друзья
-                        dbWork.updateStatusRequest(user.getProfileID(),1);
+                        dbWork.updateStatusRequest(user.getProfileID(), 1);
                         //Потом можно добавить код на стартовое сообщение
                         break;
                     case 0:
                         break;
                     case -1:
                         //Отменили заявку
-                        dbWork.updateStatusRequest(user.getProfileID(),-1);
+                        dbWork.updateStatusRequest(user.getProfileID(), -1);
                         //Добавить код на отписку
                         break;
                 }
-            }catch (LoadException e){
+            } catch (LoadException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -140,9 +140,25 @@ public class MainFunctionality {
     }
 
     //Отправим сообщения подтвердившим заявку
-    public void writeMessageToPotentialFriend(){
+    public void writeMessageToPotentialFriend() {
 
-        selWork.writeMessageByLink("https://vk.com/id226361909","Йееей, я механический отправитель смайликов :)");
+        selWork.writeMessageByLink("https://vk.com/id226361909", "Йееей, я механический отправитель смайликов :)");
+    }
+
+    //Отправить сообщения участникам группы
+    public void writeMessageToGroupMembers(String groupLink) {
+        try{
+            //Получим список участников группы
+            ArrayList<String> listMembers = selWork.getListGroupMembers(groupLink, 100);
+            //Параллельно будем писать сообщения и заносить инфу в бд
+            for(String currentMember:listMembers){
+                selWork.writeMessageByLink(currentMember,"Hello");
+            }
+
+        }catch (LoadException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

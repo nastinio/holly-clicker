@@ -1,6 +1,7 @@
 package ru.nastinio;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +12,7 @@ import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class SeleniumWorker {
@@ -99,6 +101,7 @@ public class SeleniumWorker {
 
         try {
             driver = new FirefoxDriver();
+            //sleep(5);
             wait = new WebDriverWait(driver, 5);
         } catch (org.openqa.selenium.WebDriverException we) {
             System.out.println("Ошибка в конструкторе SeleniumWorker");
@@ -140,9 +143,25 @@ public class SeleniumWorker {
                 System.out.println("hostID      : "+hostID);*/
                 return true;
             } else {
-                System.out.println("Ошибка входа. Неверный пароль/логин");
-                System.out.println("Result: false");
-                return false;
+                //Вручную введем капчу
+                sleep(100);
+                if (waitLoadOfElementByTypeOfElementXPath(ConstVK.HOST_USER_PAGE)) {
+                    System.out.println("Result authorization: true");
+                    sleep(2);
+
+               /* //Заполним личные данные, что пригодятся потом
+                hostPageLink = driver.getCurrentUrl();
+                System.out.println("hostPageLink: "+hostPageLink);
+
+                hostID = searchHostID();
+                System.out.println("hostID      : "+hostID);*/
+                    return true;
+                } else {
+                    System.out.println("Ошибка входа. Неверный пароль/логин");
+                    System.out.println("Result: false");
+                    return false;
+                }
+
             }
         } else {
             System.out.println("Ошибка загрузки стартовой страницы");
@@ -792,29 +811,6 @@ public class SeleniumWorker {
         }
     }
 
-    public boolean clickByXPath(String xpath) {
-        System.out.println(separator);
-        if (waitLoadOfElementByXPath(xpath)) {
-            try {
-                WebElement tempElement = driver.findElement(By.xpath(xpath));
-                tempElement.click();
-                System.out.println("Result clickByXPath: true");
-                System.out.println(separator);
-                return true;
-            } catch (WebDriverException e) {
-                System.out.println("Ошибка в clickByXPath");
-                System.out.println(e.getMessage());
-                System.out.println(separator);
-                return false;
-            }
-        } else {
-            System.out.println("Элемент не найден");
-            System.out.println(separator);
-            return false;
-        }
-
-    }
-
     public void scrollPageToBottom() {
         JavascriptExecutor javascript = (JavascriptExecutor) driver;
         javascript.executeScript("window.scrollTo(0, document.body.scrollHeight)", "");
@@ -834,7 +830,7 @@ public class SeleniumWorker {
     private final String BDAY_AND_BMONTH_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[1]";
     private final String BYEAR_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[2]";
 
-    public User getStartInfoUserPage(String profileLink) throws SearchIDException,LoadException {
+    public User getStartInfoUserPage(String profileLink) throws SearchIDException, LoadException {
         //Получим минимальную необходимую информацию о пользователе: ID, name, link
         driver.get(profileLink);
         try {
@@ -844,7 +840,7 @@ public class SeleniumWorker {
                 int profileID = getDefaultIDUserByPage();
                 String pageName = driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
 
-                User currentUser = new User(profileID,profileLink,pageName);
+                User currentUser = new User(profileID, profileLink, pageName);
                 return currentUser;
 
             } catch (LoadException e) {
@@ -993,55 +989,55 @@ public class SeleniumWorker {
 
     }
 
-    public boolean isMyFriendByPageLink(String pageLink)throws LoadException {
+    public boolean isMyFriendByPageLink(String pageLink) throws LoadException {
         driver.get(pageLink);
-        try{
+        try {
             waitLoadElementByTypeExp(ConstVK.USER_PAGE);
             return isMyFriend();
 
-        }   catch (LoadException e){
+        } catch (LoadException e) {
             throw new LoadException("Не удалось загрузить страницу пользователя");
         }
     }
 
     private boolean isMyFriend() {
-        try{
+        try {
             String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
             waitLoadElementExp(btnActionsWithFriend);
             String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
-            return (msg.equalsIgnoreCase("У Вас в друзьях")|msg.equalsIgnoreCase("In your friend list") );
-        }catch (LoadException e){
+            return (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list"));
+        } catch (LoadException e) {
             throw new LoadException("Не удалось проверить статус");
         }
 
     }
 
-    public int checkFriendStatusByLink(String pageLink)throws LoadException{
+    public int checkFriendStatusByLink(String pageLink) throws LoadException {
         driver.get(pageLink);
-        try{
+        try {
             waitLoadElementByTypeExp(ConstVK.USER_PAGE);
             return checkFriendStatusOnPage();
-        }catch (LoadException e){
+        } catch (LoadException e) {
             throw new LoadException("checkFriendStatusByLink: не удалось загрузить страницу");
         }
 
     }
-    public int checkFriendStatusOnPage(){
-        try{
+
+    public int checkFriendStatusOnPage() {
+        try {
             String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
             waitLoadElementExp(btnActionsWithFriend);
             String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
-            if (msg.equalsIgnoreCase("У Вас в друзьях")|msg.equalsIgnoreCase("In your friend list") ){
+            if (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list")) {
                 return 1;
-            }else {
-                if (msg.equalsIgnoreCase("Заявка отправлена")|msg.equalsIgnoreCase("Request sent") ){
+            } else {
+                if (msg.equalsIgnoreCase("Заявка отправлена") | msg.equalsIgnoreCase("Request sent")) {
                     return 0;
-                }
-                else{
+                } else {
                     return -1;
                 }
             }
-        }catch (LoadException e){
+        } catch (LoadException e) {
             throw new LoadException("Не удалось проверить статус");
         }
     }
@@ -1072,34 +1068,79 @@ public class SeleniumWorker {
     }
 
     //Написать сообщение
-    public void writeMessageByLink(String pageLink,String msg)throws LoadException{
+    public void writeMessageByLink(String pageLink, String msg) throws LoadException {
         driver.get(pageLink);
-        try{
+        try {
             waitLoadElementByTypeExp(ConstVK.USER_PAGE);
             writeMessageOnPage(msg);
-        }catch (LoadException e){
+        } catch (LoadException e) {
             throw new LoadException("Не удалось загрузить страницу ");
         }
     }
-    public void writeMessageOnPage(String msg)throws LoadException{
-        try{
+    public void writeMessageOnPage(String msg) throws LoadException {
+        try {
             String btnWriteMsg = "//*[@id=\"profile_message_send\"]/div/a[1]/button";
             waitLoadElementExp(btnWriteMsg);
             driver.findElement(By.xpath(btnWriteMsg)).click();
 
-            try{
+            try {
                 String textArea = "//*[@id=\"mail_box_editable\"]";
                 waitLoadElementExp(textArea);
 
                 driver.findElement(By.xpath(textArea)).sendKeys(msg);
 
                 driver.findElement(By.xpath("//*[@id=\"mail_box_send\"]")).click();
-            }catch (LoadException e){
+            } catch (LoadException e) {
                 throw new LoadException("Не загрузилось окно отправки сообщения");
             }
-        }catch (LoadException e ){
+        } catch (LoadException e) {
             throw new LoadException("Не удалось написать сообщение");
         }
+    }
+
+    //Получить список ссылок на страницы участников группы
+    public ArrayList<String> getListGroupMembers(String groupLink,int numberMembersTotal) throws LoadException {
+        driver.get(groupLink);
+        try {
+            String membersXpath = "//*[@id=\"public_followers\"]/a/div/span[1]";    //XPath кнопки для получения списка участников группы
+            waitLoadElementExp(membersXpath);
+            driver.findElement(By.xpath(membersXpath)).click();
+            try {
+                //Получим общее число подписчиков
+                //Сравним с запрашиваемым числом
+
+                //Добавим подписчиков в список
+                String memberLinkXPath = "//*[@id=\"fans_rowsmembers\"]/div[contains(@class,'fans_fan_row')]/div[contains(@class,'fans_fan_name')]/a";
+                waitLoadElementExp(memberLinkXPath);
+
+                ArrayList<String> listMembersLink = new ArrayList<>(numberMembersTotal);
+
+                int k = 0;
+                while (k < numberMembersTotal) {
+                    List<WebElement> listMembersWebEl = driver.findElements(By.xpath(memberLinkXPath));
+                    int numberMembersOnBlock = 60;      //Первоначально отображается 60 подписчиков, затем добавляется по 30
+                    if(k==numberMembersOnBlock){
+                       numberMembersOnBlock = 30;
+                    }
+                    for (int i = 0; i < numberMembersOnBlock && k<numberMembersTotal; i++) {
+                        //System.out.println("#" + k + " " + listMembersWebEl.get(k).getAttribute("href"));//driver.findElement(By.xpath(memberLinkXPath)).getText());
+                        listMembersLink.add(listMembersWebEl.get(k).getAttribute("href"));
+                        k++;
+                    }
+                    String btnScroll = "//*[@id=\"fans_more_linkmembers\"]";
+                    driver.findElement(By.xpath(btnScroll)).click();
+
+                }
+
+                return listMembersLink;
+
+            } catch (LoadException e) {
+                throw new LoadException("Не удалось загрузить участников группы");
+            }
+        } catch (LoadException e) {
+            throw new LoadException("Не удалось загрузить страницу группы");
+        }
+
     }
 
 }
