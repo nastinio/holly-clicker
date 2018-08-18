@@ -1,30 +1,24 @@
 package ru.nastinio;
 
 
-import ru.nastinio.Exceptions.SearchIDException;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Main {
 
     public static void main(String[] args) {
 
-        String log = "";
-        String pass = "";
+        
 
         String myProfileLink = "https://vk.com/id176464710";
 
 
-
-        MainFunctionality mf = new MainFunctionality(log,pass);
+        MainFunctionality mf = new MainFunctionality(log, pass);
         mf.setUpVK();
 
 
+        mf.writeMessageToGroupMembers("https://vk.com/pikabu");
+
         //mf.getListPotentialFriendsByUserFriendList("https://vk.com/id455831615");
 
-        mf.checkRequestToFriend();
+        //mf.checkRequestToFriend();
 
 
 
@@ -76,7 +70,6 @@ public class Main {
         //selWork.likeProfilePhoto(tempUser.getProfileLink());
 
         //selWork.likeSeveralPhotos(profileLink);
-
 
 
     }
