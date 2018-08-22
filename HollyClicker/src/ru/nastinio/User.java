@@ -1,47 +1,69 @@
 package ru.nastinio;
 
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Date;
+
 public class User {
 
     private int profileID;              //Исходный ID пользователя
     private String profileLink;         //Текущая ссылка на профиль
     private String pageName;            //Имя профиля
+    private String hostProfileLink;     //Пользователь, который работал в системе
 
     //Информация о дне рождения
-    private int bday = 0;
+    /*private int bday = 0;
     private int bmonth = 0;
-    private int byear = 0;
+    private int byear = 0;*/
+    private String dateBirth = "0000-00-00";
+    private int age = 0;
 
-    //Вспомогательные штуки
-    private int numberAllFriends = 0;
-    private int numberCommonFriends = 0;
-    private int numberFollowers = 0;
-    private boolean isMyFriend = false;
+    private String city = null;         //Текущий город
 
-    public User(String profileLink) {
-        this.profileLink = profileLink;
-    }
+    //Вспомогательные метки
+    private String dateRequest = null;
+    private boolean wasSentRequestToFriend = false;
+    private int statusRequestAnswer = 0;                //-1 отклонил заявку, 0 - не ответил на заявку, 1 - добавил в друзья
+    private boolean wasSentStartMsg = false;
+    private String comment = null;
 
-    public User(int profileID,String profileLink,String profileName){
+    private int countFriends = 0;
+    private int countCommonFriends = 0;
+    private int countFollowers = 0;
+
+    //Конструктор с необходимым минимумом
+    public User(int profileID, String profileLink, String profileName) {
         this.profileID = profileID;
-        this.profileLink =profileLink;
+        this.profileLink = profileLink;
         this.pageName = profileName;
     }
 
+    //Подпорка
     public User(String profileLink, String pageName) {
         this.profileLink = profileLink;
         this.pageName = pageName;
     }
 
-
-    public User(String profileLink, String pageName, int profileID, int bday, int bmonth, int byear, int numberAllFriends) {
+    //Полный для работы с бд
+    public User(int profileID, String profileLink, String pageName, String hostProfileLink, String dateBirth, String city, String dateRequest,
+                boolean wasSentRequestToFriend, int statusRequestAnswer, boolean wasSentStartMsg, String comment, int countFriends, int countCommonFriends, int countFollowers) {
+        this.profileID = profileID;
         this.profileLink = profileLink;
         this.pageName = pageName;
-        this.profileID = profileID;
-        this.bday = bday;
-        this.bmonth = bmonth;
-        this.byear = byear;
-        this.numberAllFriends = numberAllFriends;
+        this.hostProfileLink = hostProfileLink;
+        this.dateBirth=dateBirth;
+        this.age = calculateAge();
+        this.city = city;
+        this.dateRequest = dateRequest;
+        this.wasSentRequestToFriend = wasSentRequestToFriend;
+        this.statusRequestAnswer = statusRequestAnswer;
+        this.wasSentStartMsg = wasSentStartMsg;
+        this.comment = comment;
+        this.countFriends = countFriends;
+        this.countCommonFriends = countCommonFriends;
+        this.countFollowers = countFollowers;
     }
 
     public void display() {
@@ -49,12 +71,48 @@ public class User {
         System.out.println("Page name:      " + pageName);
         System.out.println("Profile link:   " + profileLink);
         System.out.println("Profile ID:     " + profileID);
-        System.out.println("Is my friend:   " + isMyFriend);
-        System.out.printf("Birthday:       %d.%d.%d\n", bday, bmonth, byear);
-        System.out.println("All friends:    " + numberAllFriends);
-        System.out.println("Common friends: " + numberCommonFriends);
-        System.out.println("Followers:      " + numberFollowers);
+        System.out.println("Is my friend:   " + statusRequestAnswer);
+        System.out.println("Birthday:       " + dateBirth);
+        System.out.println("Age:            " + age);
+        System.out.println("City:           " + city);
+        System.out.println("----------------");
+        System.out.println("Was sent start message: " + wasSentStartMsg);
+        System.out.println("Comment:                " + comment);
+        /*System.out.println("All friends:    " + countFriends);
+        System.out.println("Common friends: " + countCommonFriends);
+        System.out.println("Followers:      " + countFollowers);*/
         System.out.println("--------------------------------------");
+    }
+
+    public int calculateAge() {
+        int byear = Integer.parseInt(dateBirth.substring(0,4));
+        int bmonth = Integer.parseInt(dateBirth.substring(5,7));
+        int bday = Integer.parseInt(dateBirth.substring(8,dateBirth.length()));
+        LocalDate currentDate = LocalDate.now();
+        if(byear==0){
+            return 0;
+        }else{
+            if(bmonth==0){
+                return currentDate.getYear()-byear;
+            }else{
+                if(bday == 0){
+                    return currentDate.getYear()-byear;
+                }else{
+                    LocalDate birthDate = LocalDate.of(byear, bmonth, bday);
+                    return Period.between(birthDate, currentDate).getYears();
+                }
+            }
+        }
+    }
+
+
+    //Геттеры и сеттеры
+    public int getProfileID() {
+        return profileID;
+    }
+
+    public void setProfileID(int profileID) {
+        this.profileID = profileID;
     }
 
     public String getProfileLink() {
@@ -73,68 +131,99 @@ public class User {
         this.pageName = pageName;
     }
 
-    public int getBday() {
-        return bday;
+    public String getHostProfileLink() {
+        return hostProfileLink;
     }
 
-    public void setBday(int bday) {
-        this.bday = bday;
+    public void setHostProfileLink(String hostProfileLink) {
+        this.hostProfileLink = hostProfileLink;
     }
 
-    public int getBmonth() {
-        return bmonth;
+    public int getAge() {
+        return age;
     }
 
-    public void setBmonth(int bmonth) {
-        this.bmonth = bmonth;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public int getByear() {
-        return byear;
+    public String getCity() {
+        return city;
     }
 
-    public void setByear(int byear) {
-        this.byear = byear;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public int getNumberAllFriends() {
-        return numberAllFriends;
+    public String getDateRequest() {
+        return dateRequest;
     }
 
-    public void setNumberAllFriends(int numberAllFriends) {
-        this.numberAllFriends = numberAllFriends;
+    public void setDateRequest(String dateRequest) {
+        this.dateRequest = dateRequest;
     }
 
-
-    public int getProfileID() {
-        return profileID;
+    public boolean wasSentRequestToFriend() {
+        return wasSentRequestToFriend;
     }
 
-    public void setProfileID(int profileID) {
-        this.profileID = profileID;
+    public void setWasSentRequestToFriend(boolean wasSentRequestToFriend) {
+        this.wasSentRequestToFriend = wasSentRequestToFriend;
     }
 
-    public int getNumberCommonFriends() {
-        return numberCommonFriends;
+    public int getStatusRequestAnswer() {
+        return statusRequestAnswer;
     }
 
-    public void setNumberCommonFriends(int numberCommonFriends) {
-        this.numberCommonFriends = numberCommonFriends;
+    public void setStatusRequestAnswer(int statusRequestAnswer) {
+        this.statusRequestAnswer = statusRequestAnswer;
     }
 
-    public int getNumberFollowers() {
-        return numberFollowers;
+    public boolean wasSentStartMsg() {
+        return wasSentStartMsg;
     }
 
-    public void setNumberFollowers(int numberFollowers) {
-        this.numberFollowers = numberFollowers;
+    public void setWasSentStartMsg(boolean wasSentStartMsg) {
+        this.wasSentStartMsg = wasSentStartMsg;
     }
 
-    public boolean isMyFriend() {
-        return isMyFriend;
+    public String getComment() {
+        return comment;
     }
 
-    public void setIsMyFriend(boolean myFriend) {
-        isMyFriend = myFriend;
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getCountFriends() {
+        return countFriends;
+    }
+
+    public void setCountFriends(int countFriends) {
+        this.countFriends = countFriends;
+    }
+
+    public int getCountCommonFriends() {
+        return countCommonFriends;
+    }
+
+    public void setCountCommonFriends(int countCommonFriends) {
+        this.countCommonFriends = countCommonFriends;
+    }
+
+    public int getCountFollowers() {
+        return countFollowers;
+    }
+
+    public void setCountFollowers(int countFollowers) {
+        this.countFollowers = countFollowers;
+    }
+
+    public String getDateBirth() {
+        return dateBirth;
+    }
+
+    public void setDateBirth(String dateBirth) {
+        this.dateBirth = dateBirth;
     }
 }

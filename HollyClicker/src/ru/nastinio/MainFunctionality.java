@@ -6,7 +6,6 @@ import ru.nastinio.Exceptions.SearchIDException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainFunctionality {
 
@@ -47,7 +46,7 @@ public class MainFunctionality {
     }
 
 
-    public void setFullInfoListFriendsToDB(String pageLink) {
+    /*public void setFullInfoListFriendsToDB(String pageLink) {
         //Проход по всем друзьям пользователя и запись в бд
         ArrayList<User> listFriendsShortInfo = selWork.getUserFriendList(pageLink);
         //ArrayList<User> listFriendsFullInfo = new ArrayList<>();
@@ -62,11 +61,9 @@ public class MainFunctionality {
             System.out.println("======================================");
             count++;
         }
-    }
+    }*/
 
-    public ArrayList<User> getListFriendsFromDB() {
-        return dbWork.getAllUsers();
-    }
+
 
     public void printListFriend(ArrayList<User> list) {
         for (User currentUser : list) {
@@ -74,7 +71,7 @@ public class MainFunctionality {
         }
     }
 
-    public void getLikesAllFriends(int numberLikesForEachUser) {
+    /*public void getLikesAllFriends(int numberLikesForEachUser) {
         ArrayList<User> listUsers = dbWork.getAllUsers();
         for (User currentUser : listUsers) {
             selWork.likeSeveralPostsOnPage(currentUser.getProfileLink(), numberLikesForEachUser);
@@ -82,7 +79,7 @@ public class MainFunctionality {
             System.out.println("Пролайкали " + currentUser.getPageName() + " и обновили дату в базе");
             System.out.println("======================================================================");
         }
-    }
+    }*/
 
 
     //Добавление в друзья
@@ -90,8 +87,8 @@ public class MainFunctionality {
         //Сначала добавим в друзья на сайте, если успешно - занесем в бд
         try {
             selWork.addUserToFriendList(pageLink);
-            User currentUser = selWork.getStartInfoUserPage(pageLink);
-            dbWork.insertUserToCurrentRequestToFriendList(currentUser, 1);
+            User currentUser = selWork.getStartInfoUserByPage(pageLink);
+            //dbWork.insertUserToCurrentRequestToFriendList(currentUser, 1);
         } catch (AddToFriendlistException e) {
             System.out.println(e.getMessage());
         } catch (SearchIDException e) {
@@ -110,7 +107,7 @@ public class MainFunctionality {
         }
     }
 
-    //Проверим заявки в друзья на подтверждение
+    /*//Проверим заявки в друзья на подтверждение
     public void checkRequestToFriend() {
         ArrayList<User> list = dbWork.getAllPotentialFriends();
         int count = 0;
@@ -118,7 +115,7 @@ public class MainFunctionality {
             System.out.printf("Проверяем %d/%d\n", count++, list.size());
             try {
 
-                switch (selWork.checkFriendStatusByLink(user.getProfileLink())) {
+                switch (selWork.getFriendStatusByPage(user.getProfileLink())) {
                     case 1:
                         //Добавили в друзья
                         dbWork.updateStatusRequest(user.getProfileID(), 1);
@@ -137,7 +134,7 @@ public class MainFunctionality {
             }
         }
 
-    }
+    }*/
 
     //Отправим сообщения подтвердившим заявку
     public void writeMessageToPotentialFriend() {
@@ -160,7 +157,11 @@ public class MainFunctionality {
                     System.out.println("#" + i + ": " + currentUserCity);
                     if (currentUserCity.equalsIgnoreCase("Санкт-Петербург")) {
                         System.out.println("Чувак из Питера! Йеей!");
+
+                        User temp = selWork.getFullInfoFromUserOnPage(currentMember);
                         //selWork.writeMessageByLink(currentMember,"Hello");
+                        dbWork.insertUserToPotentialFriendsList(temp);
+
                     }
                 } catch (LoadException e) {
                     System.out.println("#" + i + ": " + "город не указан");

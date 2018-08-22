@@ -38,7 +38,7 @@ public class HelpFunctionality {
                 if (matcher.find()) {
                     input = input.substring(0,matcher.start());
                 }else{
-                    System.out.println("No match found");
+                    //System.out.println("No match found");
                 }
                 pattern = patternBDay;
                 break;
@@ -62,10 +62,36 @@ public class HelpFunctionality {
                 System.out.println("Ошибка в преобразовании строки "+resultStr+" в int");
             }
         }else{
-            System.out.println("No match found");
+            //System.out.println("No match found");
         }
 
         return result;
+    }
+
+    public String getDayAndMonthStr(String bdayAndMonthLink){
+        int day = getBDigit(bdayAndMonthLink, ConstVK.BDAY);
+        int month = getBDigit(bdayAndMonthLink, ConstVK.BMONTH);
+        String result = "-00-00";
+        if(month!=0 ){
+            if(month<=9){
+                result = "-0"+month;
+            }else{
+                result = "-"+String.valueOf(month);
+            }
+        }else{
+            result = "-00";
+        }
+        if(day!=0 ){
+            if(day<=9){
+                result += "-0"+day;
+            }else{
+                result += "-"+String.valueOf(day);
+            }
+        }else{
+            result += "-00";
+        }
+        return result;
+
     }
 
     private void testGetBDigit(){
@@ -109,6 +135,7 @@ public class HelpFunctionality {
 
     public int getDefaultIDByWall(String input) throws SearchIDException {
         //https://vk.com/wall437245261?own=1
+        //https://vk.com/wall437245261
         Pattern p1 = Pattern.compile("wall");
         Matcher m1 = p1.matcher(input);
 

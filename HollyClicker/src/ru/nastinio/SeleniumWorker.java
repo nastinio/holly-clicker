@@ -1,7 +1,6 @@
 package ru.nastinio;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +10,9 @@ import ru.nastinio.Exceptions.AddToFriendlistException;
 import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +25,7 @@ public class SeleniumWorker {
 
     private final String VK_URL = "https://vk.com/";
     private String hostPageLink;
-    private int hostID;
+    //private int hostID;
 
     //Элементы для авторизации
     protected final String LOGIN_PANEL_XPATH = "//*[@id=\"index_login_form\"]";   //Вся панель авторизации
@@ -80,8 +81,6 @@ public class SeleniumWorker {
     //Общее количество друзей
     protected final String NUMBER_OF_FRIENDS_ON_PAGE_LIST_FRIENDS = "//*[@id=\"friends_tab_all\"]/a/span";
     protected final String NUMBER_OF_FRIENDS_ON_USER_PAGE = "//*[@id=\"wide_column\"]/div[1]/div[2]/a[2]/div[1]";
-    //*[@id="wide_column"]/div[1]/div[2]/a[1]/div[1]
-    //*[@id="wide_column"]/div[1]/div[2]/a[2]/div[1]
 
     //Просто полезный пирожок для наглядности
     protected String separator = "=============================================";
@@ -135,12 +134,8 @@ public class SeleniumWorker {
                 System.out.println("Result authorization: true");
                 sleep(2);
 
-               /* //Заполним личные данные, что пригодятся потом
-                hostPageLink = driver.getCurrentUrl();
-                System.out.println("hostPageLink: "+hostPageLink);
-
-                hostID = searchHostID();
-                System.out.println("hostID      : "+hostID);*/
+                //Заполним личные данные, что пригодятся потом
+                hostPageLink = findHostPageLink();
                 return true;
             } else {
                 //Вручную введем капчу
@@ -149,12 +144,9 @@ public class SeleniumWorker {
                     System.out.println("Result authorization: true");
                     sleep(2);
 
-               /* //Заполним личные данные, что пригодятся потом
-                hostPageLink = driver.getCurrentUrl();
-                System.out.println("hostPageLink: "+hostPageLink);
+                    //Заполним личные данные, что пригодятся потом
+                    hostPageLink = findHostPageLink();
 
-                hostID = searchHostID();
-                System.out.println("hostID      : "+hostID);*/
                     return true;
                 } else {
                     System.out.println("Ошибка входа. Неверный пароль/логин");
@@ -170,12 +162,25 @@ public class SeleniumWorker {
         }
 
     }
+    public String findHostPageLink()throws LoadException{
+        try{
+            String btnMyPageXPath = "//*[@id=\"l_pr\"]/a/span/span[3]";
+            driver.findElement(By.xpath(btnMyPageXPath)).click();
+            try{
+                waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+                return driver.getCurrentUrl();
+            }catch (LoadException e){
+                throw new LoadException("Не удалось загрузить рабочую страницу");
+            }
+        }catch (LoadException e){
+            throw new LoadException("Не удалось найти кнопку 'Моя страница'");
+        }
 
 
-    public int getHostID() {
-        return this.hostID;
     }
-
+    public String getHostPageLink() {
+        return hostPageLink;
+    }
 
     //Методы, связанные с работой со списками друзей
     public ArrayList<User> getHostFriendList() {
@@ -824,7 +829,7 @@ public class SeleniumWorker {
         } else return false;
     }
 
-    public void openUserPage(String pageLink)throws LoadException{
+    public void openUserPage(String pageLink) throws LoadException {
         driver.get(pageLink);
         try {
             waitLoadElementByTypeExp(ConstVK.USER_PAGE);
@@ -834,107 +839,128 @@ public class SeleniumWorker {
     }
 
 
-    //Методы по заполнению полей User'а
-    //Локаторы для получения ссылки поиска по дате и году рождения
-    private final String BDAY_AND_BMONTH_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[1]";
-    private final String BYEAR_LINK = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[2]";
 
-    public User getStartInfoUserPage(String profileLink) throws SearchIDException, LoadException {
+    //Методы по заполнению полей User'а
+    public User getStartInfoUserByPage(String profileLink) throws SearchIDException, LoadException {
         //Получим минимальную необходимую информацию о пользователе: ID, name, link
         driver.get(profileLink);
         try {
             waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            return getStartInfoUserOnPage(profileLink);
+        } catch (LoadException e) {
+            throw new LoadException("Не удалось загрузить страницу пользователя");
+        }
+    }
+    public User getStartInfoUserOnPage(String profileLink) throws LoadException,SearchIDException{
+        try {
+            int profileID = getDefaultIDUserOnPage();
+            String pageName = getUserNameOnPage();
 
-            try {
-                int profileID = getDefaultIDUserByPage();
-                String pageName = driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
+            User currentUser = new User(profileID, profileLink, pageName);
+            return currentUser;
 
-                User currentUser = new User(profileID, profileLink, pageName);
-                return currentUser;
+        } catch (LoadException e) {
+            throw new LoadException("Не получить минимальную необходимую информацию о пользователе");
+        } catch (SearchIDException e) {
+            throw new SearchIDException("Не удалось получить ID");
+        }
+    }
 
-            } catch (LoadException e) {
-                throw new LoadException("Не получить ID пользователя");
-            } catch (SearchIDException e) {
-                throw new SearchIDException("Не удалось получить ID");
+    public User getFullInfoFromUserOnPage(String pageLink) throws LoadException{
+        try{
+            User temp = getStartInfoUserByPage(pageLink);
+            try{
+                temp.setHostProfileLink(getHostPageLink());
+            }catch (LoadException e){
+                //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить hostPageLink");
+                e.printStackTrace();
             }
+            try{
+                temp.setDateBirth(getUserDateBirthOnPage());
+                temp.setAge(temp.calculateAge());
+            }catch (LoadException e){
+                //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить dateBirthday");
+                e.printStackTrace();
+            }
+            try{
+                temp.setCity(getUserCityOnPage());
+            }catch (LoadException e){
+                //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить city");
+                e.printStackTrace();
+            }
+            try{
+                temp.setStatusRequestAnswer(getFriendStatusOnPage());
+            }catch (LoadException e){
+                //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить StatusRequestAnswer");
+                e.printStackTrace();
+            }
+            try{
+                temp.setCountFriends(getCountInfoUserOnPage(ConstVK.COUNT_ALL_FRIENDS));
+            }catch (LoadException e){
+                //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить CountAllFriends");
+                e.printStackTrace();
+            }
+            try{
+                temp.setCountCommonFriends(getCountInfoUserOnPage(ConstVK.COUNT_COMMON_FRIENDS));
+            }catch (LoadException e){
+                //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить CountCommonFriends");
+                e.printStackTrace();
+            }
+            try{
+                temp.setCountFollowers(getCountInfoUserOnPage(ConstVK.COUNT_FOLLOWERS));
+            }catch (LoadException e){
+                //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить CountFollowers");
+                e.printStackTrace();
+            }
+
+            SimpleDateFormat formatForDateNow = new SimpleDateFormat("YYYY-MM-dd");
+            String currentDate = formatForDateNow.format(new Date());
+            temp.setDateRequest(currentDate);
+
+            return temp;
+        }catch (LoadException e){
+            e.printStackTrace();
+            throw new LoadException("getFullInfoFromUserOnPage:LoadException: не удалось получить необходитую минимальную информацию о пользователе");
+        } catch (SearchIDException e) {
+            throw new LoadException("getFullInfoFromUserOnPage:SearchIDException: не удалось получить необходитую минимальную информацию о пользователе");
+        }
+    }
+    public User getFullInfoFromUserByPage(String pageLink) throws LoadException{
+        try{
+            openUserPage(pageLink);
+            return getFullInfoFromUserOnPage(pageLink);
+        }catch (LoadException e){
+            throw new LoadException("getFullInfoFromUserByPage: не удалось загрузить страницу пользователя");
+        }
+    }
+
+    //Получаем имя пользователя
+    public String getUserNameOnPage()throws LoadException{
+        try{
+            return driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
+        }catch (LoadException e){
+            throw new LoadException("Не удалось получить имя пользователя");
+        }
+    }
+    public String getUserNameByPage(String pageLink)throws LoadException{
+        try {
+            openUserPage(pageLink);
+            return getUserNameOnPage();
         } catch (LoadException e) {
             throw new LoadException("Не удалось загрузить страницу пользователя");
         }
     }
 
-    protected User getFullInfoFromUserPage(String profileLink) {
-        //Собираем всю информацию о пользователе с его страницы
-        //и возвращаем в виде User
-        driver.get(profileLink);
-        User currentUser = new User(profileLink);
-        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
-            //Содержит методы для выковыривания нужных данных из строки
-
-            //Данные, которые нужно получить
-            int profileID;
-            int bday = 0;
-            int bmonth = 0;
-            int byear = 0;
-            int countAllFriends = 0;
-            int countCommonFriends = 0;
-            int countFollowers = 0;
-
-            //Получим имя страницы
-            String pageName = driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
-            currentUser.setPageName(pageName);
-
-            //Получим исходный ID пользователя
-            //XPath новостей пользователя. Из ссылки выковыряем настоящий ID
-            String PROFILE_ID_LINK_XPATH = "//*[@id=\"profile_friends\"]/a[1]";
-            if (waitLoadOfElementByXPath(PROFILE_ID_LINK_XPATH)) {
-                String forProfileID = driver.findElement(By.xpath(PROFILE_ID_LINK_XPATH)).getAttribute("href");
-                System.out.println("Ссыль с упоминанием настоящего ID: " + forProfileID);
-                profileID = hp.getDefaultID(forProfileID);
-                if (profileID != 0) {
-                    currentUser.setProfileID(profileID);
-                }
-
-            }
-
-            //Получим количественные данные
-            currentUser.setNumberCommonFriends(findCountInfoFromPage(ConstVK.COUNT_COMMON_FRIENDS));
-            currentUser.setNumberAllFriends(findCountInfoFromPage(ConstVK.COUNT_ALL_FRIENDS));
-            currentUser.setNumberFollowers(findCountInfoFromPage(ConstVK.COUNT_FOLLOWERS));
-
-            //Получим дату рождения
-            if (waitLoadOfElementByXPath(BDAY_AND_BMONTH_LINK)) {
-                String bdayAndMonthLink = driver.findElement(By.xpath(BDAY_AND_BMONTH_LINK)).getAttribute("href");
-                //System.out.println(bdayAndMonthLink);
-                bday = hp.getBDigit(bdayAndMonthLink, ConstVK.BDAY);
-                bmonth = hp.getBDigit(bdayAndMonthLink, ConstVK.BMONTH);
-            } else {
-                System.out.println("Число и месяц рождения не указаны");
-            }
-            currentUser.setBday(bday);
-            currentUser.setBmonth(bmonth);
-
-            if (waitLoadOfElementByXPath(BYEAR_LINK)) {
-                String byearLink = driver.findElement(By.xpath(BYEAR_LINK)).getAttribute("href");
-                byear = hp.getBDigit(byearLink, ConstVK.BYEAR);
-            } else {
-                System.out.println("Год рождения не указан");
-            }
-            currentUser.setByear(byear);
-
-
-            //Проверим, есть ли в списке друзей
-            currentUser.setIsMyFriend(isMyFriend());
-
-        } else {
-            System.out.println("Не удалось загрузить страницу пользователя: " + profileLink);
-            System.out.println(separator);
+    //Получаем исходный ID пользователя
+    public int getDefaultIDUserByPage(String pageLink) throws LoadException, SearchIDException {
+        try {
+            openUserPage(pageLink);
+            return getDefaultIDUserOnPage();
+        } catch (LoadException e) {
+            throw new LoadException("Не удалось загрузить страницу пользователя");
         }
-
-        //currentUser.display();
-        return currentUser;
     }
-
-    public int getDefaultIDUserByPage() throws LoadException, SearchIDException {
+    public int getDefaultIDUserOnPage() throws LoadException, SearchIDException {
         try {
             String wallXpath = "//*[@id=\"wall_tabs\"]/li[1]/a";
             waitLoadElementExp(wallXpath);
@@ -954,7 +980,8 @@ public class SeleniumWorker {
 
     }
 
-    public String getUserCityByLink(String pageLink)throws LoadException{
+    //Получаем текущий город пользователя
+    public String getUserCityByLink(String pageLink) throws LoadException {
         driver.get(pageLink);
         try {
             waitLoadElementByTypeExp(ConstVK.USER_PAGE);
@@ -963,17 +990,119 @@ public class SeleniumWorker {
             throw new LoadException("getUserCityByLink: не удалось загрузить страницу пользователя");
         }
     }
-    public String getUserCityOnPage()throws LoadException{
-        try{
+    public String getUserCityOnPage() throws LoadException {
+        try {
             String cityXPath = "//*[@id=\"profile_short\"]/div/div[contains(@class,'labeled')]/a[contains(@href,'city')]";
             waitLoadElementExp(cityXPath);
             return driver.findElement(By.xpath(cityXPath)).getText();
-        }catch (LoadException e){
+        } catch (LoadException e) {
             throw new LoadException("Нет информации о городе");
         }
     }
 
-    private int findCountInfoFromPage(ConstVK typeCount) {
+    //Получаем дату пользователя
+    public String getUserDateBirthByPage(String pageLink) throws LoadException {
+        driver.get(pageLink);
+        try {
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            return getUserDateBirthOnPage();
+        } catch (LoadException e) {
+            throw new LoadException("getUserDateBirthByPage: не удалось загрузить страницу пользователя");
+        }
+    }
+    public String getUserDateBirthOnPage()throws LoadException{
+        //Получим дату рождения
+        String dayAndMonthLinkXPath = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[1]";
+        String yearLinkXPath = "//*[@id=\"profile_short\"]/div[1]/div[2]/a[2]";
+
+        String dateOfBirth = null;
+
+        try{
+            waitLoadElementExp(yearLinkXPath);
+            String byearLink = driver.findElement(By.xpath(yearLinkXPath)).getAttribute("href");
+            int byear = hp.getBDigit(byearLink, ConstVK.BYEAR);
+            dateOfBirth = String.valueOf(byear);
+        }catch (LoadException e){
+            dateOfBirth = "0000";
+        }
+        try{
+            waitLoadElementExp(dayAndMonthLinkXPath);
+            String bdayAndMonthLink = driver.findElement(By.xpath(dayAndMonthLinkXPath)).getAttribute("href");
+            dateOfBirth += hp.getDayAndMonthStr(bdayAndMonthLink);
+
+            /*int bday = hp.getBDigit(bdayAndMonthLink, ConstVK.BDAY);
+            int bmonth = hp.getBDigit(bdayAndMonthLink, ConstVK.BMONTH);*/
+        }catch (LoadException e){
+            dateOfBirth += "-00-00";
+            //throw new LoadException("Не удалось загрузить ссылку для дня и месяца рождения");
+        }
+        return dateOfBirth;
+
+    }
+
+    //Получаем статус заявки в друзья пользователя
+    public int getFriendStatusByPage(String pageLink) throws LoadException {
+        driver.get(pageLink);
+        try {
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            return getFriendStatusOnPage();
+        } catch (LoadException e) {
+            throw new LoadException("getFriendStatusByPage: не удалось загрузить страницу");
+        }
+
+    }
+    public int getFriendStatusOnPage() {
+        try {
+            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
+            waitLoadElementExp(btnActionsWithFriend);
+            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
+            if (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list")) {
+                return 1;
+            } else {
+                if (msg.equalsIgnoreCase("Заявка отправлена") | msg.equalsIgnoreCase("Request sent")) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        } catch (LoadException e) {
+            throw new LoadException("Не удалось проверить статус");
+        }
+    }
+    public boolean isMyFriendByPage(String pageLink) throws LoadException {
+        driver.get(pageLink);
+        try {
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            return isMyFriendOnPage();
+
+        } catch (LoadException e) {
+            throw new LoadException("Не удалось загрузить страницу пользователя");
+        }
+    }
+    private boolean isMyFriendOnPage() {
+        try {
+            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
+            waitLoadElementExp(btnActionsWithFriend);
+            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
+            return (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list"));
+        } catch (LoadException e) {
+            throw new LoadException("Не удалось проверить статус");
+        }
+
+    }
+
+    //Получаем информацию и количестве друзей/подписчиков
+    public int getCountInfoUserByPage(String pageLink, ConstVK typeCount) throws LoadException {
+        driver.get(pageLink);
+        try {
+            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
+            return getCountInfoUserOnPage(typeCount);
+        } catch (LoadException e) {
+            throw new LoadException("getCountInfoUserByPage: не удалось загрузить страницу");
+        }
+
+    }
+    private int getCountInfoUserOnPage(ConstVK typeCount) {
         //Вызывается со страницы пользрвателя
         int result = 0;
         //Панель со всеми счетчиками страницы: кол-во друзей, подписчиков, общих друзей
@@ -1017,57 +1146,8 @@ public class SeleniumWorker {
 
     }
 
-    public boolean isMyFriendByPageLink(String pageLink) throws LoadException {
-        driver.get(pageLink);
-        try {
-            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
-            return isMyFriend();
 
-        } catch (LoadException e) {
-            throw new LoadException("Не удалось загрузить страницу пользователя");
-        }
-    }
 
-    private boolean isMyFriend() {
-        try {
-            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
-            waitLoadElementExp(btnActionsWithFriend);
-            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
-            return (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list"));
-        } catch (LoadException e) {
-            throw new LoadException("Не удалось проверить статус");
-        }
-
-    }
-
-    public int checkFriendStatusByLink(String pageLink) throws LoadException {
-        driver.get(pageLink);
-        try {
-            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
-            return checkFriendStatusOnPage();
-        } catch (LoadException e) {
-            throw new LoadException("checkFriendStatusByLink: не удалось загрузить страницу");
-        }
-
-    }
-    public int checkFriendStatusOnPage() {
-        try {
-            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
-            waitLoadElementExp(btnActionsWithFriend);
-            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
-            if (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list")) {
-                return 1;
-            } else {
-                if (msg.equalsIgnoreCase("Заявка отправлена") | msg.equalsIgnoreCase("Request sent")) {
-                    return 0;
-                } else {
-                    return -1;
-                }
-            }
-        } catch (LoadException e) {
-            throw new LoadException("Не удалось проверить статус");
-        }
-    }
 
     //Добавить в друзья
     public void addUserToFriendList(String pageLink) throws AddToFriendlistException {
@@ -1126,7 +1206,7 @@ public class SeleniumWorker {
     }
 
     //Получить список ссылок на страницы участников группы
-    public ArrayList<String> getListGroupMembers(String groupLink,int numberMembersTotal) throws LoadException {
+    public ArrayList<String> getListGroupMembers(String groupLink, int numberMembersTotal) throws LoadException {
         driver.get(groupLink);
         try {
             String membersXpath = "//*[@id=\"public_followers\"]/a/div/span[1]";    //XPath кнопки для получения списка участников группы
@@ -1146,10 +1226,10 @@ public class SeleniumWorker {
                 while (k < numberMembersTotal) {
                     List<WebElement> listMembersWebEl = driver.findElements(By.xpath(memberLinkXPath));
                     int numberMembersOnBlock = 60;      //Первоначально отображается 60 подписчиков, затем добавляется по 30
-                    if(k==numberMembersOnBlock){
-                       numberMembersOnBlock = 30;
+                    if (k == numberMembersOnBlock) {
+                        numberMembersOnBlock = 30;
                     }
-                    for (int i = 0; i < numberMembersOnBlock && k<numberMembersTotal; i++) {
+                    for (int i = 0; i < numberMembersOnBlock && k < numberMembersTotal; i++) {
                         //System.out.println("#" + k + " " + listMembersWebEl.get(k).getAttribute("href"));//driver.findElement(By.xpath(memberLinkXPath)).getText());
                         listMembersLink.add(listMembersWebEl.get(k).getAttribute("href"));
                         k++;

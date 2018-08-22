@@ -32,31 +32,42 @@ public class DataBaseWorker {
         }
     }
 
-    public void insertUser(User user) {
+    //Для работы с таблицей потенциальных друзей
+    public void insertUserToPotentialFriendsList(User user) {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`user` " +
-                    "(`id-user`, `page-link`, `page-name`, `bday`, `bmonth`, `byear`, `date-last-checking`,`number-friends`,`number-common-friends`," +
-                    "`number-followers`,`is-my-friend`)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`potential-friends-list` (`host-profile-link`, " +
+                    "`user-id`, `user-profile-link`, `user-name`, `user-birthday`, `user-age`, `user-city`, " +
+                    "`date-request`, `was-sent-request-to-friend`, `status-request-answer`, `was-sent-start-msg`, `comment`," +
+                    "`count-friends`, `count-common-friends`, `count-followers`)" +
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
             pstmt = connection.prepareStatement(SQL_INSERT);
 
-            pstmt.setInt(1, user.getProfileID());
-            pstmt.setString(2, user.getProfileLink());
-            pstmt.setString(3, user.getPageName());
-            pstmt.setInt(4, user.getBday());
-            pstmt.setInt(5, user.getBmonth());
-            pstmt.setInt(6, user.getByear());
-            pstmt.setDate(7, null);
-            pstmt.setInt(8, user.getNumberAllFriends());
-            pstmt.setInt(9, user.getNumberCommonFriends());
-            pstmt.setInt(10, user.getNumberFollowers());
-            pstmt.setBoolean(11, user.isMyFriend());
+            pstmt.setString(1, user.getHostProfileLink());
+
+            pstmt.setInt(2, user.getProfileID());
+            pstmt.setString(3, user.getProfileLink());
+            pstmt.setString(4, user.getPageName());
+
+            //pstmt.setString(5,user.getBirthday());
+            pstmt.setString(5,null);
+            pstmt.setInt(6, user.getAge());
+            pstmt.setString(7, user.getCity());
+
+            pstmt.setString(8, user.getDateRequest());
+
+            pstmt.setBoolean(9, user.wasSentRequestToFriend());
+            pstmt.setInt(10, 0);
+            pstmt.setInt(11, 0);
+
+            pstmt.setString(12, user.getComment());
+
+            pstmt.setInt(13, user.getCountFriends());
+            pstmt.setInt(14, user.getCountCommonFriends());
+            pstmt.setInt(15, user.getCountFollowers());
 
             pstmt.executeUpdate();
-
-            //Обновить запись
-            //statement.executeUpdate("UPDATE users SET username = 'admin' where id = 1");
 
 
         } catch (Exception ex) {
@@ -70,28 +81,20 @@ public class DataBaseWorker {
 
     }
 
-    public ArrayList getAllUsers() {
+    public ArrayList getAllFromPotentialFriendsList() {
         ArrayList<User> listUsers = new ArrayList<>();
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.user";
+            String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.`potential-friends-list`;";
             stmt = connection.createStatement();
             ResultSet resSet = stmt.executeQuery(SQL_SELECT);
             while (resSet.next()) {
-                int profileID = resSet.getInt("id-user");
-                String profileLink = resSet.getString("page-link");
-                String pageName = resSet.getString("page-name");
-                ;
-                int bday = resSet.getInt("bday");
-                int bmonth = resSet.getInt("bmonth");
-                int byear = resSet.getInt("byear");
-                int numberOfFriends = resSet.getInt("number-friends");
+                int profileID = resSet.getInt("user-id");
+                String profileLink = resSet.getString("user-profile-link");
+                String pageName = resSet.getString("user-name");
 
-                User tempUser = new User(profileLink, pageName, profileID, bday, bmonth, byear, numberOfFriends);
+                User tempUser = new User(profileID, profileLink, pageName);
                 listUsers.add(tempUser);
-
-                /*System.out.println("Номер в выборке #" + resSet.getRow() + "\t Номер в базе #" + resSet.getInt("id-user")
-                        + "\t" + resSet.getString("page-name"));*/
             }
 
             resSet.close();
@@ -107,7 +110,31 @@ public class DataBaseWorker {
         return listUsers;
     }
 
-    public boolean deleteUser(User user) {
+    public boolean updateStatusRequest(int profileID, int status) {
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+            String SQL_UPDATE = "UPDATE `holly-clicker-db`.`current-request-to-friend-list` SET `status-answer`=? WHERE `user-id`=?";
+            pstmt = connection.prepareStatement(SQL_UPDATE);
+
+            pstmt.setInt(1, status);
+            pstmt.setInt(2, profileID);
+
+            pstmt.executeUpdate();
+
+        } catch (Exception ex) {
+            //выводим наиболее значимые сообщения
+            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("-------------------------------");
+        } finally {
+            closePreparedStatement();
+            closeConnection();
+        }
+
+        return true;
+    }
+
+
+    /*public boolean deleteUser(User user) {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
             String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`user` " +
@@ -162,123 +189,6 @@ public class DataBaseWorker {
 
         return true;
 
-    }
-
-
-    //Для работы с таблицей потенциальных друзей
-    public void insertUserToCurrentRequestToFriendList(User user, int hostID) {
-        try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`current-request-to-friend-list` " +
-                    "(`host-id`, `user-id`,`user-profile-link`, `user-name`, `date-request`, `status-request`, `status-answer`)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?);";
-
-            pstmt = connection.prepareStatement(SQL_INSERT);
-
-            pstmt.setInt(1, hostID);
-            pstmt.setInt(2, user.getProfileID());
-            pstmt.setString(3, user.getProfileLink());
-            pstmt.setString(4, user.getPageName());
-
-            SimpleDateFormat formatForDateNow = new SimpleDateFormat("YYYY-MM-dd");
-            String currentDate = formatForDateNow.format(new Date());
-            pstmt.setString(5, currentDate);
-            pstmt.setInt(6, 1);
-            pstmt.setInt(7, 0);
-
-            pstmt.executeUpdate();
-
-
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
-        } finally {
-            closePreparedStatement();
-            closeConnection();
-        }
-
-    }
-
-    public ArrayList getAllPotentialFriends() {
-        ArrayList<User> listUsers = new ArrayList<>();
-        try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.`current-request-to-friend-list`;";
-            stmt = connection.createStatement();
-            ResultSet resSet = stmt.executeQuery(SQL_SELECT);
-            while (resSet.next()) {
-                int profileID = resSet.getInt("user-id");
-                String profileLink = resSet.getString("user-profile-link");
-                String pageName = resSet.getString("user-name");
-
-                User tempUser = new User(profileID, profileLink, pageName);
-                listUsers.add(tempUser);
-            }
-
-            resSet.close();
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
-        } finally {
-            closeStatement();
-            closeConnection();
-        }
-
-        return listUsers;
-    }
-
-    public boolean updateStatusRequest(int profileID,int status){
-        try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_UPDATE = "UPDATE `holly-clicker-db`.`current-request-to-friend-list` SET `status-answer`=? WHERE `user-id`=?";
-            pstmt = connection.prepareStatement(SQL_UPDATE);
-
-            pstmt.setInt(1,status);
-            pstmt.setInt(2, profileID);
-
-            pstmt.executeUpdate();
-
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
-        } finally {
-            closePreparedStatement();
-            closeConnection();
-        }
-
-        return true;
-    }
-
-    /*public void getPotentialFriends(SQLquery typeOfQuery){
-        ArrayList<User> listUsers = new ArrayList<>();
-        try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.`current-request-to-friend-list`;";
-            stmt = connection.createStatement();
-            ResultSet resSet = stmt.executeQuery(SQL_SELECT);
-            while (resSet.next()) {
-                int profileID = resSet.getInt("user-id");
-                String profileLink = resSet.getString("user-profile-link");
-                String pageName = resSet.getString("user-name");
-
-                User tempUser = new User(profileID, profileLink, pageName);
-                listUsers.add(tempUser);
-            }
-
-            resSet.close();
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
-        } finally {
-            closeStatement();
-            closeConnection();
-        }
-
-        return listUsers;
     }*/
 
     //Технические вспомогательные методы

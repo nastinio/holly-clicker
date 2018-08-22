@@ -1,14 +1,14 @@
 package ru.nastinio;
 
 
+import ru.nastinio.Exceptions.LoadException;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        
-
-        String myProfileLink = "https://vk.com/id176464710";
-
+        String log = "";
+        String pass = "";
 
         MainFunctionality mf = new MainFunctionality(log, pass);
         mf.setUpVK();
@@ -74,4 +74,44 @@ public class Main {
     }
 
 
+}
+
+class Testing {
+    public static void main(String[] args) {
+        String log = "";
+        String pass = "";
+
+        Testing t = new Testing();
+        t.testGetFullInfoFromUserByPage(log,pass);
+
+    }
+
+    public void testGetFullInfoFromUserByPage(String log,String pass){
+        SeleniumWorker sw = new SeleniumWorker();
+        sw.authorization(log, pass);
+
+        DataBaseWorker db = new DataBaseWorker();
+
+        String[] list = {"https://vk.com/birarov", "https://vk.com/amzk1","https://vk.com/id499251069"};
+        for (String temp:list) {
+            try{
+                User u = sw.getFullInfoFromUserOnPage(temp);
+                u.display();
+                db.insertUserToPotentialFriendsList(u);
+            }catch (LoadException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void testGetUserDateBirthday() {
+        String log = "89110959954";
+        String pass = "Re3ytwsYtV0k0lws30";
+        SeleniumWorker sw = new SeleniumWorker();
+        sw.authorization(log, pass);
+
+        System.out.println(sw.getUserDateBirthByPage("https://vk.com/lenulychka")); //без года
+        System.out.println(sw.getUserDateBirthByPage("https://vk.com/feed_forward")); //без даты
+        System.out.println(sw.getUserDateBirthByPage("https://vk.com/id226361909")); //норм
+    }
 }
