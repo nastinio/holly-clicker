@@ -888,12 +888,17 @@ public class SeleniumWorker {
                 //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить city");
                 e.printStackTrace();
             }
-            try{
-                temp.setStatusRequestAnswer(getFriendStatusOnPage());
+            /*try{
+                if(isMyFriendOnPage()){
+                    temp.setStatusRequestAnswer(1);
+                }else{
+                    temp.setStatusRequestAnswer(getFriendStatusOnPage());
+                }
+
             }catch (LoadException e){
                 //throw new LoadException("getFullInfoFromUserOnPage: не удалось получить StatusRequestAnswer");
                 e.printStackTrace();
-            }
+            }*/
             try{
                 temp.setCountFriends(getCountInfoUserOnPage(ConstVK.COUNT_ALL_FRIENDS));
             }catch (LoadException e){
@@ -1041,55 +1046,52 @@ public class SeleniumWorker {
     }
 
     //Получаем статус заявки в друзья пользователя
-    public int getFriendStatusByPage(String pageLink) throws LoadException {
-        driver.get(pageLink);
-        try {
-            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
-            return getFriendStatusOnPage();
-        } catch (LoadException e) {
-            throw new LoadException("getFriendStatusByPage: не удалось загрузить страницу");
-        }
-
-    }
-    public int getFriendStatusOnPage() {
-        try {
-            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
-            waitLoadElementExp(btnActionsWithFriend);
-            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
-            if (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list")) {
-                return 1;
-            } else {
-                if (msg.equalsIgnoreCase("Заявка отправлена") | msg.equalsIgnoreCase("Request sent")) {
-                    return 0;
-                } else {
-                    return -1;
-                }
+    public int getFriendStatusByPage(String pageLink)throws LoadException{
+        try{
+            openUserPage(pageLink);
+            try{
+                return getFriendStatusOnPage();
+            }catch (LoadException e){
+                throw e;
             }
-        } catch (LoadException e) {
-            throw new LoadException("Не удалось проверить статус");
+        }catch (LoadException e){
+            throw new LoadException("getFriendStatusByPage: не удалось загрузить страницу пользователя");
         }
     }
-    public boolean isMyFriendByPage(String pageLink) throws LoadException {
-        driver.get(pageLink);
+    public int getFriendStatusOnPage()throws LoadException{
+        /*
+        * -2 - отлонил заявку
+        * -1 - не ответил на заявку
+        *  0 - не отправляли заявку
+        *  1 - друг
+        * */
         try {
-            waitLoadElementByTypeExp(ConstVK.USER_PAGE);
-            return isMyFriendOnPage();
-
+            String btnAddToFriend = "//*[@id=\"friend_status\"]/div/button";
+            waitLoadElementExp(btnAddToFriend);
+            //Кнопка 'Добавить в друзья' активна, возвращаем 0
+            return 0;
         } catch (LoadException e) {
-            throw new LoadException("Не удалось загрузить страницу пользователя");
+            //Кнопка 'Добавить в друзья' не активна
+            try {
+                String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
+                waitLoadElementExp(btnActionsWithFriend);
+                String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
+                System.out.println("getFriendStatusOnPage: msg from button: " + msg);
+                if (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list")) {
+                    return 1;
+                } else {
+                    if (msg.equalsIgnoreCase("Заявка отправлена") | msg.equalsIgnoreCase("Request sent")) {
+                        return -1;
+                    } else {
+                        return -2;
+                    }
+                }
+            } catch (LoadException ee) {
+                throw new LoadException("Не удалось проверить статус");
+            }
         }
     }
-    private boolean isMyFriendOnPage() {
-        try {
-            String btnActionsWithFriend = "//*[@id=\"friend_status\"]/div[contains(@class,'flat_button button_wide secondary page_actions_btn')]/span";
-            waitLoadElementExp(btnActionsWithFriend);
-            String msg = driver.findElement(By.xpath(btnActionsWithFriend)).getText();
-            return (msg.equalsIgnoreCase("У Вас в друзьях") | msg.equalsIgnoreCase("In your friend list"));
-        } catch (LoadException e) {
-            throw new LoadException("Не удалось проверить статус");
-        }
 
-    }
 
     //Получаем информацию и количестве друзей/подписчиков
     public int getCountInfoUserByPage(String pageLink, ConstVK typeCount) throws LoadException {
