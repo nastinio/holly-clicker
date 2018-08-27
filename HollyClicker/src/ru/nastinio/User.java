@@ -1,10 +1,8 @@
 package ru.nastinio;
 
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 
 public class User {
 
@@ -25,7 +23,7 @@ public class User {
     //Вспомогательные метки
     private String dateRequest = null;
     private boolean wasSentRequestToFriend = false;
-    private int statusRequestAnswer = 0;                //-1 отклонил заявку, 0 - не ответил на заявку, 1 - добавил в друзья
+    private int statusFriend = 0;                //-2 отклонил заявку, -1 - не ответил на заявку, 1 - добавил в друзья, 0 - не добавляли в друзья
     private boolean wasSentStartMsg = false;
     private String comment = null;
 
@@ -40,15 +38,15 @@ public class User {
         this.pageName = profileName;
     }
 
-    //Подпорка
+    /*//Подпорка
     public User(String profileLink, String pageName) {
         this.profileLink = profileLink;
         this.pageName = pageName;
-    }
+    }*/
 
     //Полный для работы с бд
     public User(int profileID, String profileLink, String pageName, String hostProfileLink, String dateBirth, String city, String dateRequest,
-                boolean wasSentRequestToFriend, int statusRequestAnswer, boolean wasSentStartMsg, String comment, int countFriends, int countCommonFriends, int countFollowers) {
+                boolean wasSentRequestToFriend, int statusFriend, boolean wasSentStartMsg, String comment, int countFriends, int countCommonFriends, int countFollowers) {
         this.profileID = profileID;
         this.profileLink = profileLink;
         this.pageName = pageName;
@@ -58,7 +56,7 @@ public class User {
         this.city = city;
         this.dateRequest = dateRequest;
         this.wasSentRequestToFriend = wasSentRequestToFriend;
-        this.statusRequestAnswer = statusRequestAnswer;
+        this.statusFriend = statusFriend;
         this.wasSentStartMsg = wasSentStartMsg;
         this.comment = comment;
         this.countFriends = countFriends;
@@ -71,23 +69,39 @@ public class User {
         System.out.println("Page name:      " + pageName);
         System.out.println("Profile link:   " + profileLink);
         System.out.println("Profile ID:     " + profileID);
-        System.out.println("Is my friend:   " + statusRequestAnswer);
+        System.out.println("Is my friend:   " + statusFriend);
         System.out.println("Birthday:       " + dateBirth);
         System.out.println("Age:            " + age);
         System.out.println("City:           " + city);
         System.out.println("----------------");
         System.out.println("Was sent start message: " + wasSentStartMsg);
         System.out.println("Comment:                " + comment);
-        /*System.out.println("All friends:    " + countFriends);
+        System.out.println("All friends:    " + countFriends);
         System.out.println("Common friends: " + countCommonFriends);
-        System.out.println("Followers:      " + countFollowers);*/
+        System.out.println("Followers:      " + countFollowers);
         System.out.println("--------------------------------------");
     }
 
     public int calculateAge() {
-        int byear = Integer.parseInt(dateBirth.substring(0,4));
-        int bmonth = Integer.parseInt(dateBirth.substring(5,7));
-        int bday = Integer.parseInt(dateBirth.substring(8,dateBirth.length()));
+        System.out.println("Получили на вход в calculateAge: " + dateBirth);
+        if(dateBirth==null|dateBirth.equalsIgnoreCase("0000-00-00")){
+            return 0;
+        }
+        int byear = 0;
+        int bmonth = 0;
+        int bday =0;
+        try{
+            byear = Integer.parseInt(dateBirth.substring(0,4));
+        }catch (NumberFormatException e){
+            byear = 0;
+        }
+        try{
+            bmonth = Integer.parseInt(dateBirth.substring(5,7));
+        }catch (NumberFormatException e){}
+        try{
+            bday = Integer.parseInt(dateBirth.substring(8,dateBirth.length()));
+        }catch (NumberFormatException e){}
+
         LocalDate currentDate = LocalDate.now();
         if(byear==0){
             return 0;
@@ -171,12 +185,17 @@ public class User {
         this.wasSentRequestToFriend = wasSentRequestToFriend;
     }
 
-    public int getStatusRequestAnswer() {
-        return statusRequestAnswer;
+    public int getStatusFriend() {
+        return statusFriend;
     }
 
-    public void setStatusRequestAnswer(int statusRequestAnswer) {
-        this.statusRequestAnswer = statusRequestAnswer;
+    public void setStatusFriend(int statusFriend) {
+        this.statusFriend = statusFriend;
+        if(statusFriend==0){
+            wasSentRequestToFriend = false;
+        }else{
+            wasSentRequestToFriend =true;
+        }
     }
 
     public boolean wasSentStartMsg() {
@@ -225,5 +244,6 @@ public class User {
 
     public void setDateBirth(String dateBirth) {
         this.dateBirth = dateBirth;
+        this.age = calculateAge();
     }
 }

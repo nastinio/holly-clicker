@@ -12,21 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainFunctionality.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainFunctionality.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="161" column="26" lean-forward="false" selection-start-line="161" selection-start-column="26" selection-end-line="161" selection-end-column="26" />
+            <state relative-caret-position="334">
+              <caret line="169" column="25" lean-forward="false" selection-start-line="169" selection-start-column="25" selection-end-line="169" selection-end-column="25" />
               <folding>
                 <element signature="method#writeMessageToPotentialFriend#0;class#MainFunctionality#0" expanded="false" />
               </folding>
@@ -37,16 +27,15 @@
       <file leaf-file-name="SeleniumWorker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="1186" column="68" lean-forward="false" selection-start-line="1186" selection-start-column="68" selection-end-line="1186" selection-end-column="68" />
+            <state relative-caret-position="1400">
+              <caret line="995" column="64" lean-forward="false" selection-start-line="995" selection-start-column="64" selection-end-line="995" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
@@ -61,48 +50,28 @@
                 <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#getUserCityByLink#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#isMyFriendByPage#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#isMyFriendOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelpFunctionality.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="160" column="18" lean-forward="false" selection-start-line="160" selection-start-column="18" selection-end-line="160" selection-end-column="18" />
-              <folding>
-                <element signature="method#getBDigit#0;class#HelpFunctionality#0" expanded="false" />
-                <element signature="method#getLastIntByPattern#0;class#HelpFunctionality#0" expanded="false" />
-                <element signature="method#getDayAndMonthStr#0;class#HelpFunctionality#0" expanded="false" />
-                <element signature="method#testGetBDigit#0;class#HelpFunctionality#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -111,15 +80,18 @@
       <file leaf-file-name="DataBaseWorker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="46" column="56" lean-forward="false" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
+            <state relative-caret-position="252">
+              <caret line="126" column="14" lean-forward="false" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#updateStatusRequest#0;class#DataBaseWorker#0" expanded="false" />
-                <element signature="method#closeConnection#0;class#DataBaseWorker#0" expanded="false" />
+                <element signature="method#DataBaseWorker#0;class#DataBaseWorker#0" expanded="false" />
+                <element signature="method#connect#0;class#DataBaseWorker#0" expanded="false" />
+                <element signature="method#disconnect#0;class#DataBaseWorker#0" expanded="false" />
                 <element signature="method#closeStatement#0;class#DataBaseWorker#0" expanded="false" />
                 <element signature="method#closePreparedStatement#0;class#DataBaseWorker#0" expanded="false" />
-                <marker date="1534971189442" expanded="false" signature="6610:7391" ph="{...}" />
+                <element signature="method#closeConnectionToDataBase#0;class#DataBaseWorker#0" expanded="false" />
+                <element signature="method#getAllFromPotentialFriendsList#0;class#DataBaseWorker#0" expanded="false" />
+                <marker date="1535323642571" expanded="false" signature="8007:8788" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -138,68 +110,79 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-205">
-              <caret line="82" column="45" lean-forward="false" selection-start-line="82" selection-start-column="45" selection-end-line="82" selection-end-column="45" />
+            <state relative-caret-position="110">
+              <caret line="86" column="31" lean-forward="true" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4285#4286#0" expanded="true" />
-                <element signature="e#4317#4318#0" expanded="true" />
-                <element signature="e#4364#4365#0" expanded="true" />
-                <element signature="e#4406#4407#0" expanded="true" />
-                <element signature="e#4444#4445#0" expanded="true" />
-                <element signature="e#4478#4479#0" expanded="true" />
-                <element signature="e#4532#4533#0" expanded="true" />
-                <element signature="e#4578#4579#0" expanded="true" />
-                <element signature="e#4613#4614#0" expanded="true" />
-                <element signature="e#4644#4645#0" expanded="true" />
-                <element signature="e#4692#4693#0" expanded="true" />
-                <element signature="e#4732#4733#0" expanded="true" />
-                <element signature="e#4774#4775#0" expanded="true" />
-                <element signature="e#4812#4813#0" expanded="true" />
-                <element signature="e#4874#4875#0" expanded="true" />
-                <element signature="e#4928#4929#0" expanded="true" />
-                <element signature="e#4955#4956#0" expanded="true" />
-                <element signature="e#4981#4982#0" expanded="true" />
-                <element signature="e#5016#5017#0" expanded="true" />
-                <element signature="e#5046#5047#0" expanded="true" />
-                <element signature="e#5077#5078#0" expanded="true" />
-                <element signature="e#5104#5105#0" expanded="true" />
-                <element signature="e#5144#5145#0" expanded="true" />
-                <element signature="e#5176#5177#0" expanded="true" />
-                <element signature="e#5214#5215#0" expanded="true" />
-                <element signature="e#5248#5249#0" expanded="true" />
-                <element signature="e#5302#5303#0" expanded="true" />
-                <element signature="e#5348#5349#0" expanded="true" />
-                <element signature="e#5395#5396#0" expanded="true" />
-                <element signature="e#5440#5441#0" expanded="true" />
-                <element signature="e#5628#5629#0" expanded="true" />
-                <element signature="e#5670#5671#0" expanded="true" />
-                <element signature="e#5737#5738#0" expanded="true" />
-                <element signature="e#5799#5800#0" expanded="true" />
-                <element signature="e#5839#5840#0" expanded="true" />
-                <element signature="e#5877#5878#0" expanded="true" />
-                <element signature="e#5940#5941#0" expanded="true" />
-                <element signature="e#5994#5995#0" expanded="true" />
-                <element signature="e#6028#6029#0" expanded="true" />
-                <element signature="e#6058#6059#0" expanded="true" />
-                <element signature="e#6104#6105#0" expanded="true" />
-                <element signature="e#6142#6143#0" expanded="true" />
-                <element signature="e#6178#6179#0" expanded="true" />
-                <element signature="e#6213#6214#0" expanded="true" />
-                <element signature="e#6266#6267#0" expanded="true" />
-                <element signature="e#6314#6315#0" expanded="true" />
-                <element signature="e#6356#6357#0" expanded="true" />
-                <element signature="e#6397#6398#0" expanded="true" />
-                <element signature="e#6462#6463#0" expanded="true" />
-                <element signature="e#6522#6523#0" expanded="true" />
-                <element signature="e#6560#6561#0" expanded="true" />
-                <element signature="e#6597#6598#0" expanded="true" />
-                <element signature="e#6654#6655#0" expanded="true" />
-                <element signature="e#6706#6707#0" expanded="true" />
-                <element signature="e#6742#6743#0" expanded="true" />
-                <element signature="e#6774#6775#0" expanded="true" />
-                <element signature="e#6824#6825#0" expanded="true" />
-                <element signature="e#6866#6867#0" expanded="true" />
+                <element signature="e#4668#4669#0" expanded="true" />
+                <element signature="e#4700#4701#0" expanded="true" />
+                <element signature="e#4747#4748#0" expanded="true" />
+                <element signature="e#4789#4790#0" expanded="true" />
+                <element signature="e#4827#4828#0" expanded="true" />
+                <element signature="e#4861#4862#0" expanded="true" />
+                <element signature="e#4915#4916#0" expanded="true" />
+                <element signature="e#4961#4962#0" expanded="true" />
+                <element signature="e#4996#4997#0" expanded="true" />
+                <element signature="e#5027#5028#0" expanded="true" />
+                <element signature="e#5075#5076#0" expanded="true" />
+                <element signature="e#5115#5116#0" expanded="true" />
+                <element signature="e#5157#5158#0" expanded="true" />
+                <element signature="e#5195#5196#0" expanded="true" />
+                <element signature="e#5257#5258#0" expanded="true" />
+                <element signature="e#5311#5312#0" expanded="true" />
+                <element signature="e#5338#5339#0" expanded="true" />
+                <element signature="e#5364#5365#0" expanded="true" />
+                <element signature="e#5399#5400#0" expanded="true" />
+                <element signature="e#5429#5430#0" expanded="true" />
+                <element signature="e#5460#5461#0" expanded="true" />
+                <element signature="e#5487#5488#0" expanded="true" />
+                <element signature="e#5527#5528#0" expanded="true" />
+                <element signature="e#5559#5560#0" expanded="true" />
+                <element signature="e#5597#5598#0" expanded="true" />
+                <element signature="e#5631#5632#0" expanded="true" />
+                <element signature="e#5685#5686#0" expanded="true" />
+                <element signature="e#5731#5732#0" expanded="true" />
+                <element signature="e#5778#5779#0" expanded="true" />
+                <element signature="e#5823#5824#0" expanded="true" />
+                <element signature="e#6004#6005#0" expanded="true" />
+                <element signature="e#6039#6040#0" expanded="true" />
+                <element signature="e#6320#6321#0" expanded="true" />
+                <element signature="e#6358#6359#0" expanded="true" />
+                <element signature="e#6421#6422#0" expanded="true" />
+                <element signature="e#6475#6476#0" expanded="true" />
+                <element signature="e#6509#6510#0" expanded="true" />
+                <element signature="e#6539#6540#0" expanded="true" />
+                <element signature="e#6585#6586#0" expanded="true" />
+                <element signature="e#6623#6624#0" expanded="true" />
+                <element signature="e#6659#6660#0" expanded="true" />
+                <element signature="e#6694#6695#0" expanded="true" />
+                <element signature="e#6747#6748#0" expanded="true" />
+                <element signature="e#6795#6796#0" expanded="true" />
+                <element signature="e#6837#6838#0" expanded="true" />
+                <element signature="e#6878#6879#0" expanded="true" />
+                <element signature="e#6943#6944#0" expanded="true" />
+                <element signature="e#7003#7004#0" expanded="true" />
+                <element signature="e#7041#7042#0" expanded="true" />
+                <element signature="e#7078#7079#0" expanded="true" />
+                <element signature="e#7135#7136#0" expanded="true" />
+                <element signature="e#7187#7188#0" expanded="true" />
+                <element signature="e#7223#7224#0" expanded="true" />
+                <element signature="e#7255#7256#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="18" column="142" lean-forward="false" selection-start-line="18" selection-start-column="142" selection-end-line="18" selection-end-column="142" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#testGetFriendStatus#0;class#Testing#0" expanded="false" />
+                <element signature="method#testGetFullInfoFromUserByPage#0;class#Testing#0" expanded="false" />
+                <element signature="method#testGetUserDateBirthday#0;class#Testing#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -245,6 +228,9 @@
       <find>ismy</find>
       <find>cont</find>
       <find>format</find>
+      <find>getFriendStatusOnPage</find>
+      <find>sets</find>
+      <find>setdateb</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -271,19 +257,19 @@
         <option value="$PROJECT_DIR$/src/ru/nastinio/SQLquery.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/Enums/ConstVK.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/Enums/SQLquery.java" />
-        <option value="$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java" />
-        <option value="$PROJECT_DIR$/src/ru/nastinio/User.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java" />
+        <option value="$PROJECT_DIR$/src/ru/nastinio/User.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java" />
-        <option value="$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java" />
+        <option value="$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/Main.java" />
+        <option value="$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="328" />
-    <option name="y" value="109" />
-    <option name="width" value="1370" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="418" />
+    <option name="y" value="68" />
+    <option name="width" value="1274" />
     <option name="height" value="772" />
   </component>
   <component name="ProjectView">
@@ -320,13 +306,20 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="nastinio" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="HollyClicker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HollyClicker" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="nastinio" type="462c0819:PsiDirectoryNode" />
+              <item name="Enums" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -353,7 +346,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Testing">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="ru.nastinio.Main" />
@@ -395,8 +388,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Testing" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Testing" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -417,7 +410,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -428,7 +421,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39898133" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32767403" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32767403" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -483,7 +476,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <option name="time" value="26" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -494,64 +487,60 @@
           <caret line="16" column="44" lean-forward="false" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4285#4286#0" expanded="true" />
-            <element signature="e#4317#4318#0" expanded="true" />
-            <element signature="e#4364#4365#0" expanded="true" />
-            <element signature="e#4406#4407#0" expanded="true" />
-            <element signature="e#4444#4445#0" expanded="true" />
-            <element signature="e#4478#4479#0" expanded="true" />
-            <element signature="e#4532#4533#0" expanded="true" />
-            <element signature="e#4578#4579#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4644#4645#0" expanded="true" />
-            <element signature="e#4692#4693#0" expanded="true" />
-            <element signature="e#4732#4733#0" expanded="true" />
-            <element signature="e#4774#4775#0" expanded="true" />
-            <element signature="e#4812#4813#0" expanded="true" />
-            <element signature="e#4874#4875#0" expanded="true" />
-            <element signature="e#4928#4929#0" expanded="true" />
-            <element signature="e#4955#4956#0" expanded="true" />
-            <element signature="e#4981#4982#0" expanded="true" />
-            <element signature="e#5016#5017#0" expanded="true" />
-            <element signature="e#5046#5047#0" expanded="true" />
-            <element signature="e#5077#5078#0" expanded="true" />
-            <element signature="e#5104#5105#0" expanded="true" />
-            <element signature="e#5144#5145#0" expanded="true" />
-            <element signature="e#5176#5177#0" expanded="true" />
-            <element signature="e#5214#5215#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5302#5303#0" expanded="true" />
-            <element signature="e#5348#5349#0" expanded="true" />
-            <element signature="e#5395#5396#0" expanded="true" />
-            <element signature="e#5440#5441#0" expanded="true" />
-            <element signature="e#5628#5629#0" expanded="true" />
-            <element signature="e#5670#5671#0" expanded="true" />
-            <element signature="e#5737#5738#0" expanded="true" />
-            <element signature="e#5799#5800#0" expanded="true" />
-            <element signature="e#5839#5840#0" expanded="true" />
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5940#5941#0" expanded="true" />
-            <element signature="e#5994#5995#0" expanded="true" />
-            <element signature="e#6028#6029#0" expanded="true" />
-            <element signature="e#6058#6059#0" expanded="true" />
-            <element signature="e#6104#6105#0" expanded="true" />
-            <element signature="e#6142#6143#0" expanded="true" />
-            <element signature="e#6178#6179#0" expanded="true" />
-            <element signature="e#6213#6214#0" expanded="true" />
-            <element signature="e#6266#6267#0" expanded="true" />
-            <element signature="e#6314#6315#0" expanded="true" />
-            <element signature="e#6356#6357#0" expanded="true" />
-            <element signature="e#6397#6398#0" expanded="true" />
-            <element signature="e#6462#6463#0" expanded="true" />
-            <element signature="e#6522#6523#0" expanded="true" />
-            <element signature="e#6560#6561#0" expanded="true" />
-            <element signature="e#6597#6598#0" expanded="true" />
-            <element signature="e#6654#6655#0" expanded="true" />
-            <element signature="e#6706#6707#0" expanded="true" />
-            <element signature="e#6742#6743#0" expanded="true" />
-            <element signature="e#6774#6775#0" expanded="true" />
-            <element signature="e#6824#6825#0" expanded="true" />
-            <element signature="e#6866#6867#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="e#4700#4701#0" expanded="true" />
+            <element signature="e#4747#4748#0" expanded="true" />
+            <element signature="e#4789#4790#0" expanded="true" />
+            <element signature="e#4827#4828#0" expanded="true" />
+            <element signature="e#4861#4862#0" expanded="true" />
+            <element signature="e#4915#4916#0" expanded="true" />
+            <element signature="e#4961#4962#0" expanded="true" />
+            <element signature="e#4996#4997#0" expanded="true" />
+            <element signature="e#5027#5028#0" expanded="true" />
+            <element signature="e#5075#5076#0" expanded="true" />
+            <element signature="e#5115#5116#0" expanded="true" />
+            <element signature="e#5157#5158#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
+            <element signature="e#5257#5258#0" expanded="true" />
+            <element signature="e#5311#5312#0" expanded="true" />
+            <element signature="e#5338#5339#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+            <element signature="e#5399#5400#0" expanded="true" />
+            <element signature="e#5429#5430#0" expanded="true" />
+            <element signature="e#5460#5461#0" expanded="true" />
+            <element signature="e#5487#5488#0" expanded="true" />
+            <element signature="e#5527#5528#0" expanded="true" />
+            <element signature="e#5559#5560#0" expanded="true" />
+            <element signature="e#5597#5598#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+            <element signature="e#5685#5686#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+            <element signature="e#5778#5779#0" expanded="true" />
+            <element signature="e#5823#5824#0" expanded="true" />
+            <element signature="e#6004#6005#0" expanded="true" />
+            <element signature="e#6039#6040#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#6358#6359#0" expanded="true" />
+            <element signature="e#6421#6422#0" expanded="true" />
+            <element signature="e#6475#6476#0" expanded="true" />
+            <element signature="e#6509#6510#0" expanded="true" />
+            <element signature="e#6539#6540#0" expanded="true" />
+            <element signature="e#6585#6586#0" expanded="true" />
+            <element signature="e#6623#6624#0" expanded="true" />
+            <element signature="e#6659#6660#0" expanded="true" />
+            <element signature="e#6694#6695#0" expanded="true" />
+            <element signature="e#6747#6748#0" expanded="true" />
+            <element signature="e#6795#6796#0" expanded="true" />
+            <element signature="e#6837#6838#0" expanded="true" />
+            <element signature="e#6878#6879#0" expanded="true" />
+            <element signature="e#6943#6944#0" expanded="true" />
+            <element signature="e#7003#7004#0" expanded="true" />
+            <element signature="e#7041#7042#0" expanded="true" />
+            <element signature="e#7078#7079#0" expanded="true" />
+            <element signature="e#7135#7136#0" expanded="true" />
+            <element signature="e#7187#7188#0" expanded="true" />
+            <element signature="e#7223#7224#0" expanded="true" />
+            <element signature="e#7255#7256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -565,9 +554,8 @@
             <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
@@ -582,31 +570,26 @@
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -622,9 +605,8 @@
             <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
@@ -639,31 +621,26 @@
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -683,64 +660,60 @@
           <caret line="16" column="44" lean-forward="false" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4285#4286#0" expanded="true" />
-            <element signature="e#4317#4318#0" expanded="true" />
-            <element signature="e#4364#4365#0" expanded="true" />
-            <element signature="e#4406#4407#0" expanded="true" />
-            <element signature="e#4444#4445#0" expanded="true" />
-            <element signature="e#4478#4479#0" expanded="true" />
-            <element signature="e#4532#4533#0" expanded="true" />
-            <element signature="e#4578#4579#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4644#4645#0" expanded="true" />
-            <element signature="e#4692#4693#0" expanded="true" />
-            <element signature="e#4732#4733#0" expanded="true" />
-            <element signature="e#4774#4775#0" expanded="true" />
-            <element signature="e#4812#4813#0" expanded="true" />
-            <element signature="e#4874#4875#0" expanded="true" />
-            <element signature="e#4928#4929#0" expanded="true" />
-            <element signature="e#4955#4956#0" expanded="true" />
-            <element signature="e#4981#4982#0" expanded="true" />
-            <element signature="e#5016#5017#0" expanded="true" />
-            <element signature="e#5046#5047#0" expanded="true" />
-            <element signature="e#5077#5078#0" expanded="true" />
-            <element signature="e#5104#5105#0" expanded="true" />
-            <element signature="e#5144#5145#0" expanded="true" />
-            <element signature="e#5176#5177#0" expanded="true" />
-            <element signature="e#5214#5215#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5302#5303#0" expanded="true" />
-            <element signature="e#5348#5349#0" expanded="true" />
-            <element signature="e#5395#5396#0" expanded="true" />
-            <element signature="e#5440#5441#0" expanded="true" />
-            <element signature="e#5628#5629#0" expanded="true" />
-            <element signature="e#5670#5671#0" expanded="true" />
-            <element signature="e#5737#5738#0" expanded="true" />
-            <element signature="e#5799#5800#0" expanded="true" />
-            <element signature="e#5839#5840#0" expanded="true" />
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5940#5941#0" expanded="true" />
-            <element signature="e#5994#5995#0" expanded="true" />
-            <element signature="e#6028#6029#0" expanded="true" />
-            <element signature="e#6058#6059#0" expanded="true" />
-            <element signature="e#6104#6105#0" expanded="true" />
-            <element signature="e#6142#6143#0" expanded="true" />
-            <element signature="e#6178#6179#0" expanded="true" />
-            <element signature="e#6213#6214#0" expanded="true" />
-            <element signature="e#6266#6267#0" expanded="true" />
-            <element signature="e#6314#6315#0" expanded="true" />
-            <element signature="e#6356#6357#0" expanded="true" />
-            <element signature="e#6397#6398#0" expanded="true" />
-            <element signature="e#6462#6463#0" expanded="true" />
-            <element signature="e#6522#6523#0" expanded="true" />
-            <element signature="e#6560#6561#0" expanded="true" />
-            <element signature="e#6597#6598#0" expanded="true" />
-            <element signature="e#6654#6655#0" expanded="true" />
-            <element signature="e#6706#6707#0" expanded="true" />
-            <element signature="e#6742#6743#0" expanded="true" />
-            <element signature="e#6774#6775#0" expanded="true" />
-            <element signature="e#6824#6825#0" expanded="true" />
-            <element signature="e#6866#6867#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="e#4700#4701#0" expanded="true" />
+            <element signature="e#4747#4748#0" expanded="true" />
+            <element signature="e#4789#4790#0" expanded="true" />
+            <element signature="e#4827#4828#0" expanded="true" />
+            <element signature="e#4861#4862#0" expanded="true" />
+            <element signature="e#4915#4916#0" expanded="true" />
+            <element signature="e#4961#4962#0" expanded="true" />
+            <element signature="e#4996#4997#0" expanded="true" />
+            <element signature="e#5027#5028#0" expanded="true" />
+            <element signature="e#5075#5076#0" expanded="true" />
+            <element signature="e#5115#5116#0" expanded="true" />
+            <element signature="e#5157#5158#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
+            <element signature="e#5257#5258#0" expanded="true" />
+            <element signature="e#5311#5312#0" expanded="true" />
+            <element signature="e#5338#5339#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+            <element signature="e#5399#5400#0" expanded="true" />
+            <element signature="e#5429#5430#0" expanded="true" />
+            <element signature="e#5460#5461#0" expanded="true" />
+            <element signature="e#5487#5488#0" expanded="true" />
+            <element signature="e#5527#5528#0" expanded="true" />
+            <element signature="e#5559#5560#0" expanded="true" />
+            <element signature="e#5597#5598#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+            <element signature="e#5685#5686#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+            <element signature="e#5778#5779#0" expanded="true" />
+            <element signature="e#5823#5824#0" expanded="true" />
+            <element signature="e#6004#6005#0" expanded="true" />
+            <element signature="e#6039#6040#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#6358#6359#0" expanded="true" />
+            <element signature="e#6421#6422#0" expanded="true" />
+            <element signature="e#6475#6476#0" expanded="true" />
+            <element signature="e#6509#6510#0" expanded="true" />
+            <element signature="e#6539#6540#0" expanded="true" />
+            <element signature="e#6585#6586#0" expanded="true" />
+            <element signature="e#6623#6624#0" expanded="true" />
+            <element signature="e#6659#6660#0" expanded="true" />
+            <element signature="e#6694#6695#0" expanded="true" />
+            <element signature="e#6747#6748#0" expanded="true" />
+            <element signature="e#6795#6796#0" expanded="true" />
+            <element signature="e#6837#6838#0" expanded="true" />
+            <element signature="e#6878#6879#0" expanded="true" />
+            <element signature="e#6943#6944#0" expanded="true" />
+            <element signature="e#7003#7004#0" expanded="true" />
+            <element signature="e#7041#7042#0" expanded="true" />
+            <element signature="e#7078#7079#0" expanded="true" />
+            <element signature="e#7135#7136#0" expanded="true" />
+            <element signature="e#7187#7188#0" expanded="true" />
+            <element signature="e#7223#7224#0" expanded="true" />
+            <element signature="e#7255#7256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -772,64 +745,60 @@
           <caret line="16" column="44" lean-forward="false" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4285#4286#0" expanded="true" />
-            <element signature="e#4317#4318#0" expanded="true" />
-            <element signature="e#4364#4365#0" expanded="true" />
-            <element signature="e#4406#4407#0" expanded="true" />
-            <element signature="e#4444#4445#0" expanded="true" />
-            <element signature="e#4478#4479#0" expanded="true" />
-            <element signature="e#4532#4533#0" expanded="true" />
-            <element signature="e#4578#4579#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4644#4645#0" expanded="true" />
-            <element signature="e#4692#4693#0" expanded="true" />
-            <element signature="e#4732#4733#0" expanded="true" />
-            <element signature="e#4774#4775#0" expanded="true" />
-            <element signature="e#4812#4813#0" expanded="true" />
-            <element signature="e#4874#4875#0" expanded="true" />
-            <element signature="e#4928#4929#0" expanded="true" />
-            <element signature="e#4955#4956#0" expanded="true" />
-            <element signature="e#4981#4982#0" expanded="true" />
-            <element signature="e#5016#5017#0" expanded="true" />
-            <element signature="e#5046#5047#0" expanded="true" />
-            <element signature="e#5077#5078#0" expanded="true" />
-            <element signature="e#5104#5105#0" expanded="true" />
-            <element signature="e#5144#5145#0" expanded="true" />
-            <element signature="e#5176#5177#0" expanded="true" />
-            <element signature="e#5214#5215#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5302#5303#0" expanded="true" />
-            <element signature="e#5348#5349#0" expanded="true" />
-            <element signature="e#5395#5396#0" expanded="true" />
-            <element signature="e#5440#5441#0" expanded="true" />
-            <element signature="e#5628#5629#0" expanded="true" />
-            <element signature="e#5670#5671#0" expanded="true" />
-            <element signature="e#5737#5738#0" expanded="true" />
-            <element signature="e#5799#5800#0" expanded="true" />
-            <element signature="e#5839#5840#0" expanded="true" />
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5940#5941#0" expanded="true" />
-            <element signature="e#5994#5995#0" expanded="true" />
-            <element signature="e#6028#6029#0" expanded="true" />
-            <element signature="e#6058#6059#0" expanded="true" />
-            <element signature="e#6104#6105#0" expanded="true" />
-            <element signature="e#6142#6143#0" expanded="true" />
-            <element signature="e#6178#6179#0" expanded="true" />
-            <element signature="e#6213#6214#0" expanded="true" />
-            <element signature="e#6266#6267#0" expanded="true" />
-            <element signature="e#6314#6315#0" expanded="true" />
-            <element signature="e#6356#6357#0" expanded="true" />
-            <element signature="e#6397#6398#0" expanded="true" />
-            <element signature="e#6462#6463#0" expanded="true" />
-            <element signature="e#6522#6523#0" expanded="true" />
-            <element signature="e#6560#6561#0" expanded="true" />
-            <element signature="e#6597#6598#0" expanded="true" />
-            <element signature="e#6654#6655#0" expanded="true" />
-            <element signature="e#6706#6707#0" expanded="true" />
-            <element signature="e#6742#6743#0" expanded="true" />
-            <element signature="e#6774#6775#0" expanded="true" />
-            <element signature="e#6824#6825#0" expanded="true" />
-            <element signature="e#6866#6867#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="e#4700#4701#0" expanded="true" />
+            <element signature="e#4747#4748#0" expanded="true" />
+            <element signature="e#4789#4790#0" expanded="true" />
+            <element signature="e#4827#4828#0" expanded="true" />
+            <element signature="e#4861#4862#0" expanded="true" />
+            <element signature="e#4915#4916#0" expanded="true" />
+            <element signature="e#4961#4962#0" expanded="true" />
+            <element signature="e#4996#4997#0" expanded="true" />
+            <element signature="e#5027#5028#0" expanded="true" />
+            <element signature="e#5075#5076#0" expanded="true" />
+            <element signature="e#5115#5116#0" expanded="true" />
+            <element signature="e#5157#5158#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
+            <element signature="e#5257#5258#0" expanded="true" />
+            <element signature="e#5311#5312#0" expanded="true" />
+            <element signature="e#5338#5339#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+            <element signature="e#5399#5400#0" expanded="true" />
+            <element signature="e#5429#5430#0" expanded="true" />
+            <element signature="e#5460#5461#0" expanded="true" />
+            <element signature="e#5487#5488#0" expanded="true" />
+            <element signature="e#5527#5528#0" expanded="true" />
+            <element signature="e#5559#5560#0" expanded="true" />
+            <element signature="e#5597#5598#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+            <element signature="e#5685#5686#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+            <element signature="e#5778#5779#0" expanded="true" />
+            <element signature="e#5823#5824#0" expanded="true" />
+            <element signature="e#6004#6005#0" expanded="true" />
+            <element signature="e#6039#6040#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#6358#6359#0" expanded="true" />
+            <element signature="e#6421#6422#0" expanded="true" />
+            <element signature="e#6475#6476#0" expanded="true" />
+            <element signature="e#6509#6510#0" expanded="true" />
+            <element signature="e#6539#6540#0" expanded="true" />
+            <element signature="e#6585#6586#0" expanded="true" />
+            <element signature="e#6623#6624#0" expanded="true" />
+            <element signature="e#6659#6660#0" expanded="true" />
+            <element signature="e#6694#6695#0" expanded="true" />
+            <element signature="e#6747#6748#0" expanded="true" />
+            <element signature="e#6795#6796#0" expanded="true" />
+            <element signature="e#6837#6838#0" expanded="true" />
+            <element signature="e#6878#6879#0" expanded="true" />
+            <element signature="e#6943#6944#0" expanded="true" />
+            <element signature="e#7003#7004#0" expanded="true" />
+            <element signature="e#7041#7042#0" expanded="true" />
+            <element signature="e#7078#7079#0" expanded="true" />
+            <element signature="e#7135#7136#0" expanded="true" />
+            <element signature="e#7187#7188#0" expanded="true" />
+            <element signature="e#7223#7224#0" expanded="true" />
+            <element signature="e#7255#7256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -844,9 +813,8 @@
             <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
@@ -861,31 +829,26 @@
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -908,9 +871,8 @@
             <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
@@ -925,31 +887,26 @@
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -970,64 +927,60 @@
           <caret line="22" column="16" lean-forward="false" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4285#4286#0" expanded="true" />
-            <element signature="e#4317#4318#0" expanded="true" />
-            <element signature="e#4364#4365#0" expanded="true" />
-            <element signature="e#4406#4407#0" expanded="true" />
-            <element signature="e#4444#4445#0" expanded="true" />
-            <element signature="e#4478#4479#0" expanded="true" />
-            <element signature="e#4532#4533#0" expanded="true" />
-            <element signature="e#4578#4579#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4644#4645#0" expanded="true" />
-            <element signature="e#4692#4693#0" expanded="true" />
-            <element signature="e#4732#4733#0" expanded="true" />
-            <element signature="e#4774#4775#0" expanded="true" />
-            <element signature="e#4812#4813#0" expanded="true" />
-            <element signature="e#4874#4875#0" expanded="true" />
-            <element signature="e#4928#4929#0" expanded="true" />
-            <element signature="e#4955#4956#0" expanded="true" />
-            <element signature="e#4981#4982#0" expanded="true" />
-            <element signature="e#5016#5017#0" expanded="true" />
-            <element signature="e#5046#5047#0" expanded="true" />
-            <element signature="e#5077#5078#0" expanded="true" />
-            <element signature="e#5104#5105#0" expanded="true" />
-            <element signature="e#5144#5145#0" expanded="true" />
-            <element signature="e#5176#5177#0" expanded="true" />
-            <element signature="e#5214#5215#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5302#5303#0" expanded="true" />
-            <element signature="e#5348#5349#0" expanded="true" />
-            <element signature="e#5395#5396#0" expanded="true" />
-            <element signature="e#5440#5441#0" expanded="true" />
-            <element signature="e#5628#5629#0" expanded="true" />
-            <element signature="e#5670#5671#0" expanded="true" />
-            <element signature="e#5737#5738#0" expanded="true" />
-            <element signature="e#5799#5800#0" expanded="true" />
-            <element signature="e#5839#5840#0" expanded="true" />
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5940#5941#0" expanded="true" />
-            <element signature="e#5994#5995#0" expanded="true" />
-            <element signature="e#6028#6029#0" expanded="true" />
-            <element signature="e#6058#6059#0" expanded="true" />
-            <element signature="e#6104#6105#0" expanded="true" />
-            <element signature="e#6142#6143#0" expanded="true" />
-            <element signature="e#6178#6179#0" expanded="true" />
-            <element signature="e#6213#6214#0" expanded="true" />
-            <element signature="e#6266#6267#0" expanded="true" />
-            <element signature="e#6314#6315#0" expanded="true" />
-            <element signature="e#6356#6357#0" expanded="true" />
-            <element signature="e#6397#6398#0" expanded="true" />
-            <element signature="e#6462#6463#0" expanded="true" />
-            <element signature="e#6522#6523#0" expanded="true" />
-            <element signature="e#6560#6561#0" expanded="true" />
-            <element signature="e#6597#6598#0" expanded="true" />
-            <element signature="e#6654#6655#0" expanded="true" />
-            <element signature="e#6706#6707#0" expanded="true" />
-            <element signature="e#6742#6743#0" expanded="true" />
-            <element signature="e#6774#6775#0" expanded="true" />
-            <element signature="e#6824#6825#0" expanded="true" />
-            <element signature="e#6866#6867#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="e#4700#4701#0" expanded="true" />
+            <element signature="e#4747#4748#0" expanded="true" />
+            <element signature="e#4789#4790#0" expanded="true" />
+            <element signature="e#4827#4828#0" expanded="true" />
+            <element signature="e#4861#4862#0" expanded="true" />
+            <element signature="e#4915#4916#0" expanded="true" />
+            <element signature="e#4961#4962#0" expanded="true" />
+            <element signature="e#4996#4997#0" expanded="true" />
+            <element signature="e#5027#5028#0" expanded="true" />
+            <element signature="e#5075#5076#0" expanded="true" />
+            <element signature="e#5115#5116#0" expanded="true" />
+            <element signature="e#5157#5158#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
+            <element signature="e#5257#5258#0" expanded="true" />
+            <element signature="e#5311#5312#0" expanded="true" />
+            <element signature="e#5338#5339#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+            <element signature="e#5399#5400#0" expanded="true" />
+            <element signature="e#5429#5430#0" expanded="true" />
+            <element signature="e#5460#5461#0" expanded="true" />
+            <element signature="e#5487#5488#0" expanded="true" />
+            <element signature="e#5527#5528#0" expanded="true" />
+            <element signature="e#5559#5560#0" expanded="true" />
+            <element signature="e#5597#5598#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+            <element signature="e#5685#5686#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+            <element signature="e#5778#5779#0" expanded="true" />
+            <element signature="e#5823#5824#0" expanded="true" />
+            <element signature="e#6004#6005#0" expanded="true" />
+            <element signature="e#6039#6040#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#6358#6359#0" expanded="true" />
+            <element signature="e#6421#6422#0" expanded="true" />
+            <element signature="e#6475#6476#0" expanded="true" />
+            <element signature="e#6509#6510#0" expanded="true" />
+            <element signature="e#6539#6540#0" expanded="true" />
+            <element signature="e#6585#6586#0" expanded="true" />
+            <element signature="e#6623#6624#0" expanded="true" />
+            <element signature="e#6659#6660#0" expanded="true" />
+            <element signature="e#6694#6695#0" expanded="true" />
+            <element signature="e#6747#6748#0" expanded="true" />
+            <element signature="e#6795#6796#0" expanded="true" />
+            <element signature="e#6837#6838#0" expanded="true" />
+            <element signature="e#6878#6879#0" expanded="true" />
+            <element signature="e#6943#6944#0" expanded="true" />
+            <element signature="e#7003#7004#0" expanded="true" />
+            <element signature="e#7041#7042#0" expanded="true" />
+            <element signature="e#7078#7079#0" expanded="true" />
+            <element signature="e#7135#7136#0" expanded="true" />
+            <element signature="e#7187#7188#0" expanded="true" />
+            <element signature="e#7223#7224#0" expanded="true" />
+            <element signature="e#7255#7256#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1056,9 +1009,8 @@
             <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
@@ -1073,31 +1025,26 @@
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -1211,14 +1158,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/ConstVK.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/SQLquery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1227,124 +1166,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/ConstVK.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="160" column="18" lean-forward="false" selection-start-line="160" selection-start-column="18" selection-end-line="160" selection-end-column="18" />
+        <state relative-caret-position="34">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="126" column="14" lean-forward="false" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
           <folding>
-            <element signature="method#getBDigit#0;class#HelpFunctionality#0" expanded="false" />
-            <element signature="method#getLastIntByPattern#0;class#HelpFunctionality#0" expanded="false" />
-            <element signature="method#getDayAndMonthStr#0;class#HelpFunctionality#0" expanded="false" />
-            <element signature="method#testGetBDigit#0;class#HelpFunctionality#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#DataBaseWorker#0;class#DataBaseWorker#0" expanded="false" />
+            <element signature="method#connect#0;class#DataBaseWorker#0" expanded="false" />
+            <element signature="method#disconnect#0;class#DataBaseWorker#0" expanded="false" />
+            <element signature="method#closeStatement#0;class#DataBaseWorker#0" expanded="false" />
+            <element signature="method#closePreparedStatement#0;class#DataBaseWorker#0" expanded="false" />
+            <element signature="method#closeConnectionToDataBase#0;class#DataBaseWorker#0" expanded="false" />
+            <element signature="method#getAllFromPotentialFriendsList#0;class#DataBaseWorker#0" expanded="false" />
+            <marker date="1535323642571" expanded="false" signature="8007:8788" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-205">
-          <caret line="82" column="45" lean-forward="false" selection-start-line="82" selection-start-column="45" selection-end-line="82" selection-end-column="45" />
+        <state relative-caret-position="110">
+          <caret line="86" column="31" lean-forward="true" selection-start-line="86" selection-start-column="31" selection-end-line="86" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4285#4286#0" expanded="true" />
-            <element signature="e#4317#4318#0" expanded="true" />
-            <element signature="e#4364#4365#0" expanded="true" />
-            <element signature="e#4406#4407#0" expanded="true" />
-            <element signature="e#4444#4445#0" expanded="true" />
-            <element signature="e#4478#4479#0" expanded="true" />
-            <element signature="e#4532#4533#0" expanded="true" />
-            <element signature="e#4578#4579#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4644#4645#0" expanded="true" />
-            <element signature="e#4692#4693#0" expanded="true" />
-            <element signature="e#4732#4733#0" expanded="true" />
-            <element signature="e#4774#4775#0" expanded="true" />
-            <element signature="e#4812#4813#0" expanded="true" />
-            <element signature="e#4874#4875#0" expanded="true" />
-            <element signature="e#4928#4929#0" expanded="true" />
-            <element signature="e#4955#4956#0" expanded="true" />
-            <element signature="e#4981#4982#0" expanded="true" />
-            <element signature="e#5016#5017#0" expanded="true" />
-            <element signature="e#5046#5047#0" expanded="true" />
-            <element signature="e#5077#5078#0" expanded="true" />
-            <element signature="e#5104#5105#0" expanded="true" />
-            <element signature="e#5144#5145#0" expanded="true" />
-            <element signature="e#5176#5177#0" expanded="true" />
-            <element signature="e#5214#5215#0" expanded="true" />
-            <element signature="e#5248#5249#0" expanded="true" />
-            <element signature="e#5302#5303#0" expanded="true" />
-            <element signature="e#5348#5349#0" expanded="true" />
-            <element signature="e#5395#5396#0" expanded="true" />
-            <element signature="e#5440#5441#0" expanded="true" />
-            <element signature="e#5628#5629#0" expanded="true" />
-            <element signature="e#5670#5671#0" expanded="true" />
-            <element signature="e#5737#5738#0" expanded="true" />
-            <element signature="e#5799#5800#0" expanded="true" />
-            <element signature="e#5839#5840#0" expanded="true" />
-            <element signature="e#5877#5878#0" expanded="true" />
-            <element signature="e#5940#5941#0" expanded="true" />
-            <element signature="e#5994#5995#0" expanded="true" />
-            <element signature="e#6028#6029#0" expanded="true" />
-            <element signature="e#6058#6059#0" expanded="true" />
-            <element signature="e#6104#6105#0" expanded="true" />
-            <element signature="e#6142#6143#0" expanded="true" />
-            <element signature="e#6178#6179#0" expanded="true" />
-            <element signature="e#6213#6214#0" expanded="true" />
-            <element signature="e#6266#6267#0" expanded="true" />
-            <element signature="e#6314#6315#0" expanded="true" />
-            <element signature="e#6356#6357#0" expanded="true" />
-            <element signature="e#6397#6398#0" expanded="true" />
-            <element signature="e#6462#6463#0" expanded="true" />
-            <element signature="e#6522#6523#0" expanded="true" />
-            <element signature="e#6560#6561#0" expanded="true" />
-            <element signature="e#6597#6598#0" expanded="true" />
-            <element signature="e#6654#6655#0" expanded="true" />
-            <element signature="e#6706#6707#0" expanded="true" />
-            <element signature="e#6742#6743#0" expanded="true" />
-            <element signature="e#6774#6775#0" expanded="true" />
-            <element signature="e#6824#6825#0" expanded="true" />
-            <element signature="e#6866#6867#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="e#4700#4701#0" expanded="true" />
+            <element signature="e#4747#4748#0" expanded="true" />
+            <element signature="e#4789#4790#0" expanded="true" />
+            <element signature="e#4827#4828#0" expanded="true" />
+            <element signature="e#4861#4862#0" expanded="true" />
+            <element signature="e#4915#4916#0" expanded="true" />
+            <element signature="e#4961#4962#0" expanded="true" />
+            <element signature="e#4996#4997#0" expanded="true" />
+            <element signature="e#5027#5028#0" expanded="true" />
+            <element signature="e#5075#5076#0" expanded="true" />
+            <element signature="e#5115#5116#0" expanded="true" />
+            <element signature="e#5157#5158#0" expanded="true" />
+            <element signature="e#5195#5196#0" expanded="true" />
+            <element signature="e#5257#5258#0" expanded="true" />
+            <element signature="e#5311#5312#0" expanded="true" />
+            <element signature="e#5338#5339#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+            <element signature="e#5399#5400#0" expanded="true" />
+            <element signature="e#5429#5430#0" expanded="true" />
+            <element signature="e#5460#5461#0" expanded="true" />
+            <element signature="e#5487#5488#0" expanded="true" />
+            <element signature="e#5527#5528#0" expanded="true" />
+            <element signature="e#5559#5560#0" expanded="true" />
+            <element signature="e#5597#5598#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+            <element signature="e#5685#5686#0" expanded="true" />
+            <element signature="e#5731#5732#0" expanded="true" />
+            <element signature="e#5778#5779#0" expanded="true" />
+            <element signature="e#5823#5824#0" expanded="true" />
+            <element signature="e#6004#6005#0" expanded="true" />
+            <element signature="e#6039#6040#0" expanded="true" />
+            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#6358#6359#0" expanded="true" />
+            <element signature="e#6421#6422#0" expanded="true" />
+            <element signature="e#6475#6476#0" expanded="true" />
+            <element signature="e#6509#6510#0" expanded="true" />
+            <element signature="e#6539#6540#0" expanded="true" />
+            <element signature="e#6585#6586#0" expanded="true" />
+            <element signature="e#6623#6624#0" expanded="true" />
+            <element signature="e#6659#6660#0" expanded="true" />
+            <element signature="e#6694#6695#0" expanded="true" />
+            <element signature="e#6747#6748#0" expanded="true" />
+            <element signature="e#6795#6796#0" expanded="true" />
+            <element signature="e#6837#6838#0" expanded="true" />
+            <element signature="e#6878#6879#0" expanded="true" />
+            <element signature="e#6943#6944#0" expanded="true" />
+            <element signature="e#7003#7004#0" expanded="true" />
+            <element signature="e#7041#7042#0" expanded="true" />
+            <element signature="e#7078#7079#0" expanded="true" />
+            <element signature="e#7135#7136#0" expanded="true" />
+            <element signature="e#7187#7188#0" expanded="true" />
+            <element signature="e#7223#7224#0" expanded="true" />
+            <element signature="e#7255#7256#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="46" column="56" lean-forward="false" selection-start-line="46" selection-start-column="56" selection-end-line="46" selection-end-column="56" />
+        <state relative-caret-position="130">
+          <caret line="53" column="10" lean-forward="false" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#updateStatusRequest#0;class#DataBaseWorker#0" expanded="false" />
-            <element signature="method#closeConnection#0;class#DataBaseWorker#0" expanded="false" />
-            <element signature="method#closeStatement#0;class#DataBaseWorker#0" expanded="false" />
-            <element signature="method#closePreparedStatement#0;class#DataBaseWorker#0" expanded="false" />
-            <marker date="1534971189442" expanded="false" signature="6610:7391" ph="{...}" />
+            <element signature="method#testGetBDigit#0;class#HelpFunctionality#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="161" column="26" lean-forward="false" selection-start-line="161" selection-start-column="26" selection-end-line="161" selection-end-column="26" />
+        <state relative-caret-position="209">
+          <caret line="18" column="142" lean-forward="false" selection-start-line="18" selection-start-column="142" selection-end-line="18" selection-end-column="142" />
           <folding>
-            <element signature="method#writeMessageToPotentialFriend#0;class#MainFunctionality#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#testGetFriendStatus#0;class#Testing#0" expanded="false" />
+            <element signature="method#testGetFullInfoFromUserByPage#0;class#Testing#0" expanded="false" />
+            <element signature="method#testGetUserDateBirthday#0;class#Testing#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="1186" column="68" lean-forward="false" selection-start-line="1186" selection-start-column="68" selection-end-line="1186" selection-end-column="68" />
+        <state relative-caret-position="1400">
+          <caret line="995" column="64" lean-forward="false" selection-start-line="995" selection-start-column="64" selection-end-line="995" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sortOutFriendsListPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#parseWebElementToUser#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
@@ -1359,42 +1304,39 @@
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#isMyFriendOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByLink#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="334">
+          <caret line="169" column="25" lean-forward="false" selection-start-line="169" selection-start-column="25" selection-end-line="169" selection-end-column="25" />
+          <folding>
+            <element signature="method#writeMessageToPotentialFriend#0;class#MainFunctionality#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

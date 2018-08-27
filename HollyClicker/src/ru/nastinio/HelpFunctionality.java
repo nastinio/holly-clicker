@@ -51,6 +51,7 @@ public class HelpFunctionality {
         //Вспомогательный метод для getBDigit
         //Отрезает от input хвост после паттерна
         //Если произошла ошибка в получении числа, вернет 0
+        //System.out.println("Получили на вход в getLastIntByPattern: "+input);
         int result=0;
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()) {
@@ -68,6 +69,14 @@ public class HelpFunctionality {
         return result;
     }
 
+    public String getYearStr(String byearLink){
+        int year = getBDigit(byearLink, ConstVK.BYEAR);
+        if(year == 0){
+            return "0000";
+        }else{
+            return String.valueOf(year);
+        }
+    }
     public String getDayAndMonthStr(String bdayAndMonthLink){
         int day = getBDigit(bdayAndMonthLink, ConstVK.BDAY);
         int month = getBDigit(bdayAndMonthLink, ConstVK.BMONTH);

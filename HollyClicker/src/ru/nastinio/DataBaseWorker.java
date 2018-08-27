@@ -24,21 +24,74 @@ public class DataBaseWorker {
 
     DataBaseWorker() {
         try {
-            Class.forName(JDBC_DRIVER);     //Загружаем драйвер
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
+            connect();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    //Для работы с таблицей потенциальных друзей
-    public void insertUserToPotentialFriendsList(User user) {
+    //Технические вспомогательные методы
+    public void connect() throws SQLException {
         try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+            Class.forName(JDBC_DRIVER);                                                  //Загружаем драйвер
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);      //Создаём соединение
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public void disconnect() throws SQLException {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw e;
+        }
+    }
+
+    public void closeStatement() throws SQLException {
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+    public void closePreparedStatement() throws SQLException {
+        if (pstmt != null) {
+            try {
+                pstmt.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+
+    //Технические методы по окончанию работы
+    public void closeConnectionToDataBase(){
+        try {
+            closePreparedStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            closeStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            disconnect();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //Для работы с таблицей потенциальных друзей
+    public void insertUserToPotentialFriendsList(User user)throws SQLException {
+        try {
             String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`potential-friends-list` (`host-profile-link`, " +
                     "`user-id`, `user-profile-link`, `user-name`, `user-birthday`, `user-age`, `user-city`, " +
-                    "`date-request`, `was-sent-request-to-friend`, `status-request-answer`, `was-sent-start-msg`, `comment`," +
+                    "`date-request`, `was-sent-request-to-friend`, `status-friend`, `was-sent-start-msg`, `comment`," +
                     "`count-friends`, `count-common-friends`, `count-followers`)" +
                     " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -50,8 +103,7 @@ public class DataBaseWorker {
             pstmt.setString(3, user.getProfileLink());
             pstmt.setString(4, user.getPageName());
 
-            //pstmt.setString(5,user.getBirthday());
-            pstmt.setString(5,null);
+            pstmt.setString(5, user.getDateBirth());
             pstmt.setInt(6, user.getAge());
             pstmt.setString(7, user.getCity());
 
@@ -70,47 +122,51 @@ public class DataBaseWorker {
             pstmt.executeUpdate();
 
 
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
-        } finally {
-            closePreparedStatement();
-            closeConnection();
+        } catch (SQLException e) {
+            throw e;
+            //e.printStackTrace();
         }
 
     }
 
-    public ArrayList getAllFromPotentialFriendsList() {
-        ArrayList<User> listUsers = new ArrayList<>();
+    public ArrayList getAllFromPotentialFriendsList(String hostUserProfileLink) throws SQLException {
         try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_SELECT = "SELECT * FROM `holly-clicker-db`.`potential-friends-list`;";
+            ArrayList<User> listUsers = new ArrayList<>();
+            String sqlSelect = "SELECT * FROM `holly-clicker-db`.`potential-friends-list` where `host-profile-link` = '" + hostUserProfileLink + "';";
+            System.out.println(sqlSelect);
             stmt = connection.createStatement();
-            ResultSet resSet = stmt.executeQuery(SQL_SELECT);
+            ResultSet resSet = stmt.executeQuery(sqlSelect);
             while (resSet.next()) {
-                int profileID = resSet.getInt("user-id");
-                String profileLink = resSet.getString("user-profile-link");
-                String pageName = resSet.getString("user-name");
+                int userID = resSet.getInt("user-id");
+                String userProfileLink = resSet.getString("user-profile-link");
+                String userName = resSet.getString("user-name");
 
-                User tempUser = new User(profileID, profileLink, pageName);
-                listUsers.add(tempUser);
+                User temp = new User(userID, userProfileLink, userName);
+
+                temp.setDateBirth(resSet.getString("user-birthday"));
+                temp.setCity(resSet.getString("user-city"));
+                temp.setDateRequest(resSet.getString("date-request"));
+                temp.setWasSentRequestToFriend(!(resSet.getInt("was-sent-request-to-friend") == 0));
+                temp.setStatusFriend(resSet.getInt("status-friend"));
+                temp.setWasSentStartMsg(!(resSet.getInt("was-sent-start-msg") == 0));
+                temp.setComment(resSet.getString("comment"));
+                temp.setCountFriends(resSet.getInt("count-friends"));
+                temp.setCountCommonFriends(resSet.getInt("count-common-friends"));
+                temp.setCountFollowers(resSet.getInt("count-followers"));
+
+                listUsers.add(temp);
             }
 
-            resSet.close();
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
+            return listUsers;
+        } catch (SQLException e) {
+            throw e;
         } finally {
             closeStatement();
-            closeConnection();
         }
 
-        return listUsers;
     }
 
-    public boolean updateStatusRequest(int profileID, int status) {
+    /*public boolean updateStatusRequest(int profileID, int status) {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
             String SQL_UPDATE = "UPDATE `holly-clicker-db`.`current-request-to-friend-list` SET `status-answer`=? WHERE `user-id`=?";
@@ -125,14 +181,11 @@ public class DataBaseWorker {
             //выводим наиболее значимые сообщения
             Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("-------------------------------");
-        } finally {
-            closePreparedStatement();
-            closeConnection();
         }
 
         return true;
     }
-
+*/
 
     /*public boolean deleteUser(User user) {
         try {
@@ -191,48 +244,30 @@ public class DataBaseWorker {
 
     }*/
 
-    //Технические вспомогательные методы
-    public boolean closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-                return true;
-            } catch (SQLException ex) {
-                System.out.println("Ошибка. Не закрыли connection");
-                //Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
+
+
+
+
+
+    /*
+
+    private static Connection connection;
+    private static Statement stmt;
+
+    public static String getNickByLoginAndPass(String login, String pass) {
+        String sql = String.format("SELECT nickname FROM main \n" +
+                "where login = '%s'\n" +
+                "and password= '%s'", login, pass);
+        try {
+            ResultSet rs = stmt.executeQuery(sql);
+
+            if (rs.next()) {
+                return rs.getString(1);
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return true;
-    }
-
-    public boolean closeStatement() {
-        if (stmt != null) {
-            try {
-                stmt.close();
-                return true;
-            } catch (SQLException ex) {
-                System.out.println("Ошибка. Не закрыли statement");
-                ex.getMessage();
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean closePreparedStatement() {
-        if (pstmt != null) {
-            try {
-                pstmt.close();
-                return true;
-            } catch (SQLException ex) {
-                System.out.println("Ошибка. Не закрыли PreparedStatement");
-                ex.getMessage();
-                return false;
-            }
-        }
-        return true;
-    }
-
+        return null;
+    }*/
 }
