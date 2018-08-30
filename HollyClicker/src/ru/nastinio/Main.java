@@ -1,75 +1,31 @@
 package ru.nastinio;
 
 
+import ru.nastinio.Exceptions.DataBaseException;
 import ru.nastinio.Exceptions.LoadException;
+import ru.nastinio.Exceptions.SearchIDException;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String log = "";
-        String pass = "";
+       
 
         MainFunctionality mf = new MainFunctionality(log, pass);
         mf.setUpVK();
 
-        mf.writeMessageToGroupMembers("https://vk.com/pikabu");
 
-        //mf.getListPotentialFriendsByUserFriendList("https://vk.com/id455831615");
-
-        //mf.checkRequestToFriend();
-
-
-
-        /*//Собрали и записали в базу данных весь список друзей
-        mf.setFullInfoListFriendsToDB(myProfileLink);
-        //Забрали полный список пользователей из бд и распечатали его
-        mf.printListFriend(mf.getListFriendsFromDB());*/
-
-
-        /*User user = selWork.getFullInfoFromUserPage("https://vk.com/nikuly2004");
-        user.display();
-        DataBaseWorker dbWork = new DataBaseWorker();
-        dbWork.insertUser(user);*/
-
-        //System.out.println(selWork.getLinkToFirstTextPost("https://vk.com/antoinettemari"));
-
-        //selWork.getFullInfoFromUserPage("https://vk.com/id226361909");
-
-        //System.out.println(selWork.getLinkToFirstPost("https://vk.com/id226361909"));
-
-
-        /*//Получение и печать всех друзей из бд
-        DataBaseWorker dbWork = new DataBaseWorker();
-        ArrayList<User> listUser = dbWork.getAllUsers();
-        for (User currentUser: listUser) {
-            currentUser.display();
-        }*/
-
-
-
-
-        /*for (User currentFriend:listFriendsFullInfo) {
-            currentFriend.display();
-            System.out.println("-------------------");
-        }*/
-
-
-        String photoLink = "https://vk.com/id437245261?z=photo437245261_456239018%2Fphotos437245261";
-        String postLink = "https://vk.com/id437245261?w=wall437245261_4%2Fall";
-
-        String startWallPost = "https://vk.com/id226361909?w=wall226361909_2159%2Fall";
-        //selWork.likeSeveralPosts(startWallPost,200);
-
-        //selWork.likePostByLink(postLink, ConstVK.WL_POST, ConstVK.DISLIKE);
-        //selWork.likePostByLink(postLink, ConstVK.WL_POST, ConstVK.LIKE);
-
-        //selWork.likePostByLink(photoLink, ConstVK.PHOTO_POST, ConstVK.LIKE);
-
-        //selWork.likeProfilePhoto(tempUser.getProfileLink());
-
-        //selWork.likeSeveralPhotos(profileLink);
-
+        try {
+            mf.writeMessageToGroupMembers("https://vk.com/php2all","Здравствуйте, извините, что пишу в личку, нашел Вас в группе разработчиков",25);
+            //mf.writeMessageToGroupMembers("https://vk.com/pikabu","",25);
+        } catch (DataBaseException e) {
+            e.printStackTrace();
+        } catch (LoadException ee){
+            ee.printStackTrace();
+        }
 
     }
 
@@ -77,13 +33,80 @@ public class Main {
 }
 
 class Testing {
+    static DataBaseWorker db = new DataBaseWorker();
+
     public static void main(String[] args) {
-        String log = "";
-        String pass = "";
+
 
         Testing t = new Testing();
-        t.testGetFullInfoFromUserByPage(log,pass);
 
+
+        SeleniumWorker sw = new SeleniumWorker();
+        sw.authorization(log, pass);
+        System.out.println(sw.getCountGroupMembers("https://vk.com/pikabu"));
+
+
+
+        db.closeConnectionToDataBase();
+    }
+
+    public void testGetFullInfoListHostFriend(String log, String pass){
+        //Возьмем список всех друзей пользователя и запишем в бд
+        SeleniumWorker sw = new SeleniumWorker();
+        sw.authorization(log,pass);
+
+        ArrayList<String> listMyFriends = sw.getHostListLinksFriendsByPage();
+
+        for(int i=25;i<listMyFriends.size();i++){
+            System.out.println("-------------------");
+            System.out.println(listMyFriends.get(i));
+            try {
+                User tempUser = sw.getFullInfoFromUserByPage(listMyFriends.get(i));
+                tempUser.display();
+
+                try {
+                    db.insertUserToPotentialFriendsList(tempUser);
+                } catch (SQLException e) {
+                    System.out.println("Пользователь уже есть в бд");
+                }
+            }catch (LoadException e){
+                e.printStackTrace();
+            }
+        }
+        /*for (String tempLink:listMyFriends){
+            System.out.println("-------------------");
+            System.out.println(tempLink);
+            try {
+                User tempUser = sw.getFullInfoFromUserByPage(tempLink);
+                tempUser.display();
+
+                try {
+                    db.insertUserToPotentialFriendsList(tempUser);
+                } catch (SQLException e) {
+                    System.out.println("Пользователь уже есть в бд");
+                }
+            }catch (LoadException e){
+                e.printStackTrace();
+            }
+        }*/
+    }
+
+    public void testGetFriendStatus(String log, String pass){
+        SeleniumWorker sw = new SeleniumWorker();
+        sw.authorization(log, pass);
+
+        String[] list = {"https://vk.com/id437245261","https://vk.com/birarov", "https://vk.com/r17dptf","https://vk.com/id437245261","https://vk.com/id439606231"};
+        for (String temp:list) {
+            try{
+                sw.sleep(3);
+                System.out.println("---------------------------");
+                System.out.println("Статус дружбы: "+sw.getFriendStatusByPage(temp));
+                System.out.println(sw.getUserNameOnPage());
+                System.out.println("---------------------------");
+            }catch (LoadException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public void testGetFullInfoFromUserByPage(String log,String pass){
@@ -92,21 +115,19 @@ class Testing {
 
         DataBaseWorker db = new DataBaseWorker();
 
-        String[] list = {"https://vk.com/birarov", "https://vk.com/amzk1","https://vk.com/id499251069"};
+        String[] list = {"https://vk.com/birarov", "https://vk.com/amzk1","https://vk.com/id499251069","https://vk.com/urbanovich"};
         for (String temp:list) {
             try{
                 User u = sw.getFullInfoFromUserOnPage(temp);
                 u.display();
-                db.insertUserToPotentialFriendsList(u);
+                //db.insertUserToPotentialFriendsList(u);
             }catch (LoadException e){
                 e.printStackTrace();
             }
         }
     }
 
-    public void testGetUserDateBirthday() {
-        String log = "89110959954";
-        String pass = "Re3ytwsYtV0k0lws30";
+    public void testGetUserDateBirthday(String log,String pass) {
         SeleniumWorker sw = new SeleniumWorker();
         sw.authorization(log, pass);
 

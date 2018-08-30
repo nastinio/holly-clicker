@@ -83,7 +83,7 @@ public class User {
     }
 
     public int calculateAge() {
-        System.out.println("Получили на вход в calculateAge: " + dateBirth);
+        //System.out.println("Получили на вход в calculateAge: " + dateBirth);
         if(dateBirth==null|dateBirth.equalsIgnoreCase("0000-00-00")){
             return 0;
         }

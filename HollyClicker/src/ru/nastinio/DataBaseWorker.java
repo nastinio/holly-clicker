@@ -6,6 +6,8 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -129,11 +131,12 @@ public class DataBaseWorker {
 
     }
 
-    public ArrayList getAllFromPotentialFriendsList(String hostUserProfileLink) throws SQLException {
+    public Map<Integer,User> getAllFromPotentialFriendsList(String hostUserProfileLink) throws SQLException {
         try {
-            ArrayList<User> listUsers = new ArrayList<>();
+            //ArrayList<User> listUsers = new ArrayList<>();
+            Map<Integer,User> mapUser = new HashMap< Integer, User>();
             String sqlSelect = "SELECT * FROM `holly-clicker-db`.`potential-friends-list` where `host-profile-link` = '" + hostUserProfileLink + "';";
-            System.out.println(sqlSelect);
+            //System.out.println(sqlSelect);
             stmt = connection.createStatement();
             ResultSet resSet = stmt.executeQuery(sqlSelect);
             while (resSet.next()) {
@@ -154,10 +157,12 @@ public class DataBaseWorker {
                 temp.setCountCommonFriends(resSet.getInt("count-common-friends"));
                 temp.setCountFollowers(resSet.getInt("count-followers"));
 
-                listUsers.add(temp);
+                mapUser.put(userID,temp);
+                //listUsers.add(temp);
             }
 
-            return listUsers;
+            return mapUser;
+            //return listUsers;
         } catch (SQLException e) {
             throw e;
         } finally {

@@ -6,7 +6,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.nastinio.Enums.ConstVK;
-import ru.nastinio.Exceptions.AddToFriendlistException;
 import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
 
@@ -1085,7 +1084,7 @@ public class SeleniumWorker {
         }
 
     }
-    private int getCountInfoUserOnPage(ConstVK typeCount) {
+    private int getCountInfoUserOnPage(ConstVK typeCount) throws LoadException{
         //Вызывается со страницы пользрвателя
         int result = 0;
         //Панель со всеми счетчиками страницы: кол-во друзей, подписчиков, общих друзей
@@ -1094,7 +1093,8 @@ public class SeleniumWorker {
         String COUNT_ALL_FRIENDS = "//*[@id=\"wide_column\"]/div[1]/div[2]//a[contains(@href,'all')]//div[contains(@class,'count')]";
         String COUNT_FOLLOWERS = "//*[@id=\"wide_column\"]/div[1]/div[2]//a[contains(@href,'#')]//div[contains(@class,'count')]";
 
-        if (waitLoadOfElementByXPath(COUNTS_MODULE)) {
+        try {
+            waitLoadElementExp(COUNTS_MODULE);
             //Загрузили панель счетчиков страницы
             String currentCountXPath = "";
             switch (typeCount) {
@@ -1108,7 +1108,8 @@ public class SeleniumWorker {
                     currentCountXPath = COUNT_FOLLOWERS;
                     break;
             }
-            if (waitLoadOfElementByXPath(currentCountXPath)) {
+            try {
+                waitLoadElementExp(currentCountXPath);
                 //Если такой счетчик существует
                 String forResult = driver.findElement(By.xpath(currentCountXPath)).getText();
                 //System.out.println(typeCount + " = "+forResult);
@@ -1117,12 +1118,11 @@ public class SeleniumWorker {
                 } catch (NumberFormatException e) {
                     System.out.println("Ошибка преобразования  '" + forResult + "' в int");
                 }
-
-            } else {
-                System.out.println("Информации о " + typeCount + " на странице не найдено");
+            }catch (LoadException ee){
+                throw new LoadException("Информации о \" + typeCount + \" на странице не найдено");
             }
-        } else {
-            System.out.println("Не удалось загрузить COUNTS_MODULE на странице пользователя");
+        }catch (LoadException e){
+            throw new LoadException("Не удалось загрузить панель счетчиков количества друзей пользователя");
         }
 
         return result;
@@ -1131,7 +1131,7 @@ public class SeleniumWorker {
 
 
     //Добавить в друзья
-    public void addUserToFriendList(String pageLink) throws AddToFriendlistException {
+    public void addUserToFriendList(String pageLink) throws LoadException {
         driver.get(pageLink);
         try {
             //Подождем, пока страница пользователя прогрузится
@@ -1146,12 +1146,12 @@ public class SeleniumWorker {
             } catch (LoadException e) {
                 //Не прогрузилась кнопка добавить в друзья
                 System.out.println(e.getMessage());
-                throw new AddToFriendlistException("Не удалось добавить в друзья");
+                throw new LoadException("Не удалось добавить в друзья");
             }
         } catch (LoadException e) {
             //Не удалось загрузить страницу пользователя
             System.out.println(e.getMessage());
-            throw new AddToFriendlistException("Не удалось добавить в друзья");
+            throw new LoadException("Не удалось добавить в друзья");
         }
     }
 
@@ -1195,32 +1195,43 @@ public class SeleniumWorker {
             driver.findElement(By.xpath(membersXpath)).click();
             try {
                 //Получим общее число подписчиков
-                //Сравним с запрашиваемым числом
-
-                //Добавим подписчиков в список
-                String memberLinkXPath = "//*[@id=\"fans_rowsmembers\"]/div[contains(@class,'fans_fan_row')]/div[contains(@class,'fans_fan_name')]/a";
-                waitLoadElementExp(memberLinkXPath);
-
-                ArrayList<String> listMembersLink = new ArrayList<>(numberMembersTotal);
-
-                int k = 0;
-                while (k < numberMembersTotal) {
-                    List<WebElement> listMembersWebEl = driver.findElements(By.xpath(memberLinkXPath));
-                    int numberMembersOnBlock = 60;      //Первоначально отображается 60 подписчиков, затем добавляется по 30
-                    if (k == numberMembersOnBlock) {
-                        numberMembersOnBlock = 30;
+                try{
+                    int countGroupMembers = getCountGroupMembersOnOpenMembersPage();
+                    //Сравним с запрашиваемым числом
+                    if(countGroupMembers<numberMembersTotal){
+                        throw new LoadException("В группе недостаточное количество участников");
                     }
-                    for (int i = 0; i < numberMembersOnBlock && k < numberMembersTotal; i++) {
-                        //System.out.println("#" + k + " " + listMembersWebEl.get(k).getAttribute("href"));//driver.findElement(By.xpath(memberLinkXPath)).getText());
-                        listMembersLink.add(listMembersWebEl.get(k).getAttribute("href"));
-                        k++;
-                    }
-                    String btnScroll = "//*[@id=\"fans_more_linkmembers\"]";
-                    driver.findElement(By.xpath(btnScroll)).click();
+                    //Добавим подписчиков в список
+                    String memberLinkXPath = "//*[@id=\"fans_rowsmembers\"]/div[contains(@class,'fans_fan_row')]/div[contains(@class,'fans_fan_name')]/a";
+                    waitLoadElementExp(memberLinkXPath);
 
+                    ArrayList<String> listMembersLink = new ArrayList<>();
+
+                    int k = 0;
+                    while (k < numberMembersTotal) {
+                        List<WebElement> listMembersWebEl = driver.findElements(By.xpath(memberLinkXPath));
+                        //System.out.println("swGetListLinks: listMembersWebEl.size: "+ listMembersWebEl.size());
+                        int numberMembersOnBlock = 60;      //Первоначально отображается 60 подписчиков, затем добавляется по 29
+                        if (k == numberMembersOnBlock) {
+                            numberMembersOnBlock = 29;
+                        }
+                        for (int i = 0; i < numberMembersOnBlock && k < numberMembersTotal; i++) {
+                            //System.out.println("#" + k + " " + listMembersWebEl.get(k).getAttribute("href"));//driver.findElement(By.xpath(memberLinkXPath)).getText());
+                            listMembersLink.add((listMembersWebEl.get(k).getAttribute("href")).toString());
+                            k++;
+                        }
+                        String btnScroll = "//*[@id=\"fans_more_linkmembers\"]";
+                        driver.findElement(By.xpath(btnScroll)).click();
+
+                    }
+
+                    return listMembersLink;
+                }catch (LoadException e){
+                    throw e;
                 }
 
-                return listMembersLink;
+
+
 
             } catch (LoadException e) {
                 throw new LoadException("Не удалось загрузить участников группы");
@@ -1229,6 +1240,39 @@ public class SeleniumWorker {
             throw new LoadException("Не удалось загрузить страницу группы");
         }
 
+    }
+
+    public int getCountGroupMembers(String groupLink)throws LoadException{
+        driver.get(groupLink);
+        try {
+            String membersXpath = "//*[@id=\"public_followers\"]/a/div/span[1]";    //XPath кнопки для получения списка участников группы
+            waitLoadElementExp(membersXpath);
+            driver.findElement(By.xpath(membersXpath)).click();
+            try {
+                return getCountGroupMembersOnOpenMembersPage();
+            } catch (LoadException e) {
+                throw e;
+            }
+        } catch (LoadException e) {
+            throw e;
+        }
+    }
+    public int getCountGroupMembersOnOpenMembersPage()throws LoadException {
+        try{
+            String countMembersXPath = "//*[@id=\"box_layer\"]/div[2]/div/div[2]/div/div[contains(@class,'tb_tabs_wrap')]/div/div/h2/ul/li/div/span";
+            waitLoadElementExp(countMembersXPath);
+
+            String countMembersStr = driver.findElement(By.xpath(countMembersXPath)).getText();
+            countMembersStr = countMembersStr.replaceAll("\\s","");
+            //System.out.println("'"+countMembersStr+"'");
+            try {
+                return Integer.parseInt(countMembersStr);
+            } catch (NumberFormatException e) {
+                throw new LoadException("Ошибка преобразования типов");
+            }
+        }catch (LoadException e){
+            throw e;
+        }
     }
 
 }

@@ -1,17 +1,19 @@
 package ru.nastinio;
 
-import ru.nastinio.Exceptions.AddToFriendlistException;
+import ru.nastinio.Exceptions.DataBaseException;
 import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MainFunctionality {
 
     private String login;
     private String password;
-    private int hostID;
+    private String hostProfileLink;
 
     private SeleniumWorker selWork;
     private DataBaseWorker dbWork;
@@ -30,17 +32,21 @@ public class MainFunctionality {
 
     }
 
+
     public boolean setUpVK() {
-        int count = 0;
-        while (!isOnline && count < 3) {
-            if (selWork.authorization(login, password)) {
-                isOnline = true;
-                System.out.println("Авторизация прошла успешно");
-                return true;
+        try {
+            selWork.authorization(login, password);
+            isOnline = true;
+            try{
+                hostProfileLink = selWork.getHostPageLink();
+            }catch(LoadException e){
+                throw e;
             }
-            count++;
+        } catch (LoadException e) {
+            //count++;
         }
-        System.out.println("Не удалось авторизоваться");
+
+
         return false;
 
     }
@@ -48,7 +54,7 @@ public class MainFunctionality {
 
     /*public void setFullInfoListFriendsToDB(String pageLink) {
         //Проход по всем друзьям пользователя и запись в бд
-        ArrayList<User> listFriendsShortInfo = selWork.getUserFriendList(pageLink);
+        ArrayList<User> listFriendsShortInfo = selWork.getUserListLinksFriendsByPage(pageLink);
         //ArrayList<User> listFriendsFullInfo = new ArrayList<>();
         int count = 1;
         int totalNumberFriend = listFriendsShortInfo.size() + 1;
@@ -62,7 +68,6 @@ public class MainFunctionality {
             count++;
         }
     }*/
-
 
 
     public void printListFriend(ArrayList<User> list) {
@@ -89,8 +94,8 @@ public class MainFunctionality {
             selWork.addUserToFriendList(pageLink);
             User currentUser = selWork.getStartInfoUserByPage(pageLink);
             //dbWork.insertUserToCurrentRequestToFriendList(currentUser, 1);
-        } catch (AddToFriendlistException e) {
-            System.out.println(e.getMessage());
+        } catch (LoadException e) {
+            throw e;
         } catch (SearchIDException e) {
             System.out.println(e.getMessage());
         }
@@ -98,84 +103,150 @@ public class MainFunctionality {
 
     //Подготовим список для добавления в друзья
     public void getListPotentialFriendsByUserFriendList(String profileLink) {
-        ArrayList<User> list = selWork.getUserFriendList(profileLink);
+        ArrayList<String> list = selWork.getUserListLinksFriendsByPage(profileLink);
         for (int i = 7; i < 88; i++) {
             System.out.println("Начали обрабатывать");
-            list.get(i).display();
-            addUserToFriendList(list.get(i).getProfileLink());
+            System.out.println(list.get(i));
+            addUserToFriendList(list.get(i));
             selWork.sleep(30);
         }
     }
 
-    /*//Проверим заявки в друзья на подтверждение
-    public void checkRequestToFriend() {
-        ArrayList<User> list = dbWork.getAllPotentialFriends();
-        int count = 0;
-        for (User user : list) {
-            System.out.printf("Проверяем %d/%d\n", count++, list.size());
-            try {
-
-                switch (selWork.getFriendStatusByPage(user.getProfileLink())) {
-                    case 1:
-                        //Добавили в друзья
-                        dbWork.updateStatusRequest(user.getProfileID(), 1);
-                        //Потом можно добавить код на стартовое сообщение
-                        break;
-                    case 0:
-                        break;
-                    case -1:
-                        //Отменили заявку
-                        dbWork.updateStatusRequest(user.getProfileID(), -1);
-                        //Добавить код на отписку
-                        break;
-                }
-            } catch (LoadException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-    }*/
 
     //Отправим сообщения подтвердившим заявку
     public void writeMessageToPotentialFriend() {
 
-        selWork.writeMessageByLink("https://vk.com/id226361909", "Йееей, я механический отправитель смайликов :)");
+        selWork.writeMessageByPage("https://vk.com/id226361909", "Йееей, я механический отправитель смайликов :)");
     }
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Отправить сообщения участникам группы
-    public void writeMessageToGroupMembers(String groupLink) {
+    /*
+     * На вход подается ссылка на группу, сообщение и количество человек, которым нужно отправить сообщение
+     * Забирает список ссылок на пользователей, пропускает их через необходимые фильтры,
+     * пишет сообщение и записывает в бд
+     *
+     * */
+
+    int countCheckedMember;
+    Map<Integer, User> mapExistingInDBUser;
+
+    public void writeMessageToGroupMembers(String groupLink, String msg, int totalCountMsg) throws DataBaseException, LoadException {
         try {
-            //Получим список участников группы
-            ArrayList<String> listMembers = selWork.getListGroupMembers(groupLink, 100);
-            //Параллельно будем писать сообщения и заносить инфу в бд
-            int i = 1;
-            for (String currentMember : listMembers) {
-                selWork.openUserPage(currentMember);
+            mapExistingInDBUser = dbWork.getAllFromPotentialFriendsList(hostProfileLink);
+            try {
+                //Получим список участников группы со страницы
+                int countSendMsg = 0;           //Количество уже отправленных сообщений
+                int currentTotalSize = 0;       //Общее количество сообщений, которое нужно отправить
 
-                try {
-                    String currentUserCity = selWork.getUserCityOnPage();
-                    System.out.println("#" + i + ": " + currentUserCity);
-                    if (currentUserCity.equalsIgnoreCase("Санкт-Петербург")) {
-                        System.out.println("Чувак из Питера! Йеей!");
+                countCheckedMember = 0;         //Не влияет на логику, только для отображения
 
-                        User temp = selWork.getFullInfoFromUserOnPage(currentMember);
-                        //selWork.writeMessageByLink(currentMember,"Hello");
-                        dbWork.insertUserToPotentialFriendsList(temp);
+                while (countSendMsg < totalCountMsg) {
+                    System.out.println("------------------------------------------------------------");
+                    System.out.println("Начали обрабатывать блок");
 
-                    }
-                } catch (LoadException e) {
-                    System.out.println("#" + i + ": " + "город не указан");
+                    //Получаем текущий блок ссылок на страницы пользователей
+                    ArrayList<String> list = prepareShortListMember(currentTotalSize, totalCountMsg, countSendMsg, groupLink);
+
+                    //Рассылаем сообщения, пропуская ссылки через фильтры и параллельно записываем пользователей в бд
+                    countSendMsg = writeMsgToShortListGroupMember(list, totalCountMsg, countSendMsg, groupLink, msg);
+
+                    System.out.println("По итогу обработки блока написали сообщений: " + countSendMsg);
+                    System.out.println("------------------------------------------------------------");
+                    currentTotalSize = list.size();
+
                 }
-                System.out.println("-------------------------------");
-                i++;
 
+
+            } catch (LoadException e) {
+                throw e;
+                //System.out.println(e.getMessage());
             }
 
-        } catch (LoadException e) {
-            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            throw new DataBaseException("Не удалось получить список пользователей из бд");
         }
 
     }
 
+    private ArrayList<String> prepareShortListMember(int currentTotalSize, int totalCountMsg, int countSendMsg, String groupLink) {
+        int previousTotalSize = currentTotalSize;
+        currentTotalSize = previousTotalSize + (totalCountMsg - countSendMsg) * 3;
+        int currentShortSize = currentTotalSize - previousTotalSize;
+
+       /* System.out.println("previousTotalSize: "+previousTotalSize);
+        System.out.println("currentTotalSize:  "+currentTotalSize);
+        System.out.println("currentShortSize:  "+currentShortSize);*/
+
+
+        ArrayList<String> listTotalMembers = selWork.getListGroupMembers(groupLink, currentTotalSize);
+        //System.out.println("Получили расширенный список размера: " + listTotalMembers.size());
+        ArrayList<String> listShortMembers = new ArrayList();
+        //Обрезаем массив
+        for (int i = 0; i < currentShortSize; i++) {
+            listShortMembers.add(listTotalMembers.get(previousTotalSize + i));
+        }
+        //System.arraycopy(listTotalMembers, previousTotalSize, listShortMembers, 0, currentShortSize);
+        //System.out.println("Обрезали его до размера: "  + listShortMembers.size());
+
+        return listShortMembers;
+    }
+
+    private int writeMsgToShortListGroupMember(ArrayList<String> list, int totalCountMsg, int countSendMsg, String groupLink, String msg) {
+        for (String currentMember : list) {
+            try {
+                selWork.openUserPage(currentMember);
+                try {
+                    //Определяем фильтры, пока только город и писали ли ему уже
+                    String currentUserCity = selWork.getUserCityOnPage();
+                    System.out.println("=============================================");
+                    System.out.println("Проверяем пользователя #" + (++countCheckedMember));
+                    //System.out.println("#" + countCheckingUser + ": " + currentUserCity);
+                    if (currentUserCity.equalsIgnoreCase("Санкт-Петербург")) {
+                        System.out.println("Чувак из Питера! Йеей!");
+
+                        try {
+                            User temp = selWork.getFullInfoFromUserOnPage(currentMember);
+                            temp.display();
+
+                            //Заполним поля, связанные с написанием сообщения
+                            temp.setWasSentStartMsg(true);
+                            temp.setComment("Из группы: " + groupLink);
+                            //Запишем в бд
+                            try {
+                                if (!mapExistingInDBUser.containsKey(temp.getProfileID())) {
+                                    //В бд нет такого пользователя
+                                    dbWork.insertUserToPotentialFriendsList(temp);
+                                    selWork.writeMessageByPage(currentMember, msg);
+                                    countSendMsg++;
+                                    System.out.println("Написали сообщений: " + countSendMsg + " из " + totalCountMsg);
+                                    if (countSendMsg == totalCountMsg) {
+                                        return countSendMsg;
+                                    }
+                                    selWork.sleep(60);
+                                }
+                            } catch (SQLException e) {
+                                System.out.println("Стартовое сообщение уже было отправлено");
+                                //e.printStackTrace();
+                            }
+
+                        } catch (LoadException e) {
+                            throw new LoadException(e.getMessage());
+                        }
+                    }
+
+                } catch (LoadException e) {
+                    System.out.println("#" + countCheckedMember + ": " + "город не указан");
+                }
+            } catch (LoadException e) {
+                System.out.println("Не удалось загрузить стрвницу пользователя");
+                e.printStackTrace();
+            }
+        }
+        return countSendMsg;
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }
