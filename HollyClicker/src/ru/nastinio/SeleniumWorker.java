@@ -25,37 +25,6 @@ public class SeleniumWorker {
     private final String VK_URL = "https://vk.com/";
     private String hostPageLink;
 
-
-    //Панель кнопок 'Нравится' и 'Поделиться' для поста на стене
-    protected final String BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]";
-    protected final String BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]";
-
-    //Кнопка 'Мне нравится'
-    protected final String BTN_LIKE_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]/div/div/div[1]/a[1]";
-    protected final String BTN_LIKE_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]/a[1]";
-
-    //Активная кнопка 'Мне нравится'
-    protected final String BTN_LIKE_ACTIVE_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]/div/div/div[1]/" +
-            "a[contains(@class,'like active')][1]";
-    protected final String BTN_LIKE_ACTIVE_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]//" +
-            "a[contains(@class,'like active')]";
-
-    //Вспомогательные элементы страницы
-    protected final String PROFILE_NAME_XPATH = "//*[@id=\"page_info_wrap\"]/div[1]/h2";
-    protected final String PROFILE_PHOTO_XPATH = "//*[@id=\"profile_photo_link\"]/img";
-    protected final String PHOTO_GALLERY_XPATH = "//*[@id=\"page_photos_module\"]/a[1]";
-
-    //Область фотографии, чтобы появились кнопки навигации влево и вправо
-    protected final String AREA_PHOTO_XPATH = "//*[@id=\"pv_box\"]/div[2]/div[2]/div[1]/div[6]";
-    //Кнопки 'влево' и 'вправо' в галерее фотографий
-    protected final String BTN_NAV_ICON_PHOTO_LEFT_XPATH = "//*[@id=\"pv_nav_btn_left\"]/div";
-    protected final String BTN_NAV_ICON_PHOTO_RIGHT_XPATH = "//*[@id=\"pv_nav_btn_right\"]/div";
-    //String BTN_NAV_SHOW_PHOTO_LEFT_XPATH = "//*[@id=\"pv_box\"]/div[2]/div[2]/div[1]/div[6]//div[contains(@class,'pv_nav_btn_show')]";
-
-    //Кнопки 'влево' и 'вправо' для записей на стене
-    protected final String BTN_NAV_WL_POST_RIGHT_XPATH = "//*[@id=\"wk_right_arrow\"]";
-    protected final String BTN_NAV_WL_POST_LEFT_XPATH = "//*[@id=\"wk_left_arrow\"]";
-
     //Просто полезный пирожок для наглядности
     protected String separator = "=============================================";
 
@@ -270,28 +239,104 @@ public class SeleniumWorker {
     }
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Все действия, связанные с лайками/репостами
-    public boolean likeProfilePhoto(String pageLink) {
-        System.out.println(separator);
-        //Переходим на страницу пользователя
-        driver.get(pageLink);
+    public void likeSeveralPostsByPage(String pageLink,int totalNumberLikes){
+        try {
+            openUserPage(pageLink);
+            try{
+                likeSeveralPostsOnPage(totalNumberLikes);
+            }catch (LoadException e){
+                e.printStackTrace();
+                throw e;
+            }
+        } catch (LoadException e) {
+            throw e;
+        }
+    }
+    public void likeSeveralPostsOnPage(int totalNumberLikes) {
+        //Пройдем по странице пользователя и будем лайкать посты
+        //При необходимости скроллить страницу
 
-        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
-            System.out.println("Страница пользователя доступна");
-            //Нажимаем на фото пользователя
-            //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(PROFILE_PHOTO_XPATH)));
-            WebElement profilePhoto = driver.findElement(By.xpath(PROFILE_PHOTO_XPATH));
+        //Путь к блоку записи
+        ////*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]
+        //*[@id="post226361909_2159"]/div/div[2]/div/div[2]/div
+
+        //Путь к панели с кнопками 'Нравится' под каждым постом
+        //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div
+
+        //Путь конкретно к кнопке 'Мне нравится' под каждым постом
+        //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1]
+
+        int countLike = 1;
+        int realCountLike = 0;
+
+        while (countLike <= totalNumberLikes) {
+            //Поймаем момент, когда нужно пролистнуть страницу
+            if (countLike % numberPostsOnBlock == 0) {
+                scrollPageToBottom();
+            }
+            String btnLikePostOnWallXPath = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" + "[" + countLike + "]" +
+                    "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1]";
+            try{
+                waitLoadElementExp(btnLikePostOnWallXPath);
+                //Проверим, стоит ли лайк
+                String btnLikePostOnWallActiveXPath = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" + "[" + countLike + "]" +
+                        "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1][contains(@class,'active')]";
+                try{
+                    //Если удастся, значит лайк стоит
+                    waitLoadElementExp(btnLikePostOnWallActiveXPath);
+                    System.out.println("Не лайкали, но просмотрели " + countLike + "-ый пост");
+
+                }   catch (LoadException e){
+                    //Т.е. пост не лайкали
+                    if (shouldPostBeLiked()) {
+                        //driver.findElement(By.xpath(btnLikePostOnWallXPath)).click();
+                        System.out.println("Лайкнули " + countLike + "-ый пост");
+                        realCountLike++;
+                    } else {
+                        System.out.println("Пропустили " + countLike + "-ый пост, ибо так решила судьба");
+                    }
+                }
+
+                countLike++;
+            }catch (LoadException e){
+                throw new LoadException("Не удалось найти запись");
+            }
+        }
+        System.out.println("Итого у пользователя  пролайкали " + realCountLike + " записей");
+
+
+    }
+
+    public void likeProfilePhotoByPage(String pageLink){
+        try {
+            openUserPage(pageLink);
+            try{
+                likeProfilePhotoOnPage();
+            }catch (LoadException e){
+                e.printStackTrace();
+                throw e;
+            }
+        } catch (LoadException e) {
+            throw e;
+        }
+    }
+    public void likeProfilePhotoOnPage() {
+        try{
+            String profilePhotoXPath = "//*[@id=\"profile_photo_link\"]/img";
+            waitLoadElementExp(profilePhotoXPath);
+            WebElement profilePhoto = driver.findElement(By.xpath(profilePhotoXPath));
             profilePhoto.click();
 
-            //Ждем пока оно прогрузится
-            if (waitLoadOfElementByTypeOfElementXPath(ConstVK.PHOTO_POST)) {
-                System.out.println("Фотография профиля доступна");
+            try{
+                //Ждем пока прогрузится фотография профиля
+                waitLoadElementByTypeExp(ConstVK.PHOTO_POST);
                 //Сначала проверим наличие собственного лайка
                 if (wasCurrentPostLiked(ConstVK.PHOTO_POST)) {
                     System.out.println("Отметка 'Мне нравится' уже стоит");
                     System.out.println("Result: false");
                     System.out.println(separator);
-                    return false;
                 } else {
                     System.out.println("Отметка 'Мне нравится' не стоит. Поставим ее");
                     //Нажимаем кнопку 'Мне нравится'
@@ -300,28 +345,67 @@ public class SeleniumWorker {
                     btnLike.click();*/
                     System.out.println("Result: true");
                     System.out.println(separator);
-                    return true;
                 }
-
-            } else {
-                System.out.println("Фотография недоступна");
-                System.out.println("Result: false");
-                System.out.println(separator);
-                return false;
+            }catch (LoadException e){
+                throw new LoadException("Фотография недоступна");
             }
-        } else {
-            System.out.println("Страница пользователя недоступна");
-            System.out.println("Result: false");
-            System.out.println(separator);
+
+        }catch (LoadException e){
+            throw e;
+        }
+
+
+
+    }
+
+    private boolean wasCurrentPostLiked(ConstVK typeOfPost) throws WebDriverException {
+        //Активная кнопка 'Мне нравится'
+        String BTN_LIKE_ACTIVE_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]/div/div/div[1]/a[contains(@class,'like active')][1]";
+        String BTN_LIKE_ACTIVE_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]//a[contains(@class,'like active')]";
+
+        //Панель кнопок 'Нравится' и 'Поделиться' для поста на стене
+        String BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]";
+        String BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]";
+
+
+        String btnsLikeAndShareXPath = new String();    //панель кнопок 'Нравится' и 'Поделиться'
+        String btnLikeActiveXPath = new String();       //xpath для активной, т.е. нажатой кнопки 'Нравится'
+        switch (typeOfPost) {
+            case WL_POST:
+                btnsLikeAndShareXPath = BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH;
+                btnLikeActiveXPath = BTN_LIKE_ACTIVE_WL_POST_XPATH;
+                break;
+            case PHOTO_POST:
+                btnsLikeAndShareXPath = BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH;
+                btnLikeActiveXPath = BTN_LIKE_ACTIVE_PHOTO_XPATH;
+                break;
+        }
+        /*//Ждем, пока прогрузится панель кнопок 'Нравится' и 'Поделиться'
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(btnsLikeAndShareXPath)));*/
+        //Проверяем, отрисовывается ли класс 'like active'
+        try {
+            return driver.findElement(By.xpath(btnLikeActiveXPath)).isDisplayed();
+        } catch (org.openqa.selenium.NoSuchElementException e) {
             return false;
         }
+
     }
+
+/////////////////////////////////////////////////////////////
+
     public boolean likePostByLink(String linkPost, ConstVK typeOfPost, ConstVK typeOfAction) {
         driver.get(linkPost);
         return likeCurrentPost(typeOfPost, typeOfAction);
     }
-
     public boolean likeCurrentPost(ConstVK typeOfPost, ConstVK typeOfAction) {
+        //Кнопка 'Мне нравится'
+        String BTN_LIKE_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]/div/div/div[1]/a[1]";
+        String BTN_LIKE_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]/a[1]";
+
+
+        //Панель кнопок 'Нравится' и 'Поделиться' для поста на стене
+        String BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]";
+        String BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]";
         if (waitLoadOfElementByTypeOfElementXPath(typeOfPost)) {
             //Страница прогружена, можем без лишних проверок с ней работать
             System.out.println("=============================================");
@@ -385,31 +469,10 @@ public class SeleniumWorker {
             return false;
         }
     }
-    private boolean wasCurrentPostLiked(ConstVK typeOfPost) throws WebDriverException {
-        String btnsLikeAndShareXPath = new String();    //панель кнопок 'Нравится' и 'Поделиться'
-        String btnLikeActiveXPath = new String();       //xpath для активной, т.е. нажатой кнопки 'Нравится'
-        switch (typeOfPost) {
-            case WL_POST:
-                btnsLikeAndShareXPath = BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH;
-                btnLikeActiveXPath = BTN_LIKE_ACTIVE_WL_POST_XPATH;
-                break;
-            case PHOTO_POST:
-                btnsLikeAndShareXPath = BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH;
-                btnLikeActiveXPath = BTN_LIKE_ACTIVE_PHOTO_XPATH;
-                break;
-        }
-        /*//Ждем, пока прогрузится панель кнопок 'Нравится' и 'Поделиться'
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(btnsLikeAndShareXPath)));*/
-        //Проверяем, отрисовывается ли класс 'like active'
-        try {
-            return driver.findElement(By.xpath(btnLikeActiveXPath)).isDisplayed();
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            return false;
-        }
-
-    }
 
     public boolean likeSeveralPhotos(String pageLink, int numberPhotosForLike) {
+        String PHOTO_GALLERY_XPATH = "//*[@id=\"page_photos_module\"]/a[1]";
+
         System.out.println(separator);
         System.out.println("Start: likeAllPhotos");
 
@@ -493,6 +556,10 @@ public class SeleniumWorker {
     }
 
     public boolean getNextWlPost(ConstVK direction) {
+        //Кнопки 'влево' и 'вправо' для записей на стене
+        String BTN_NAV_WL_POST_RIGHT_XPATH = "//*[@id=\"wk_right_arrow\"]";
+        String BTN_NAV_WL_POST_LEFT_XPATH = "//*[@id=\"wk_left_arrow\"]";
+
         String btnNavWlPost = new String();
         switch (direction) {
             case LEFT:
@@ -513,6 +580,14 @@ public class SeleniumWorker {
         }
     }
     public boolean getNextPhoto(ConstVK direction) {
+        //Область фотографии, чтобы появились кнопки навигации влево и вправо
+        String AREA_PHOTO_XPATH = "//*[@id=\"pv_box\"]/div[2]/div[2]/div[1]/div[6]";
+        //Кнопки 'влево' и 'вправо' в галерее фотографий
+        String BTN_NAV_ICON_PHOTO_LEFT_XPATH = "//*[@id=\"pv_nav_btn_left\"]/div";
+        String BTN_NAV_ICON_PHOTO_RIGHT_XPATH = "//*[@id=\"pv_nav_btn_right\"]/div";
+        //String BTN_NAV_SHOW_PHOTO_LEFT_XPATH = "//*[@id=\"pv_box\"]/div[2]/div[2]/div[1]/div[6]//div[contains(@class,'pv_nav_btn_show')]";
+
+
         String btnNavIconPhotoXPath = new String();
         switch (direction) {
             case LEFT:
@@ -611,72 +686,7 @@ public class SeleniumWorker {
         }
 
     }
-
-    public boolean likeSeveralPostsOnPage(String pageLink, int totalNumberLikes) {
-        //Пройдем по странице пользователя и будем лайкать посты
-        //При необходимости скроллить страницу
-
-        //Путь к блоку записи
-        ////*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]
-        //*[@id="post226361909_2159"]/div/div[2]/div/div[2]/div
-
-        //Путь к панели с кнопками 'Нравится' под каждым постом
-        //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div
-
-        //Путь конкретно к кнопке 'Мне нравится' под каждым постом
-        //*[@id="page_wall_posts"]//div[contains(@class,'_post post page_block')]/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1]
-
-        System.out.println(separator);
-        System.out.println("Start: likeSeveralPostsOnPage");
-
-        driver.get(pageLink);
-
-        if (waitLoadOfElementByTypeOfElementXPath(ConstVK.USER_PAGE)) {
-            int countLike = 1;
-            int realCountLike = 0;
-
-            while (countLike <= totalNumberLikes) {
-                //Поймаем момент, когда нужно пролистнуть страницу
-                if (countLike % numberPostsOnBlock == 0) {
-                    scrollPageToBottom();
-                }
-                String BTN_LIKE_POST_ON_WALL = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" + "[" + countLike + "]" +
-                        "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1]";
-                if (waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL)) {
-                    //Проверим, стоит ли лайк
-                    String BTN_LIKE_POST_ON_WALL_ACTIVE = "//*[@id=\"page_wall_posts\"]//div[contains(@class,'_post post page_block')]" + "[" + countLike + "]" +
-                            "/div/div[2]/div/div[2]/div//div[contains(@class,'like_btns')]//a[1][contains(@class,'active')]";
-                    if (!waitLoadOfElementByXPath(BTN_LIKE_POST_ON_WALL_ACTIVE)) {
-                        //Т.е. пост не лайкали
-                        if (shouldPostBeLiked()) {
-                            driver.findElement(By.xpath(BTN_LIKE_POST_ON_WALL)).click();
-                            System.out.println("Лайкнули " + countLike + "-ый пост");
-                            realCountLike++;
-                        } else {
-                            System.out.println("Пропустили " + countLike + "-ый пост, ибо так решила судьба");
-                        }
-
-                    } else {
-                        System.out.println("Не лайкали, но просмотрели " + countLike + "-ый пост");
-                    }
-                    countLike++;
-                } else {
-                    System.out.println("Не удалось найти запись");
-                    System.out.println(separator);
-                    return false;
-                }
-            }
-            System.out.println("Итого у пользователя '" + pageLink + "' пролайкали " + realCountLike + " записей");
-
-            return true;
-
-        } else {
-            System.out.println("Не удалось загрузить страницу пользователя");
-            System.out.println(separator);
-            return false;
-        }
-
-    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     //Вспомогательные методы
@@ -716,12 +726,16 @@ public class SeleniumWorker {
         String elementXPath = new String();
         switch (typeOfElement) {
             case WL_POST:
+                //Панель кнопок 'Нравится' и 'Поделиться' для поста на стене
+                String BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]";
                 elementXPath = BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH;
                 break;
             case PHOTO_POST:
+                String BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]";
                 elementXPath = BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH;
                 break;
             case USER_PAGE:
+                String PROFILE_NAME_XPATH = "//*[@id=\"page_info_wrap\"]/div[1]/h2";
                 elementXPath = PROFILE_NAME_XPATH;
                 break;
             case WELCOME_PAGE:
@@ -742,6 +756,10 @@ public class SeleniumWorker {
     }
 
     protected boolean waitLoadOfElementByTypeOfElementXPath(ConstVK typeOfElement) {
+        //Панель кнопок 'Нравится' и 'Поделиться' для поста на стене
+        String BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH = "//*[@id=\"wl_post_actions_wrap\"]";
+        String BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH = "//*[@id=\"pv_narrow\"]/div[1]/div[1]/div/div/div[1]/div[3]/div/div[1]";
+
         String elementXPath = new String();
         switch (typeOfElement) {
             case WL_POST:
@@ -751,6 +769,7 @@ public class SeleniumWorker {
                 elementXPath = BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH;
                 break;
             case USER_PAGE:
+                String PROFILE_NAME_XPATH = "//*[@id=\"page_info_wrap\"]/div[1]/h2";
                 elementXPath = PROFILE_NAME_XPATH;
                 break;
             case WELCOME_PAGE:
@@ -915,6 +934,7 @@ public class SeleniumWorker {
     }
     public String getUserNameOnPage() throws LoadException {
         try {
+            String PROFILE_NAME_XPATH = "//*[@id=\"page_info_wrap\"]/div[1]/h2";
             return driver.findElement(By.xpath(PROFILE_NAME_XPATH)).getText();
         } catch (LoadException e) {
             throw new LoadException("Не удалось получить имя пользователя");
@@ -1114,6 +1134,7 @@ public class SeleniumWorker {
                 String forResult = driver.findElement(By.xpath(currentCountXPath)).getText();
                 //System.out.println(typeCount + " = "+forResult);
                 try {
+                    forResult = forResult.replaceAll("\\s+","");
                     result = Integer.parseInt(forResult);
                 } catch (NumberFormatException e) {
                     System.out.println("Ошибка преобразования  '" + forResult + "' в int");
@@ -1122,7 +1143,7 @@ public class SeleniumWorker {
                 throw new LoadException("Информации о \" + typeCount + \" на странице не найдено");
             }
         }catch (LoadException e){
-            throw new LoadException("Не удалось загрузить панель счетчиков количества друзей пользователя");
+            //throw new LoadException("Не удалось загрузить панель счетчиков количества друзей пользователя");
         }
 
         return result;
@@ -1175,8 +1196,9 @@ public class SeleniumWorker {
                 String textArea = "//*[@id=\"mail_box_editable\"]";
                 waitLoadElementExp(textArea);
 
+                sleep(2);
                 driver.findElement(By.xpath(textArea)).sendKeys(msg);
-
+                sleep(2);
                 driver.findElement(By.xpath("//*[@id=\"mail_box_send\"]")).click();
             } catch (LoadException e) {
                 throw new LoadException("Не загрузилось окно отправки сообщения");

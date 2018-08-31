@@ -4,10 +4,13 @@ import ru.nastinio.Exceptions.DataBaseException;
 import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 public class MainFunctionality {
 
@@ -17,6 +20,7 @@ public class MainFunctionality {
 
     private SeleniumWorker selWork;
     private DataBaseWorker dbWork;
+    private FileWorker fileWorker;
 
     private boolean isOnline = false;
 
@@ -29,6 +33,7 @@ public class MainFunctionality {
 
         selWork = new SeleniumWorker();
         dbWork = new DataBaseWorker();
+        fileWorker = new FileWorker();
 
     }
 
@@ -132,7 +137,7 @@ public class MainFunctionality {
     int countCheckedMember;
     Map<Integer, User> mapExistingInDBUser;
 
-    public void writeMessageToGroupMembers(String groupLink, String msg, int totalCountMsg) throws DataBaseException, LoadException {
+    public void writeMessageToGroupMembers(String groupLink, ArrayList<String> msgList, int totalCountMsg) throws DataBaseException, LoadException {
         try {
             mapExistingInDBUser = dbWork.getAllFromPotentialFriendsList(hostProfileLink);
             try {
@@ -150,7 +155,7 @@ public class MainFunctionality {
                     ArrayList<String> list = prepareShortListMember(currentTotalSize, totalCountMsg, countSendMsg, groupLink);
 
                     //Рассылаем сообщения, пропуская ссылки через фильтры и параллельно записываем пользователей в бд
-                    countSendMsg = writeMsgToShortListGroupMember(list, totalCountMsg, countSendMsg, groupLink, msg);
+                    countSendMsg = writeMsgToShortListGroupMember(list, totalCountMsg, countSendMsg, groupLink, msgList);
 
                     System.out.println("По итогу обработки блока написали сообщений: " + countSendMsg);
                     System.out.println("------------------------------------------------------------");
@@ -167,6 +172,8 @@ public class MainFunctionality {
         } catch (SQLException e) {
             throw new DataBaseException("Не удалось получить список пользователей из бд");
         }
+
+
 
     }
 
@@ -193,7 +200,8 @@ public class MainFunctionality {
         return listShortMembers;
     }
 
-    private int writeMsgToShortListGroupMember(ArrayList<String> list, int totalCountMsg, int countSendMsg, String groupLink, String msg) {
+    private int writeMsgToShortListGroupMember(ArrayList<String> list, int totalCountMsg, int countSendMsg, String groupLink, ArrayList<String> msgList) {
+        int numberMsgToSent = countSendMsg;
         for (String currentMember : list) {
             try {
                 selWork.openUserPage(currentMember);
@@ -218,13 +226,25 @@ public class MainFunctionality {
                                 if (!mapExistingInDBUser.containsKey(temp.getProfileID())) {
                                     //В бд нет такого пользователя
                                     dbWork.insertUserToPotentialFriendsList(temp);
-                                    selWork.writeMessageByPage(currentMember, msg);
+                                    selWork.writeMessageByPage(currentMember, msgList.get(numberMsgToSent));
+
+                                    numberMsgToSent++;
                                     countSendMsg++;
+
+                                    if(countSendMsg == msgList.size()){
+                                        numberMsgToSent = 0;
+                                    }
                                     System.out.println("Написали сообщений: " + countSendMsg + " из " + totalCountMsg);
                                     if (countSendMsg == totalCountMsg) {
                                         return countSendMsg;
                                     }
-                                    selWork.sleep(60);
+
+                                    //Искуственная пауза
+                                    Random rnd = new Random(System.currentTimeMillis());
+                                    int max = 100;
+                                    int min = 50;
+                                    int timeSleep = min + rnd.nextInt(max - min + 1);
+                                    selWork.sleep(timeSleep);
                                 }
                             } catch (SQLException e) {
                                 System.out.println("Стартовое сообщение уже было отправлено");
@@ -245,6 +265,22 @@ public class MainFunctionality {
             }
         }
         return countSendMsg;
+    }
+
+    public ArrayList<String> prepareMsgList(String fileName) throws FileNotFoundException {
+        FileWorker fileWorker = new FileWorker();
+
+        try{
+            String msgAllStr = fileWorker.read(fileName);
+            ArrayList<String> listMsg = new ArrayList<>();
+            for (String temp : msgAllStr.split("\n{2,}")) {
+                listMsg.add(temp);
+            }
+            return listMsg;
+        }catch (FileNotFoundException e){
+            throw e;
+        }
+
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

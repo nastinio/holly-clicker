@@ -1,0 +1,64 @@
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+--
+-- Host: localhost    Database: holly-clicker-db
+-- ------------------------------------------------------
+-- Server version	5.6.23-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `potential-friends-list`
+--
+
+DROP TABLE IF EXISTS `potential-friends-list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `potential-friends-list` (
+  `host-profile-link` varchar(45) DEFAULT NULL,
+  `user-id` int(15) NOT NULL,
+  `user-profile-link` varchar(45) DEFAULT NULL,
+  `user-name` varchar(45) DEFAULT NULL,
+  `user-birthday` date DEFAULT NULL,
+  `user-age` int(11) DEFAULT NULL,
+  `user-city` varchar(45) DEFAULT NULL,
+  `date-request` date DEFAULT NULL,
+  `was-sent-request-to-friend` tinyint(4) DEFAULT '0',
+  `status-friend` tinyint(4) DEFAULT '0',
+  `was-sent-start-msg` tinyint(4) DEFAULT '0',
+  `comment` varchar(45) DEFAULT NULL,
+  `count-friends` int(11) DEFAULT '0',
+  `count-common-friends` int(11) DEFAULT '0',
+  `count-followers` int(11) DEFAULT '0',
+  PRIMARY KEY (`user-id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `potential-friends-list`
+--
+
+LOCK TABLES `potential-friends-list` WRITE;
+/*!40000 ALTER TABLE `potential-friends-list` DISABLE KEYS */;
+INSERT INTO `potential-friends-list` VALUES ('https://vk.com/feed_forward',1159,'https://vk.com/id1159','Анастасия Акела','1989-05-22',29,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',0,1,0),('https://vk.com/feed_forward',1973,'https://vk.com/id1973','Ivan Froloff','0000-00-00',0,'Санкт-Петербург','2018-08-23',0,0,1,NULL,538,0,794),('https://vk.com/feed_forward',2322,'https://vk.com/nadia_mariani','Nadia Mariani','0000-00-00',32,'Санкт-Петербург','2018-08-23',0,0,1,NULL,0,2,0),('https://vk.com/feed_forward',3106,'https://vk.com/id3106','Сергей Владимиров','0000-00-00',0,'Санкт-Петербург','2018-08-23',0,0,1,NULL,139,1,687),('https://vk.com/feed_forward',4525,'https://vk.com/letov','Михаил Летов','0000-00-00',36,'Санкт-Петербург','2018-08-23',0,0,1,NULL,156,0,231),('https://vk.com/feed_forward',4761,'https://vk.com/withlove','Виталий Филатов','0000-00-00',0,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',417,0,0),('https://vk.com/feed_forward',9110,'https://vk.com/id9110','Артур Романов','0000-03-06',0,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',0,0,0),('https://vk.com/feed_forward',13828,'https://vk.com/rubtsov','Василий Рубцов','1968-04-05',50,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',138,0,0),('https://vk.com/feed_forward',15376,'https://vk.com/vekshinskiy','Никита Векшинский','1984-10-08',33,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',0,5,0),('https://vk.com/feed_forward',16696,'https://vk.com/id16696','Саша Иванов','1986-05-26',32,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',229,0,0),('https://vk.com/feed_forward',17979,'https://vk.com/plusclient','Михаил Малинкович','1986-07-02',32,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',0,1,0),('https://vk.com/feed_forward',21038,'https://vk.com/android','Алексей aka~Android Вишняков','1986-01-19',32,'Санкт-Петербург','2018-08-30',0,0,0,'Из группы: https://vk.com/php2all',415,0,0),('https://vk.com/feed_forward',21398,'https://vk.com/id21398','Сергей Орлов','1986-07-04',32,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',287,0,0),('https://vk.com/feed_forward',23380,'https://vk.com/meteora','Катерина Meteora Белова','0000-01-05',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',827,7,0),('https://vk.com/feed_forward',23406,'https://vk.com/ronny','Veronika ♫♪♫ Ukhanova','0000-08-29',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',105,0,0),('https://vk.com/feed_forward',23586,'https://vk.com/goory','Максим Петров','1986-12-31',31,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',90,0,0),('https://vk.com/feed_forward',24952,'https://vk.com/skstiles','Сергей Александрович','0000-04-18',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',209,0,0),('https://vk.com/feed_forward',29194,'https://vk.com/sergeymedvedev','Сергей Дмитриевич Медведев','1988-06-08',30,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',507,1,0),('https://vk.com/feed_forward',29880,'https://vk.com/tereshko','Сергей Терешко','0000-06-26',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',216,0,0),('https://vk.com/feed_forward',29957,'https://vk.com/antonoff','Олег Антонов','0000-12-22',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',960,1,0),('https://vk.com/feed_forward',32018,'https://vk.com/cuamckuykot','Дмитрий Беляев','1986-04-29',32,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',0,6,0),('https://vk.com/feed_forward',37008,'https://vk.com/mihailxxx','Михаил Дьяченко','1982-04-13',36,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',203,0,0),('https://vk.com/feed_forward',42120,'https://vk.com/galax','Анна Галактионова','1979-10-25',38,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',324,1,0),('https://vk.com/feed_forward',43555,'https://vk.com/koppalov','Stanislav Koppalov','0000-11-18',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',332,1,0),('https://vk.com/feed_forward',45248,'https://vk.com/posledova_vika','Виктория Последова (Иванченко)','0000-00-00',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',770,4,0),('https://vk.com/feed_forward',45560,'https://vk.com/catar_el','Евгений __CATAR__ Михайлин','1989-08-12',29,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',373,0,0),('https://vk.com/feed_forward',47217,'https://vk.com/y3ll0w','Yellow Man','1989-02-20',29,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',237,0,0),('https://vk.com/feed_forward',54022,'https://vk.com/stepanov.yakov','Яков <?Якорь;?> Степанов','0000-01-24',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',341,0,0),('https://vk.com/feed_forward',54842,'https://vk.com/a.bratukhina','Анжела Братухина','0000-00-00',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',577,0,0),('https://vk.com/feed_forward',55098,'https://vk.com/id55098','Пётр Дмитриёв','0000-01-30',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',55,1,0),('https://vk.com/feed_forward',55272,'https://vk.com/washingtonpost','Наталья Романенко','1982-05-15',36,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',307,0,0),('https://vk.com/feed_forward',58824,'https://vk.com/id58824','Александр Шутов','1989-08-30',29,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',194,0,0),('https://vk.com/feed_forward',59072,'https://vk.com/darkhangelskaya','Дарья Архангельская','0000-00-00',0,'Санкт-Петербург','2018-08-31',0,0,0,'Из группы: https://vk.com/php2all',126,0,0),('https://vk.com/id176464710',4870834,'https://vk.com/birarov','Дмитрий Бираров','0000-07-26',0,'Москва','2018-08-27',1,0,0,NULL,509,3,183),('https://vk.com/id176464710',19208556,'https://vk.com/id19208556','Анна Ласточкина','1990-07-24',28,'Санкт-Петербург','2018-08-27',1,0,0,NULL,674,3,673),('https://vk.com/id176464710',19488679,'https://vk.com/feed_forward','Дмитрий Шварц','0000-00-00',0,'Санкт-Петербург','2018-08-27',1,0,0,NULL,0,0,106),('https://vk.com/id176464710',50114435,'https://vk.com/id50114435','Amor Elboghdady','0000-03-23',0,'Москва','2018-08-27',1,0,0,NULL,972,0,39),('https://vk.com/id176464710',51471837,'https://vk.com/santamaz','Евгений Стрельцов','0000-00-00',0,'РГУ нефти и газа (НИУ) им. И. М. Губкина','2018-08-27',1,0,0,NULL,182,12,164),('https://vk.com/id176464710',64512543,'https://vk.com/lenulychka','Елена Елина (Площенко)','0000-02-04',0,'Санкт-Петербург','2018-08-27',1,0,0,NULL,193,11,430),('https://vk.com/id176464710',69503252,'https://vk.com/leilany','Лейла Рыжова','1996-05-02',22,'Королёв','2018-08-27',1,0,0,NULL,162,14,200),('https://vk.com/id176464710',71360339,'https://vk.com/id71360339','Анжелика Репник','0000-07-07',0,'Санкт-Петербург','2018-08-27',1,0,0,NULL,574,12,0),('https://vk.com/id176464710',86184392,'https://vk.com/tomkaaa777','Тамара Токарева','1996-01-10',22,'Ростов-на-Дону','2018-08-27',1,0,0,NULL,292,8,636),('https://vk.com/id176464710',102746680,'https://vk.com/id102746680','Кирилл Лохмачев','0000-04-20',0,'Москва','2018-08-27',1,0,0,NULL,88,2,95),('https://vk.com/id176464710',120259716,'https://vk.com/id120259716','Борис Козырев','1996-04-05',22,'Георгиевск','2018-08-27',1,0,0,NULL,176,12,74),('https://vk.com/id176464710',125921921,'https://vk.com/dnsnmsmm','Даша Ковтун','1995-01-31',23,'Санкт-Петербург','2018-08-27',1,0,0,NULL,222,7,278),('https://vk.com/id176464710',134376617,'https://vk.com/desann96','Денис Кудрявцев','1996-03-07',22,'Георгиевск','2018-08-27',1,0,0,NULL,119,2,24),('https://vk.com/id176464710',155786519,'https://vk.com/id155786519','Павел Свиридов','1994-09-18',23,'Харьков','2018-08-27',1,0,0,NULL,96,2,37),('https://vk.com/id176464710',161588451,'https://vk.com/rizvanli','Rizvan Rizvanli','1996-03-10',22,'Москва','2018-08-27',1,0,0,NULL,75,11,43),('https://vk.com/id176464710',163210689,'https://vk.com/22dla','Евгений Волков','1995-06-22',23,'Москва','2018-08-27',1,0,0,NULL,395,12,122),('https://vk.com/id176464710',212721193,'https://vk.com/n.varnaev','Николай Варнаев','0000-10-31',0,'Ставрополь','2018-08-27',1,0,0,NULL,273,6,104),('https://vk.com/id176464710',222077177,'https://vk.com/tanya_kudr','Татьяна Кудрявцева (Сабчук)','1970-05-28',48,'Георгиевск','2018-08-27',1,0,0,NULL,171,1,0),('https://vk.com/id176464710',226361909,'https://vk.com/id226361909','Юлия Кораблина','1995-06-13',23,'Ставрополь','2018-08-27',1,0,0,NULL,105,3,88),('https://vk.com/id176464710',299703556,'https://vk.com/id299703556','Милана Идрисова','1995-03-21',23,'Георгиевск','2018-08-27',1,0,0,NULL,67,13,38),('https://vk.com/id176464710',303994640,'https://vk.com/ilya_shevtsov777','Илья Шевцов','0000-09-08',0,NULL,'2018-08-27',1,0,0,NULL,86,6,28),('https://vk.com/id176464710',316283633,'https://vk.com/id316283633','Karina Pozdnyakova','0000-07-29',0,'Санкт-Петербург','2018-08-27',1,0,0,NULL,69,4,25),('https://vk.com/id176464710',334526817,'https://vk.com/gorec21','Анрей Пятигорцев','1974-09-22',43,'Георгиевск','2018-08-27',1,0,0,NULL,52,1,13),('https://vk.com/id176464710',366365541,'https://vk.com/id366365541','Ирина Сайкина','1990-03-14',28,'Санкт-Петербург','2018-08-27',1,0,0,NULL,234,5,28),('https://vk.com/id176464710',367370698,'https://vk.com/amigo_26rus','Алексей Котов','0000-04-22',0,'Краснодар','2018-08-27',1,0,0,NULL,119,6,116),('https://vk.com/id176464710',439606231,'https://vk.com/id439606231','Тимур Тураев','1996-07-18',22,NULL,'2018-08-27',1,0,0,NULL,48,7,2),('https://vk.com/id176464710',441797280,'https://vk.com/id441797280','Ахмеджан Алимов','1995-08-16',23,'Санкт-Петербург','2018-08-27',1,0,0,NULL,18,1,3),('https://vk.com/id176464710',445223503,'https://vk.com/id445223503','Niki Wolf','0000-03-03',0,NULL,'2018-08-27',1,0,0,NULL,74,5,11),('https://vk.com/id176464710',472662854,'https://vk.com/amzk1','Kristina Lukavskaya','1970-01-10',48,NULL,'2018-08-27',1,0,0,NULL,31,4,4),('https://vk.com/id176464710',489595619,'https://vk.com/antoinettemari','Мария Антуанетта','1995-08-28',22,'Георгиевск','2018-08-27',1,0,0,NULL,22,0,30);
+/*!40000 ALTER TABLE `potential-friends-list` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-08-31 18:29:50

@@ -15,14 +15,28 @@
       <file leaf-file-name="MainFunctionality.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="134" column="42" lean-forward="false" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="42" />
+            <state relative-caret-position="170">
+              <caret line="226" column="51" lean-forward="false" selection-start-line="226" selection-start-column="51" selection-end-line="226" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#writeMessageToPotentialFriend#0;class#MainFunctionality#0" expanded="false" />
                 <element signature="method#writeMessageToGroupMembers#0;class#MainFunctionality#0" expanded="false" />
                 <element signature="method#prepareShortListMember#0;class#MainFunctionality#0" expanded="false" />
-                <element signature="method#writeMsgToShortListGroupMember#0;class#MainFunctionality#0" expanded="false" />
+                <element signature="method#prepareMsgList#0;class#MainFunctionality#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FileWorker.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/nastinio/FileWorker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="38" column="43" lean-forward="false" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="43" />
+              <folding>
+                <element signature="method#write#0;class#FileWorker#0" expanded="false" />
+                <element signature="method#update#0;class#FileWorker#0" expanded="false" />
+                <element signature="method#exists#0;class#FileWorker#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -31,27 +45,27 @@
       <file leaf-file-name="SeleniumWorker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-420">
-              <caret line="1197" column="20" lean-forward="true" selection-start-line="1197" selection-start-column="20" selection-end-line="1197" selection-end-column="20" />
+            <state relative-caret-position="353">
+              <caret line="293" column="26" lean-forward="false" selection-start-line="293" selection-start-column="26" selection-end-line="293" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getHostListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#likeSeveralPostsByPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#likeProfilePhotoByPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#likeProfilePhotoOnPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-                <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
@@ -79,6 +93,7 @@
                 <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+                <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getCountGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
                 <element signature="method#getCountGroupMembersOnOpenMembersPage#0;class#SeleniumWorker#0" expanded="false" />
               </folding>
@@ -89,8 +104,8 @@
       <file leaf-file-name="DataBaseWorker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="138" column="14" lean-forward="false" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
+            <state relative-caret-position="370">
+              <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#DataBaseWorker#0;class#DataBaseWorker#0" expanded="false" />
@@ -106,21 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SQLquery.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/SQLquery.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="85" column="10" lean-forward="false" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="10" />
+            <state relative-caret-position="115">
+              <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4670#4671#0" expanded="true" />
@@ -185,11 +190,10 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-21">
-              <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+            <state relative-caret-position="226">
+              <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#testGetFullInfoListHostFriend#0;class#Testing#0" expanded="false" />
                 <element signature="method#testGetFriendStatus#0;class#Testing#0" expanded="false" />
                 <element signature="method#testGetFullInfoFromUserByPage#0;class#Testing#0" expanded="false" />
                 <element signature="method#testGetUserDateBirthday#0;class#Testing#0" expanded="false" />
@@ -211,8 +215,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>WebElement</find>
-      <find>FindElements</find>
       <find>wait</find>
       <find>thro</find>
       <find>waitPage</find>
@@ -241,6 +243,8 @@
       <find>sepa</find>
       <find>addU</find>
       <find>getCount</find>
+      <find>BTNS_LIKE_SHARE_PANEL_WL_POST_XPATH</find>
+      <find>BTNS_LIKE_SHARE_PANEL_PHOTO_XPATH</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -271,6 +275,7 @@
         <option value="$PROJECT_DIR$/src/ru/nastinio/Exceptions/DataBaseException.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/User.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java" />
+        <option value="$PROJECT_DIR$/src/ru/nastinio/FileWorker.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java" />
         <option value="$PROJECT_DIR$/src/ru/nastinio/Main.java" />
@@ -483,7 +488,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32767403" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27912253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27912253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293718" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -494,90 +499,54 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="27" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ru/nastinio/User.java</url>
+          <line>86</line>
+          <properties />
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ru/nastinio/User.java</url>
+          <line>87</line>
+          <properties />
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ru/nastinio/User.java</url>
+          <line>246</line>
+          <properties />
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2533">
-          <caret line="389" column="24" lean-forward="false" selection-start-line="389" selection-start-column="24" selection-end-line="389" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getHostListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadElementByTypeExp#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#waitLoadOfElementByTypeOfElementXPath#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#scrollPageToBottom#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#shouldPostBeLiked#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#openUserPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getStartInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getStartInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFullInfoFromUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserNameOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getDefaultIDUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getDefaultIDUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserCityOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserDateBirthByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getUserDateBirthOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFriendStatusByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getFriendStatusOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getCountInfoUserByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getCountInfoUserOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getCountGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#getCountGroupMembersOnOpenMembersPage#0;class#SeleniumWorker#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1632">
           <caret line="336" column="28" lean-forward="false" selection-start-line="336" selection-start-column="28" selection-end-line="336" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getHostListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPostsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
@@ -605,6 +574,7 @@
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembersOnOpenMembersPage#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -774,23 +744,23 @@
           <caret line="246" column="0" lean-forward="true" selection-start-line="246" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getHostListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPostsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
@@ -818,6 +788,7 @@
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembersOnOpenMembersPage#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -837,23 +808,23 @@
           <caret line="54" column="12" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="58" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getHostListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPostsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
@@ -881,6 +852,7 @@
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembersOnOpenMembersPage#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -980,23 +952,23 @@
           <caret line="78" column="50" lean-forward="false" selection-start-line="78" selection-start-column="50" selection-end-line="78" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getHostListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPostsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
@@ -1024,6 +996,7 @@
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembersOnOpenMembersPage#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -1130,14 +1103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/ConstVK.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/SQLquery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1162,10 +1127,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="657">
+          <caret line="53" column="10" lean-forward="false" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
+          <folding>
+            <element signature="method#testGetBDigit#0;class#HelpFunctionality#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Enums/ConstVK.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="85" column="10" lean-forward="false" selection-start-line="85" selection-start-column="10" selection-end-line="85" selection-end-column="10" />
+        <state relative-caret-position="115">
+          <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4670#4671#0" expanded="true" />
@@ -1226,20 +1209,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/HelpFunctionality.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="53" column="10" lean-forward="false" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
-          <folding>
-            <element signature="method#testGetBDigit#0;class#HelpFunctionality#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/DataBaseWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="138" column="14" lean-forward="false" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
+        <state relative-caret-position="370">
+          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#DataBaseWorker#0;class#DataBaseWorker#0" expanded="false" />
@@ -1254,29 +1227,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nastinio/FileWorker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="38" column="43" lean-forward="false" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="43" />
+          <folding>
+            <element signature="method#write#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#update#0;class#FileWorker#0" expanded="false" />
+            <element signature="method#exists#0;class#FileWorker#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/SeleniumWorker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-420">
-          <caret line="1197" column="20" lean-forward="true" selection-start-line="1197" selection-start-column="20" selection-end-line="1197" selection-end-column="20" />
+        <state relative-caret-position="353">
+          <caret line="293" column="26" lean-forward="false" selection-start-line="293" selection-start-column="26" selection-end-line="293" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SeleniumWorker#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#authorization#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#findHostPageLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getHostListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getUserListLinksFriendsOnPage#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeProfilePhoto#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeSeveralPostsByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoByPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#likeProfilePhotoOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likePostByLink#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeCurrentPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#wasCurrentPostLiked#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPhotos#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#likeSeveralPosts#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextWlPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getNextPhoto#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstTextPost#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getLinkToFirstPost#0;class#SeleniumWorker#0" expanded="false" />
-            <element signature="method#likeSeveralPostsOnPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#sleep#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadOfElementByXPath#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#waitLoadElementExp#0;class#SeleniumWorker#0" expanded="false" />
@@ -1304,6 +1289,7 @@
             <element signature="method#addUserToFriendList#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageByPage#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#writeMessageOnPage#0;class#SeleniumWorker#0" expanded="false" />
+            <element signature="method#getListGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembers#0;class#SeleniumWorker#0" expanded="false" />
             <element signature="method#getCountGroupMembersOnOpenMembersPage#0;class#SeleniumWorker#0" expanded="false" />
           </folding>
@@ -1312,25 +1298,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/MainFunctionality.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="134" column="42" lean-forward="false" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="42" />
+        <state relative-caret-position="170">
+          <caret line="226" column="51" lean-forward="false" selection-start-line="226" selection-start-column="51" selection-end-line="226" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#writeMessageToPotentialFriend#0;class#MainFunctionality#0" expanded="false" />
             <element signature="method#writeMessageToGroupMembers#0;class#MainFunctionality#0" expanded="false" />
             <element signature="method#prepareShortListMember#0;class#MainFunctionality#0" expanded="false" />
-            <element signature="method#writeMsgToShortListGroupMember#0;class#MainFunctionality#0" expanded="false" />
+            <element signature="method#prepareMsgList#0;class#MainFunctionality#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nastinio/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21">
-          <caret line="14" column="7" lean-forward="false" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+        <state relative-caret-position="226">
+          <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#testGetFullInfoListHostFriend#0;class#Testing#0" expanded="false" />
             <element signature="method#testGetFriendStatus#0;class#Testing#0" expanded="false" />
             <element signature="method#testGetFullInfoFromUserByPage#0;class#Testing#0" expanded="false" />
             <element signature="method#testGetUserDateBirthday#0;class#Testing#0" expanded="false" />
