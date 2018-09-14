@@ -1,10 +1,13 @@
-package ru.nastinio;
+package ru.nastinio.clientVK;
 
 
-import ru.nastinio.Enums.ConstVK;
+import ru.nastinio.DataBaseWorker;
+import ru.nastinio.Enums.ConstDB;
 import ru.nastinio.Exceptions.DataBaseException;
 import ru.nastinio.Exceptions.LoadException;
-import ru.nastinio.Exceptions.SearchIDException;
+import ru.nastinio.clientVK.SeleniumWorkerVK;
+import ru.nastinio.clientVK.User;
+import ru.nastinio.clientVK.MainFunctionalityVK;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -18,7 +21,7 @@ public class Main {
         String pass = "";
 
 
-        MainFunctionality mf = new MainFunctionality(log, pass);
+        MainFunctionalityVK mf = new MainFunctionalityVK(log, pass);
         mf.setUpVK();
 
         try {
@@ -27,7 +30,6 @@ public class Main {
             ArrayList<String> msgList = mf.prepareMsgList(fileName);
             //Отправим полученные сообщения из файла пользователям
             try{
-                //mf.writeMessageToGroupMembers("https://vk.com/php2all", msgList, 20);
                 mf.writeMessageToGroupMembers("https://vk.com/php2all", msgList,20);
             }catch (DataBaseException e) {
                 e.printStackTrace();
@@ -52,25 +54,32 @@ class Testing {
 
         String log = "";
         String pass = "";
-        
-
-        Testing t = new Testing();
-
-        SeleniumWorker sw = new SeleniumWorker();
-        sw.authorization(log, pass);
-
-        sw.likeSeveralPosts("https://vk.com/feed_forward",70);
 
 
+        SeleniumWorkerVK sw = new SeleniumWorkerVK();
+        sw.authorization(log,pass);
+        System.out.println(sw.getListGroupMembers("https://vk.com/php2all",20).size());
+        System.out.println(sw.getListGroupMembers("https://vk.com/php2all",61).size());
+        System.out.println(sw.getListGroupMembers("https://vk.com/php2all",120).size());
+        /*Testing t = new Testing();
 
-        db.closeConnectionToDataBase();
+        SeleniumWorkerVK sw = new SeleniumWorkerVK();
+        sw.authorization(log, pass);*/
+
+        //sw.likeSeveralPosts("https://vk.com/feed_forward",70);
+
+       /* MainFunctionalityVK mf = new MainFunctionalityVK(log,pass);
+        mf.updateAllComments("https://vk.com/php2all");*/
+
+        //System.out.println(db.selectSpecialQueryPotentialFriendsListTable("https://vk.com/feed_forward",ConstDB.COUNT_SENT_MSG_GROUP_LINK,"https://vk.com/php2all"));
+
     }
 
 
 
     public void testGetFullInfoListHostFriend(String log, String pass) {
         //Возьмем список всех друзей пользователя и запишем в бд
-        SeleniumWorker sw = new SeleniumWorker();
+        SeleniumWorkerVK sw = new SeleniumWorkerVK();
         sw.authorization(log, pass);
 
         ArrayList<String> listMyFriends = sw.getHostListLinksFriendsByPage();
@@ -110,7 +119,7 @@ class Testing {
     }
 
     public void testGetFriendStatus(String log, String pass) {
-        SeleniumWorker sw = new SeleniumWorker();
+        SeleniumWorkerVK sw = new SeleniumWorkerVK();
         sw.authorization(log, pass);
 
         String[] list = {"https://vk.com/id437245261", "https://vk.com/birarov", "https://vk.com/r17dptf", "https://vk.com/id437245261", "https://vk.com/id439606231"};
@@ -128,7 +137,7 @@ class Testing {
     }
 
     public void testGetFullInfoFromUserByPage(String log, String pass) {
-        SeleniumWorker sw = new SeleniumWorker();
+        SeleniumWorkerVK sw = new SeleniumWorkerVK();
         sw.authorization(log, pass);
 
         DataBaseWorker db = new DataBaseWorker();
@@ -146,7 +155,7 @@ class Testing {
     }
 
     public void testGetUserDateBirthday(String log, String pass) {
-        SeleniumWorker sw = new SeleniumWorker();
+        SeleniumWorkerVK sw = new SeleniumWorkerVK();
         sw.authorization(log, pass);
 
         System.out.println(sw.getUserDateBirthByPage("https://vk.com/lenulychka")); //без года

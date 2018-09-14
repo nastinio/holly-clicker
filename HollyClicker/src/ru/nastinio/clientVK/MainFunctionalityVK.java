@@ -1,24 +1,27 @@
-package ru.nastinio;
+package ru.nastinio.clientVK;
 
+import ru.nastinio.DataBaseWorker;
+import ru.nastinio.Enums.ConstDB;
 import ru.nastinio.Exceptions.DataBaseException;
 import ru.nastinio.Exceptions.LoadException;
 import ru.nastinio.Exceptions.SearchIDException;
+import ru.nastinio.FileWorker;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class MainFunctionality {
+public class MainFunctionalityVK {
 
     private String login;
     private String password;
     private String hostProfileLink;
 
-    private SeleniumWorker selWork;
+    private SeleniumWorkerVK selWork;
     private DataBaseWorker dbWork;
     private FileWorker fileWorker;
 
@@ -27,11 +30,11 @@ public class MainFunctionality {
     SimpleDateFormat formatForDateNow = new SimpleDateFormat("YYYY-MM-dd");
 
 
-    public MainFunctionality(String login, String password) {
+    public MainFunctionalityVK(String login, String password) {
         this.login = login;
         this.password = password;
 
-        selWork = new SeleniumWorker();
+        selWork = new SeleniumWorkerVK();
         dbWork = new DataBaseWorker();
         fileWorker = new FileWorker();
 
@@ -143,7 +146,12 @@ public class MainFunctionality {
             try {
                 //Получим список участников группы со страницы
                 int countSendMsg = 0;           //Количество уже отправленных сообщений
-                int currentTotalSize = 0;       //Общее количество сообщений, которое нужно отправить
+                int currentTotalSize = 0;       //Текущий объем общего списка пользователей
+
+                currentTotalSize = dbWork.getCountTechnicalData(hostProfileLink,groupLink,ConstDB.COUNT_CHECKED_USER)-1;
+                countCheckedMember = currentTotalSize;
+                int startCountCheckedUser = countCheckedMember;
+                //System.out.println(currentTotalSize);
 
                 countCheckedMember = 0;         //Не влияет на логику, только для отображения
 
@@ -159,9 +167,16 @@ public class MainFunctionality {
 
                     System.out.println("По итогу обработки блока написали сообщений: " + countSendMsg);
                     System.out.println("------------------------------------------------------------");
-                    currentTotalSize = list.size();
+                    currentTotalSize += list.size();
 
                 }
+
+                System.out.println("Итого проверили пользователей: " + countCheckedMember);
+                System.out.println("Итого отправили сообщений:     " + countSendMsg);
+
+                dbWork.updateCountTechnicalData(hostProfileLink,groupLink, ConstDB.COUNT_CHECKED_USER,countCheckedMember+startCountCheckedUser);
+                int countSentMsgTotalTime = (Integer) dbWork.selectSpecialQueryPotentialFriendsListTable(hostProfileLink,ConstDB.COUNT_SENT_MSG_GROUP_LINK,groupLink);
+                dbWork.updateCountTechnicalData(hostProfileLink,groupLink,ConstDB.COUNT_SENT_MSG,countSentMsgTotalTime);
 
 
             } catch (LoadException e) {
@@ -170,7 +185,8 @@ public class MainFunctionality {
             }
 
         } catch (SQLException e) {
-            throw new DataBaseException("Не удалось получить список пользователей из бд");
+            e.printStackTrace();
+            //throw new DataBaseException("Не удалось получить список пользователей из бд");
         }
 
 
@@ -182,20 +198,29 @@ public class MainFunctionality {
         currentTotalSize = previousTotalSize + (totalCountMsg - countSendMsg) * 3;
         int currentShortSize = currentTotalSize - previousTotalSize;
 
-       /* System.out.println("previousTotalSize: "+previousTotalSize);
+        /*System.out.println("previousTotalSize: "+previousTotalSize);
         System.out.println("currentTotalSize:  "+currentTotalSize);
         System.out.println("currentShortSize:  "+currentShortSize);*/
 
 
         ArrayList<String> listTotalMembers = selWork.getListGroupMembers(groupLink, currentTotalSize);
         //System.out.println("Получили расширенный список размера: " + listTotalMembers.size());
+
         ArrayList<String> listShortMembers = new ArrayList();
         //Обрезаем массив
         for (int i = 0; i < currentShortSize; i++) {
             listShortMembers.add(listTotalMembers.get(previousTotalSize + i));
         }
-        //System.arraycopy(listTotalMembers, previousTotalSize, listShortMembers, 0, currentShortSize);
         //System.out.println("Обрезали его до размера: "  + listShortMembers.size());
+
+        /*for (int i = 0, j = 0; i < listTotalMembers.size(); i++) {
+            if (i >= previousTotalSize) {
+                System.out.println("#"+i+"total: " + listTotalMembers.get(i) + "  short: " + listShortMembers.get(j));
+                j++;
+            } else {
+                System.out.println("#"+i+"total: " + listTotalMembers.get(i));
+            }
+        }*/
 
         return listShortMembers;
     }
@@ -209,29 +234,32 @@ public class MainFunctionality {
                     //Определяем фильтры, пока только город и писали ли ему уже
                     String currentUserCity = selWork.getUserCityOnPage();
                     System.out.println("=============================================");
-                    System.out.println("Проверяем пользователя #" + (++countCheckedMember));
+                    System.out.println("Проверяем пользователя #" + (countCheckedMember+1));
                     //System.out.println("#" + countCheckingUser + ": " + currentUserCity);
                     if (currentUserCity.equalsIgnoreCase("Санкт-Петербург")) {
                         System.out.println("Чувак из Питера! Йеей!");
 
                         try {
-                            User temp = selWork.getFullInfoFromUserOnPage(currentMember);
-                            temp.display();
-
-                            //Заполним поля, связанные с написанием сообщения
-                            temp.setWasSentStartMsg(true);
-                            temp.setComment("Из группы: " + groupLink);
+                            User temp = selWork.getStartInfoUserByPage(currentMember);
                             //Запишем в бд
-                            try {
-                                if (!mapExistingInDBUser.containsKey(temp.getProfileID())) {
-                                    //В бд нет такого пользователя
+                            if (!mapExistingInDBUser.containsKey(temp.getProfileID()) && !(temp.getStatusFriend()==1)) {
+                                //В бд нет такого пользователя
+                                //Получим полную информацию о нем
+                                temp = selWork.getFullInfoFromUserOnPage(currentMember);
+                                temp.setWasSentStartMsg(true);
+                                temp.setComment(groupLink);
+                                temp.display();
+
+                                //Напишем сообщение и запишем в бд
+                                try {
                                     dbWork.insertUserToPotentialFriendsList(temp);
+
                                     selWork.writeMessageByPage(currentMember, msgList.get(numberMsgToSent));
 
                                     numberMsgToSent++;
                                     countSendMsg++;
 
-                                    if(countSendMsg == msgList.size()){
+                                    if (countSendMsg == msgList.size()) {
                                         numberMsgToSent = 0;
                                     }
                                     System.out.println("Написали сообщений: " + countSendMsg + " из " + totalCountMsg);
@@ -245,24 +273,33 @@ public class MainFunctionality {
                                     int min = 50;
                                     int timeSleep = min + rnd.nextInt(max - min + 1);
                                     selWork.sleep(timeSleep);
+                                } catch (SQLException e) {
+                                    System.out.println("Стартовое сообщение уже было отправлено");
+                                    //e.printStackTrace();
                                 }
-                            } catch (SQLException e) {
-                                System.out.println("Стартовое сообщение уже было отправлено");
-                                //e.printStackTrace();
+
+
+
+                            } else {
+                                System.out.println("Пользователь уже есть в бд");
                             }
+
 
                         } catch (LoadException e) {
                             throw new LoadException(e.getMessage());
+                        }catch (SearchIDException e){
+                            throw new LoadException("Не удалось получить исходный ID пользователя");
                         }
                     }
 
                 } catch (LoadException e) {
-                    System.out.println("#" + countCheckedMember + ": " + "город не указан");
+                    System.out.println("#" + (countCheckedMember+1) + ": " + "город не указан");
                 }
             } catch (LoadException e) {
                 System.out.println("Не удалось загрузить стрвницу пользователя");
                 e.printStackTrace();
             }
+            countCheckedMember++;
         }
         return countSendMsg;
     }
@@ -284,5 +321,28 @@ public class MainFunctionality {
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Методы для обновления информации в бд
+    /*
+    * Получит Map всех пользователей в бд, пройдет по каждому их них по ключу - userID,
+    * и поменяет необходимое значение
+    * Пока практическое применение есть только у обновления всех комментариев
+    *
+    * */
+
+    public void updateAllComments(String comment){
+        try {
+            Map<Integer,User> listAllUser = dbWork.getAllFromPotentialFriendsList(hostProfileLink);
+            List<Integer> listKey = new ArrayList(listAllUser.keySet());
+            for(int tempUserID:listKey){
+                dbWork.updatePotentialFriendsListTable(hostProfileLink,tempUserID,ConstDB.COMMENT,comment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 }

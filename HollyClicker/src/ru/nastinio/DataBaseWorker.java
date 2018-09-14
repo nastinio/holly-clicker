@@ -1,15 +1,11 @@
 package ru.nastinio;
 
-import ru.nastinio.Enums.SQLquery;
+import ru.nastinio.Enums.ConstDB;
+import ru.nastinio.clientVK.User;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DataBaseWorker {
     // JDBC driver name and database URL
@@ -24,7 +20,7 @@ public class DataBaseWorker {
     private PreparedStatement pstmt;
     private Statement stmt;
 
-    DataBaseWorker() {
+    public DataBaseWorker() {
         try {
             connect();
         } catch (SQLException e) {
@@ -87,10 +83,15 @@ public class DataBaseWorker {
         }
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    * Методы для работы с основной таблицей потенциальных друзей
+    * */
 
-    //Для работы с таблицей потенциальных друзей
     public void insertUserToPotentialFriendsList(User user)throws SQLException {
         try {
+            //connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+
             String SQL_INSERT = "INSERT INTO `holly-clicker-db`.`potential-friends-list` (`host-profile-link`, " +
                     "`user-id`, `user-profile-link`, `user-name`, `user-birthday`, `user-age`, `user-city`, " +
                     "`date-request`, `was-sent-request-to-friend`, `status-friend`, `was-sent-start-msg`, `comment`," +
@@ -112,8 +113,8 @@ public class DataBaseWorker {
             pstmt.setString(8, user.getDateRequest());
 
             pstmt.setBoolean(9, user.wasSentRequestToFriend());
-            pstmt.setInt(10, 0);
-            pstmt.setInt(11, 0);
+            pstmt.setInt(10, user.getStatusFriend());
+            pstmt.setBoolean(11, user.wasSentStartMsg());
 
             pstmt.setString(12, user.getComment());
 
@@ -127,12 +128,15 @@ public class DataBaseWorker {
         } catch (SQLException e) {
             throw e;
             //e.printStackTrace();
+        } finally {
+            closePreparedStatement();
         }
 
     }
 
     public Map<Integer,User> getAllFromPotentialFriendsList(String hostUserProfileLink) throws SQLException {
         try {
+            //connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
             //ArrayList<User> listUsers = new ArrayList<>();
             Map<Integer,User> mapUser = new HashMap< Integer, User>();
             String sqlSelect = "SELECT * FROM `holly-clicker-db`.`potential-friends-list` where `host-profile-link` = '" + hostUserProfileLink + "';";
@@ -171,26 +175,136 @@ public class DataBaseWorker {
 
     }
 
-    /*public boolean updateStatusRequest(int profileID, int status) {
+    public <T> void updatePotentialFriendsListTable(String hostUserProfileLink, int userID, ConstDB typeOfVariable, T countVariable) {
         try {
             connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_UPDATE = "UPDATE `holly-clicker-db`.`current-request-to-friend-list` SET `status-answer`=? WHERE `user-id`=?";
+
+            String SQL_UPDATE = "";
+            stmt = connection.createStatement();
+
+            switch (typeOfVariable) {
+                case COMMENT:
+                    SQL_UPDATE = "UPDATE `holly-clicker-db`.`potential-friends-list` SET `comment`='" + countVariable + "'" +
+                            " WHERE `user-id`='" + userID + "' AND `host-profile-link`='" + hostUserProfileLink + "';";
+                    break;
+            }
+            stmt.executeUpdate(SQL_UPDATE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                closeStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public <T extends Object> Object selectSpecialQueryPotentialFriendsListTable(String hostUserProfileLink, ConstDB typeOfVariable, T countVariable) {
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+
+            String sqlSelect = "";
+
+            switch (typeOfVariable) {
+                case COUNT_SENT_MSG_GROUP_LINK:
+                    //На вход метода нужно передать группу-источник, хранящуюся в комментарии
+                    sqlSelect = "SELECT count(*) FROM `holly-clicker-db`.`potential-friends-list` " +
+                            "where `host-profile-link`='"+hostUserProfileLink+"' AND `comment`='"+countVariable+"';";
+                    break;
+            }
+
+            stmt = connection.createStatement();
+            ResultSet resSet = stmt.executeQuery(sqlSelect);
+
+            Object result = null;
+            while (resSet.next()) {
+                switch (typeOfVariable) {
+                    case COUNT_SENT_MSG_GROUP_LINK:
+                        result = resSet.getInt("count(*)");
+                }
+
+            }
+
+            return result;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                closeStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    * Методы для работы с таблицей с техническими данными
+    * */
+    public int getCountTechnicalData(String hostUserProfileLink, String groupLink, ConstDB typeOfVariable) throws SQLException {
+        try {
+            String sqlSelect = "SELECT * FROM `holly-clicker-db`.`technical-data` where `host-profile-link` = '" + hostUserProfileLink + "' " +
+                    "AND `group-link`='"+groupLink+"';";
+            stmt = connection.createStatement();
+            ResultSet resSet = stmt.executeQuery(sqlSelect);
+            int count = 0;
+            while (resSet.next()) {
+                switch (typeOfVariable){
+                    case COUNT_CHECKED_USER:
+                        count = resSet.getInt("count-checked-users");
+                        break;
+                    case COUNT_SENT_MSG:
+                        count = resSet.getInt("count-sent-msg");
+                        break;
+                }
+            }
+            return count;
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeStatement();
+        }
+
+    }
+
+    public void updateCountTechnicalData(String hostUserProfileLink, String groupLink, ConstDB typeOfVariable,int countVariable) throws SQLException {
+        try {
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
+
+            String SQL_UPDATE = "";
+
+            switch (typeOfVariable){
+                case COUNT_CHECKED_USER:
+                    SQL_UPDATE = "UPDATE `holly-clicker-db`.`technical-data` SET `count-checked-users`=? WHERE `group-link`=?;";
+                    break;
+                case COUNT_SENT_MSG:
+                    SQL_UPDATE = "UPDATE `holly-clicker-db`.`technical-data` SET `count-sent-msg`=? WHERE `group-link`=?;";
+                    break;
+            }
+
             pstmt = connection.prepareStatement(SQL_UPDATE);
 
-            pstmt.setInt(1, status);
-            pstmt.setInt(2, profileID);
+            pstmt.setInt(1,countVariable);
+            pstmt.setString(2, groupLink);
 
             pstmt.executeUpdate();
 
         } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
+            throw ex;
+        }finally {
+            closePreparedStatement();
         }
-
-        return true;
     }
-*/
+
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     /*public boolean deleteUser(User user) {
         try {
@@ -225,54 +339,6 @@ public class DataBaseWorker {
         return true;
     }
 
-    public boolean updateDateLastChecking(int profileID, String date) {
-        try {
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);   //Создаём соединение
-            String SQL_UPDATE = "UPDATE `holly-clicker-db`.`user` SET `date-last-checking`=? WHERE `id-user`=?;";
-            pstmt = connection.prepareStatement(SQL_UPDATE);
-
-            pstmt.setString(1, date);
-            pstmt.setInt(2, profileID);
-
-            pstmt.executeUpdate();
-
-        } catch (Exception ex) {
-            //выводим наиболее значимые сообщения
-            Logger.getLogger(DataBaseWorker.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("-------------------------------");
-        } finally {
-            closePreparedStatement();
-            closeConnection();
-        }
-
-        return true;
-
+    turn null;
     }*/
 
-
-
-
-
-
-    /*
-
-    private static Connection connection;
-    private static Statement stmt;
-
-    public static String getNickByLoginAndPass(String login, String pass) {
-        String sql = String.format("SELECT nickname FROM main \n" +
-                "where login = '%s'\n" +
-                "and password= '%s'", login, pass);
-        try {
-            ResultSet rs = stmt.executeQuery(sql);
-
-            if (rs.next()) {
-                return rs.getString(1);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
-}

@@ -1,4 +1,4 @@
-package ru.nastinio;
+package ru.nastinio.clientVK;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,12 +15,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-public class SeleniumWorker {
+public class SeleniumWorkerVK {
 
     protected static WebDriver driver;
     protected WebDriverWait wait;
 
-    public HelpFunctionality hp = new HelpFunctionality();
+    public HelpFunctionalityVK hp = new HelpFunctionalityVK();
 
     private final String VK_URL = "https://vk.com/";
     private String hostPageLink;
@@ -36,7 +36,7 @@ public class SeleniumWorker {
     //Безопасной количество лайков, при которых действия не считаются подозрительными
     protected int safetyNumberLikes = 30;
 
-    SeleniumWorker() {
+    public SeleniumWorkerVK() {
         /*//Штука, для подключения на компе без драйвера FireFox'a
         String driverDireсtory =System.getProperty("user.dir")+ "\\src\\drivers\\geckodriver.exe";
         System.setProperty("webdriver.gecko.driver",driverDireсtory);*/
@@ -45,7 +45,7 @@ public class SeleniumWorker {
             driver = new FirefoxDriver();
             wait = new WebDriverWait(driver, 5);
         } catch (org.openqa.selenium.WebDriverException we) {
-            System.out.println("Ошибка в конструкторе SeleniumWorker");
+            System.out.println("Ошибка в конструкторе SeleniumWorkerVK");
             we.getMessage();
         }
 
@@ -690,7 +690,7 @@ public class SeleniumWorker {
 
 
     //Вспомогательные методы
-    protected void sleep(int seconds) {
+    public void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000);
         } catch (InterruptedException e) {
@@ -1227,14 +1227,37 @@ public class SeleniumWorker {
                     String memberLinkXPath = "//*[@id=\"fans_rowsmembers\"]/div[contains(@class,'fans_fan_row')]/div[contains(@class,'fans_fan_name')]/a";
                     waitLoadElementExp(memberLinkXPath);
 
+                    //Будем прокручивать лист участников, пока не получим достаточное количество
+                    List<WebElement> listMembersWebEl = driver.findElements(By.xpath(memberLinkXPath));
                     ArrayList<String> listMembersLink = new ArrayList<>();
 
-                    int k = 0;
+                    while (listMembersWebEl.size() < numberMembersTotal) {
+                        try{
+                            String btnScroll = "//*[@id=\"fans_more_linkmembers\"]";
+                            waitLoadElementExp(btnScroll);
+                            driver.findElement(By.xpath(btnScroll)).click();
+                            waitLoadElementExp(memberLinkXPath);
+                            listMembersWebEl = driver.findElements(By.xpath(memberLinkXPath));
+                        }catch(LoadException e) {
+                            throw new LoadException("Не удалось пролистнуть страницу для получения списка пользователей");
+                        }
+
+                    }
+                    System.out.println("Current listMembersWebEl.size = " + listMembersWebEl.size());
+                    //Соберем нужное количество ссылок
+                    for (int i = 0; i < numberMembersTotal; i++) {
+                        //System.out.println("#" + k + " " + listMembersWebEl.get(k).getAttribute("href"));//driver.findElement(By.xpath(memberLinkXPath)).getText());
+                        listMembersLink.add((listMembersWebEl.get(i).getAttribute("href")).toString());
+                    }
+
+                    /*int k = 0;
                     while (k < numberMembersTotal) {
                         List<WebElement> listMembersWebEl = driver.findElements(By.xpath(memberLinkXPath));
-                        //System.out.println("swGetListLinks: listMembersWebEl.size: "+ listMembersWebEl.size());
-                        int numberMembersOnBlock = 60;      //Первоначально отображается 60 подписчиков, затем добавляется по 29
-                        if (k == numberMembersOnBlock) {
+                        int previousNumberMembersOnBlock = listMembersWebEl.size();
+                        System.out.println("swGetListLinks: listMembersWebEl.size: "+ listMembersWebEl.size());
+
+                        int numberMembersOnBlock = 60;      //Первоначально отображается 60 подписчиков, затем добавляется новое число, каждый раз разное
+                        if (k == numberMembersOnBlock-1) {
                             numberMembersOnBlock = 29;
                         }
                         for (int i = 0; i < numberMembersOnBlock && k < numberMembersTotal; i++) {
@@ -1242,10 +1265,17 @@ public class SeleniumWorker {
                             listMembersLink.add((listMembersWebEl.get(k).getAttribute("href")).toString());
                             k++;
                         }
-                        String btnScroll = "//*[@id=\"fans_more_linkmembers\"]";
-                        driver.findElement(By.xpath(btnScroll)).click();
 
-                    }
+                        if(listMembersLink.size()<numberMembersTotal){
+                            String btnScroll = "//*[@id=\"fans_more_linkmembers\"]";
+                            driver.findElement(By.xpath(btnScroll)).click();
+                        }
+
+
+                    }*/
+
+
+
 
                     return listMembersLink;
                 }catch (LoadException e){
@@ -1296,6 +1326,7 @@ public class SeleniumWorker {
             throw e;
         }
     }
+
 
 }
 

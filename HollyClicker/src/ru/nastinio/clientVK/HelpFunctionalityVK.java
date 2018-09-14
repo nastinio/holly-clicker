@@ -1,4 +1,4 @@
-package ru.nastinio;
+package ru.nastinio.clientVK;
 
 import ru.nastinio.Enums.ConstVK;
 import ru.nastinio.Exceptions.SearchIDException;
@@ -6,7 +6,7 @@ import ru.nastinio.Exceptions.SearchIDException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class HelpFunctionality {
+public class HelpFunctionalityVK {
     //Вспомогательные методы, вынесенные в отдельный класс,
     //чтобы не захломлять основные рабочие классы
 
@@ -108,7 +108,7 @@ public class HelpFunctionality {
         String bdayAndMonthLink ="https://vk.com/search?c[section]=people&c[bday]=11&c[bmonth]=2";
         String byearLink = "/search?c[section]=people&c[byear]=1995";
 
-        HelpFunctionality hp = new HelpFunctionality();
+        HelpFunctionalityVK hp = new HelpFunctionalityVK();
         int bday = hp.getBDigit(bdayAndMonthLink,ConstVK.BDAY);
         int bmonth = hp.getBDigit(bdayAndMonthLink,ConstVK.BMONTH);
         int byear = hp.getBDigit(byearLink,ConstVK.BYEAR);
